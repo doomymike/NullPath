@@ -5,8 +5,6 @@ public class Resources {
 	private static SimpleLinkedList<Stage> stages = new SimpleLinkedList<Stage>();
 	//Add all stages to list
 	
-	
-	
 	Resources() {
 		//Default??
 	}
