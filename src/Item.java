@@ -1,4 +1,5 @@
 
+
 public class Item {
 	private int x,y;
 	
@@ -8,6 +9,14 @@ public class Item {
 	public int getY(){
 		return y;
 	}
+	
+	public void setX(int x){
+		this.x = x;
+	}
+	public void setY(int y){
+		this.y = y;
+	}
+	
 	Item(int x, int y){
 		this.x = x;
 		this.y = y;
