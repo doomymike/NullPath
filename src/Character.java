@@ -13,7 +13,7 @@ public class Character {
 	}
 	
 	public BufferedImage getSprite(){
-		return null;
+		return sprite;
 	}
 	
 	public boolean isAlive() {
