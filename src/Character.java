@@ -4,6 +4,7 @@ import java.awt.image.BufferedImage;
 public class Character {
 
 	private int x,y,height,width;
+	private int dx, dy;
 	private boolean alive;
 	private BufferedImage sprite;
 	int speed = 10;
@@ -14,6 +15,11 @@ public class Character {
 	
 	public BufferedImage getSprite(){
 		return sprite;
+	}
+	
+	public int[] getVelocity() {
+		int[] vel = {dx, dy};
+		return vel;
 	}
 	
 	public boolean isAlive() {
