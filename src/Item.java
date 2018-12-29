@@ -2,7 +2,12 @@
 
 public class Item {
 	private int x,y,height, width, radius;
-	private int dx,dy;
+	private double dx,dy;
+	private boolean affectGravity;
+	
+	public boolean getGravity() {
+		return affectGravity;
+	}
 	
 	public int getX(){
 		return x;
@@ -11,8 +16,8 @@ public class Item {
 		return y;
 	}
 	
-	public int[] getVel() {
-		int[] vel = {dx, dy};
+	public double[] getVel() {
+		double[] vel = {dx, dy};
 		return vel;
 	}
 	
@@ -47,8 +52,21 @@ public class Item {
 		this.width = width;
 	}
 	
+	public void setDy(double newDy) {
+		dy = newDy;
+	}
+	
+	Item(int x, int y, int height, int width, boolean affectGravity){
+		this.x = x;
+		this.y = y;
+		this.height = height;
+		this.width = width;
+		this.affectGravity = affectGravity;
+	}
+	
 	Item(int x, int y){
 		this.x = x;
 		this.y = y;
 	}
+	
 }

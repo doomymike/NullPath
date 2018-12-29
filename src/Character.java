@@ -4,22 +4,32 @@ import java.awt.image.BufferedImage;
 public class Character {
 
 	private int x,y,height,width;
-	private int dx, dy;
+	private double dx, dy;
 	private boolean alive;
 	private BufferedImage sprite;
+	boolean affectGravity = true;
 	int speed = 10;
 	
 	public Character(BufferedImage sprite) {
 		this.sprite = sprite;
 	}
 	
+	public boolean getGravity() {
+		return affectGravity;
+	}
+	
 	public BufferedImage getSprite(){
 		return sprite;
 	}
 	
-	public int[] getVelocity() {
-		int[] vel = {dx, dy};
+	public double[] getVelocity() {
+		double[] vel = {dx, dy};
 		return vel;
+	}
+	
+	public void setVelocity(double [] newVel) {
+		dx = newVel[0];
+		dy = newVel[1];
 	}
 	
 	public boolean isAlive() {

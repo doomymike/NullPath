@@ -5,18 +5,21 @@ public class PhysicsEngine {
 	public void move(Character player){
 		int xPos = player.getPosition()[0];
 		int yPos = player.getPosition()[1];
-		player.setPosition(xPos + player.getVelocity()[0], yPos + player.getVelocity()[1]);
+		player.setPosition((int)Math.round(xPos + player.getVelocity()[0]), (int)Math.round(yPos + player.getVelocity()[1]));
+		if (player.getGravity()) {
+			player.setVelocity(new double[] {player.getVelocity()[0], player.getVelocity()[1] - 0.5});
+		}
 	}
 	
 	public void move(Item object) {
 		int xPos = object.getX();
 		int yPos = object.getY();
-		object.setX(xPos + object.getVel()[0]);
-		object.setY(yPos + object.getVel()[1]);
-	}
-	
-	public void bounce() { //Under the assumption that dy at the moment has been converted to a positive trajectory
+		object.setX((int)Math.round(xPos + object.getVel()[0]));
+		object.setY((int)Math.round(yPos + object.getVel()[1]));
 		
+		if (object.getGravity()) {
+			object.setDy(object.getVel()[1] - 0.5); //Gravity
+		}
 	}
 	
 	public boolean checkCollision(Character player, Item object, boolean circular) {
