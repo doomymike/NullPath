@@ -1,4 +1,4 @@
-import java.awt.BufferedImage;
+import java.awt.image.BufferedImage;
 
 public class Bomb extends Item {
   
@@ -6,10 +6,6 @@ public class Bomb extends Item {
   
   public Bomb(int x, int y) {
     super(x,y);
-  }
-  
-  public static int getRadius() {
-    return 25; //Placeholder radius
   }
   
   public void explode() {
