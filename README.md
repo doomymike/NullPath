@@ -6,3 +6,6 @@ Deviation(s) from the UML (James):
 - Arc is generated naturally by gravity, so affectGravity boolean is used to dictate linear or non-linear motion
 
 ^May be further customized
+
+Notes: 
+- Bomb has no explode method (checked for when stage places the item)
