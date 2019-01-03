@@ -3,7 +3,7 @@
 public class Item {
 	private int x,y,height, width, radius;
 	private double dx,dy;
-	private boolean affectGravity;
+	private boolean affectGravity = true;
 	
 	public boolean getGravity() {
 		return affectGravity;
@@ -62,6 +62,13 @@ public class Item {
 		this.height = height;
 		this.width = width;
 		this.affectGravity = affectGravity;
+	}
+	
+	Item(int x, int y, int height, int width){
+		this.x = x;
+		this.y = y;
+		this.height = height;
+		this.width = width;
 	}
 	
 	Item(int x, int y){

@@ -3,7 +3,9 @@ import java.awt.Rectangle;
 
 public class Platform extends Item{
 	
-	int length,width;
+	private boolean hasHoney = false;
+	private boolean hasIce = false;
+	private int length,width;
 	Rectangle loc;
 	
 	Platform(int x, int y) {
@@ -16,6 +18,29 @@ public class Platform extends Item{
 		this.loc = new Rectangle(x,y,width,length);
 	}
 	
+	public int getLength() {
+		return length;
+	}
+	
+	public int getWidth() {
+		return width;
+	}
+	
+	public boolean getHoney() {
+		return hasHoney;
+	}
+	
+	public boolean getIce() {
+		return hasIce;
+	}
+	
+	public void setHoney(boolean newSurface) {
+		hasHoney = newSurface;
+	}
+	
+	public void setIce(boolean newSurface) {
+		hasIce = newSurface;
+	}
 	
 }
 

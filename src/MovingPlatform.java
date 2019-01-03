@@ -35,14 +35,14 @@ public class MovingPlatform extends Platform{
 				this.setX(this.getX()-speed);
 			}
 		}else if(direction == 1){ //up
-			if(this.getY()+width >=y3){
+			if(this.getY()+getWidth() >=y3){
 				direction = 3; //down
 				this.move();
 			}else{
 				this.setY(this.getY()+speed);
 			}
 		}else if(direction == 2){ //right
-			if(this.getY()+length >=x3){
+			if(this.getY()+getLength() >=x3){
 				direction = 0; //left
 				this.move();
 			}else{
