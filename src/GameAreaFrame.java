@@ -1,0 +1,3 @@
+public GameAreaFrame extends JFrame {
+
+}
