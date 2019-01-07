@@ -35,21 +35,21 @@ public class MovingPlatform extends Platform{
 				this.setX(this.getX()-speed);
 			}
 		}else if(direction == 1){ //up
-			if(this.getY()+getWidth() >=y3){
+			if(this.getY()>=y3){
 				direction = 3; //down
 				this.move();
 			}else{
 				this.setY(this.getY()+speed);
 			}
 		}else if(direction == 2){ //right
-			if(this.getY()+getLength() >=x3){
+			if(this.getY()+length >=x3){
 				direction = 0; //left
 				this.move();
 			}else{
 				this.setX(this.getX()+speed);
 			}
 		}else{ //down
-			if(this.getY()<=x2){
+			if(this.getY()+width <=x2){
 				direction = 1; //down
 				this.move();
 			}else{
@@ -58,4 +58,3 @@ public class MovingPlatform extends Platform{
 		}
 	}
 }
-
