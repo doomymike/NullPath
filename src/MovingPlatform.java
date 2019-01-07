@@ -11,12 +11,12 @@ public class MovingPlatform extends Platform{
 		// TODO Auto-generated constructor stub
 	}
 	
-	MovingPlatform(int x, int y, int width, int length) {
-		super(x, y,width,length);
+	MovingPlatform(int x, int y, int height, int width) {
+		super(x, y,height,width);
 	}
 
-	MovingPlatform(int x, int y, int width, int length,int x2,int y2, int direction, int speed) {
-		super(x, y,width,length);
+	MovingPlatform(int x, int y, int height, int width,int x2,int y2, int direction, int speed) {
+		super(x, y,height,width);
 		this.direction=direction;
 		this.speed = speed;
 		// TODO Auto-generated constructor stub
@@ -42,7 +42,7 @@ public class MovingPlatform extends Platform{
 				this.setY(this.getY()+speed);
 			}
 		}else if(direction == 2){ //right
-			if(this.getY()+length >=x3){
+			if(this.getY()+getHeight() >=x3){
 				direction = 0; //left
 				this.move();
 			}else{
