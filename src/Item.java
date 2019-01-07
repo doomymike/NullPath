@@ -1,5 +1,6 @@
 
 
+
 public class Item {
 	private int x,y,height, width, radius;
 	private double dx,dy;
@@ -69,6 +70,14 @@ public class Item {
 		this.y = y;
 		this.height = height;
 		this.width = width;
+	}
+	
+	Item(int x, int y, int height, int width,int radius){
+		this.x = x;
+		this.y = y;
+		this.height = height;
+		this.width = width;
+		this.radius=radius;
 	}
 	
 	Item(int x, int y){
