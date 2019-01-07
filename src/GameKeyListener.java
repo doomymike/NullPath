@@ -1,3 +1,3 @@
-public class GameKeyListener extends KeyListener {
+public class GameKeyListener implements KeyListener {
 
 }
