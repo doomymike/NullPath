@@ -79,43 +79,4 @@ public class GameClient {
 
     } //End of go()
 
-    //****** Inner Classes for KeyListener ****
-
-    private class GameKeyListener implements KeyListener{
-
-        @Override
-        public void keyPressed(KeyEvent e) {
-
-            if (e.getKeyCode() == 27) { //esc pressed
-
-            } else if (e.getKeyCode() == 13) { //enter pressed
-
-            } else if (e.getKeyCode() == 9) { //tab pressed
-
-            }
-
-        }
-
-        @Override
-        public void keyReleased(KeyEvent e) {
-
-        }
-
-        @Override
-        public void keyTyped(KeyEvent e) {
-
-            if (e.getKeyCode() == 37) { //Left pressed
-
-            } else if (e.getKeyCode() == 38) {//Up pressed
-
-            } else if (e.getKeyCode() == 39) { //Right pressed
-
-            } else if (e.getKeyCode() == 40) { //Down pressed
-
-            }
-            
-        }
-
-    } //End of inner class
-
 }

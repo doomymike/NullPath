@@ -16,7 +16,7 @@ import java.util.ArrayList;
 public GameAreaFrame extends JFrame {
 	
 	private String buttonPressed = "";
-
+	
 	// Constructor
     public GameAreaFrame() {
         super("NullPath");
@@ -33,6 +33,7 @@ public GameAreaFrame extends JFrame {
         JPanel introPanel = new IntroPanel ();
         this.add (introPanel);
 
+        // Add key listener
         GameKeyListener keyListener = new GameKeyListener ();
         this.addKeyListener(keyListener);
 
@@ -44,8 +45,43 @@ public GameAreaFrame extends JFrame {
 
     } // End of constructor
     
-    public void setButtonPressed(String buttonPressed) {
-    	this.buttonPressed = buttonPressed;
-    }
-	
+  //****** Inner Classes for KeyListener ****
+
+    private class GameKeyListener implements KeyListener{
+
+        @Override
+        public void keyPressed(KeyEvent e) {
+
+            if (e.getKeyCode() == 27) { //esc pressed
+            	buttonPressed = "esc";
+            } else if (e.getKeyCode() == 13) { //enter pressed
+            	buttonPressed = "enter";
+            } else if (e.getKeyCode() == 9) { //tab pressed
+            	buttonPressed = "tab";
+            }
+
+        }
+
+        @Override
+        public void keyReleased(KeyEvent e) {
+
+        }
+
+        @Override
+        public void keyTyped(KeyEvent e) {
+
+            if (e.getKeyCode() == 37) { //Left pressed
+            	buttonPressed = "left";
+            } else if (e.getKeyCode() == 38) {//Up pressed
+            	buttonPressed = "up";
+            } else if (e.getKeyCode() == 39) { //Right pressed
+            	buttonPressed = "right";
+            } else if (e.getKeyCode() == 40) { //Down pressed
+            	buttonPressed = "down";
+            }
+            
+        }
+
+    } //End of inner class
+    	
 }
