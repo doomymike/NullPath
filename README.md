@@ -10,4 +10,4 @@ Deviation(s) from the UML (James):
 
 Notes: 
 - Bomb has no explode method (checked for when stage places the item)
-- x and y set to centres of objects
+
