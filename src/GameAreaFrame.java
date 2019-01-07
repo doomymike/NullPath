@@ -54,10 +54,13 @@ public GameAreaFrame extends JFrame {
 
             if (e.getKeyCode() == 27) { //esc pressed
             	buttonPressed = "esc";
+            	introPanel.setButtonPressed(buttonPressed);
             } else if (e.getKeyCode() == 13) { //enter pressed
             	buttonPressed = "enter";
+            	introPanel.setButtonPressed(buttonPressed);
             } else if (e.getKeyCode() == 9) { //tab pressed
             	buttonPressed = "tab";
+            	introPanel.setButtonPressed(buttonPressed);
             }
 
         }
@@ -72,12 +75,16 @@ public GameAreaFrame extends JFrame {
 
             if (e.getKeyCode() == 37) { //Left pressed
             	buttonPressed = "left";
+            	introPanel.setButtonPressed(buttonPressed);
             } else if (e.getKeyCode() == 38) {//Up pressed
             	buttonPressed = "up";
+            	introPanel.setButtonPressed(buttonPressed);
             } else if (e.getKeyCode() == 39) { //Right pressed
             	buttonPressed = "right";
+            	introPanel.setButtonPressed(buttonPressed);
             } else if (e.getKeyCode() == 40) { //Down pressed
             	buttonPressed = "down";
+            	introPanel.setButtonPressed(buttonPressed);
             }
             
         }
