@@ -4,6 +4,15 @@ public IntroPanel extends JPanel {
 	
   public void paintComponent(graphics g) {
 	  
+	// Call the super class
+    super.paintComponent(g);
+    setDoubleBuffered(true);
+    
+    // Do all other code stuff here
+    
+    // Repaint
+    repaint();
+	  
   }
   
   public void setButtonPressed(String buttonPressed) {
