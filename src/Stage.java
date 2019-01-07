@@ -29,6 +29,7 @@ public class Stage {
 
     public void addItem(Item item) {
         if (!(item instanceof Bomb)) {
+        	
             items.add(item); //"Place" item on stage
         } else { //If bomb, remove items within the vicinity
             for (int i = 0; i < items.size(); i++) {
@@ -58,5 +59,15 @@ public class Stage {
     public void resetStage() {
         //Remove all projectile stuff, add stuff to item box??
     }
-
+    
+    public boolean itemIntersect(Item item){
+    	for (int i = 0; i < items.size(); i++) {
+                       	
+            if (PhysicsEngine.checkCollision(item, items.get(i), (item.getRadius()!=0), (items.get(i).getRadius()!=0))){
+            	return true;
+            }
+                                 
+        }
+    	return false;
+    }
 }
