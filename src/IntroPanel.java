@@ -1,3 +1,5 @@
+import java.awt.*;
+
 public IntroPanel extends JPanel {
 
 	private String buttonPressed = "";
@@ -8,7 +10,12 @@ public IntroPanel extends JPanel {
     super.paintComponent(g);
     setDoubleBuffered(true);
     
-    // Do all other code stuff here
+    // Draw start button (rectangles right now)
+    g.setColour(Color.BLUE);
+    g.fillRect(400,200,200,100);
+    g.setColour(Color.BLACK);
+    g.drawRect(420,220,160,60);
+    g.drawString("START",450,240);
     
     // Repaint
     repaint();
@@ -17,7 +24,13 @@ public IntroPanel extends JPanel {
   
   public void setButtonPressed(String buttonPressed) {
 	  this.buttonPressed = buttonPressed;
-	  //do the stuff for when they press the button
+	  if (buttonPressed.equals("enter")) {
+		  // Go to main menu frame
+	  }
+  }
+  
+  public void getButtonPressed() {
+	  return buttonPressed;
   }
 
 }

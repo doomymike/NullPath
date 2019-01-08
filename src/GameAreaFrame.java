@@ -16,6 +16,8 @@ import java.util.ArrayList;
 public GameAreaFrame extends JFrame {
 	
 	private String buttonPressed = "";
+	private int panelCounter = 0;
+	private boolean panelChange = true;
 	
 	// Constructor
     public GameAreaFrame() {
@@ -24,14 +26,26 @@ public GameAreaFrame extends JFrame {
         // Connect to server
         new GameClient().go();
         
-        // Set the frame to full screen
+        // Set screen size
         this.setDefaultCloseOperation (JFrame.EXIT_ON_CLOSE);
-        this.setSize(Toolkit.getDefaultToolkit().getScreenSize());
+        this.setSize(500,1000); //Filler values
         this.setResizable (false);
 
-        // Set up the intro panel
-        JPanel introPanel = new IntroPanel ();
-        this.add (introPanel);
+        // Set up the intro panel if start
+        if ((panelCounter == 0) && panelChange) {
+        	JPanel introPanel = new IntroPanel ();
+        	this.add (introPanel);
+        	panelChange = false;
+        }
+        
+        if ((panelCounter == 0) && !panelChange) {
+        	if (introPanel.getButtonPressed().equals("start")) {
+        		this.remove(introPanel); // Remove the intro panel
+        		JPanel mainMenuPanel = new MainMenuPanel(); // Add the main menu panel
+        		this.add(mainMenuPanel);
+        		panelCounter = 1;
+        	}
+        }
 
         // Add key listener
         GameKeyListener keyListener = new GameKeyListener ();
