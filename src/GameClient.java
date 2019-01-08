@@ -1,7 +1,8 @@
-//No gui needed? (since gui should all be done in game panel/frames)
 
 import java.awt.*;
 import javax.swing.*;
+
+
 import java.awt.event.*;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -16,6 +17,10 @@ public class GameClient {
     PrintWriter output;  //printwriter for network output
     boolean running = true; //thread status via boolean
     String username;
+    JButton sendButton;
+	JTextField typeField;
+	JFrame window;
+	JPanel southPanel;
 
     /**
      * main method, runs the client
@@ -50,7 +55,22 @@ public class GameClient {
         System.out.println("Connection made.");
 
         // ------------------------------------------------------------------------
-
+        
+        window = new JFrame("Chat Client");
+	    southPanel = new JPanel();
+	    southPanel.setLayout(new GridLayout(2,0));
+    
+	    sendButton = new JButton("SEND");
+	    
+	    sendButton.addActionListener(new buttonListener());
+	    
+	    JLabel errorLabel = new JLabel("");
+	    
+	    typeField = new JTextField(10);
+	    
+	    southPanel.add(typeField);
+	    southPanel.add(sendButton);
+	    southPanel.add(errorLabel);
         //Window listener needed in frame - make sure to tell client that player is exiting (so things can be closed)
 
         /*
@@ -65,6 +85,7 @@ public class GameClient {
         */
 
         // Checks for incoming commands
+	    /*
         while (true){
             try {
                 if (input.ready()) { //check for an incoming messge
@@ -76,7 +97,23 @@ public class GameClient {
                 e.printStackTrace();
             }
         }
+        */
 
     } //End of go()
 
-}
+
+
+	class buttonListener implements ActionListener{
+		  
+		  //performs action when button is clicked
+		  @Override
+		  public void actionPerformed(ActionEvent e) {
+			// TODO Auto-generated method stub
+			
+					username = typeField.getText();
+					output.println(username);
+					output.flush();
+					window.dispose();
+			}
+	}
+}	
