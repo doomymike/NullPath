@@ -1,7 +1,5 @@
 //0 = left, 
 
-import java.io.BufferedImage;
-
 public class Resources {
 
 	private static SimpleLinkedList<Stage> stages = new SimpleLinkedList<Stage>();
@@ -24,9 +22,10 @@ public class Resources {
 	
 	public static Stage getRandomStage() {
 		if (stages.size() != 0) {
-			int rand = (int)(Math.round(Math.rand()*(stages.size()-1)));
+			int rand = (int)(Math.round(Math.random()*(stages.size()-1)));
 			return stages.get(rand);
 		}
+		return null;
 	}
 	
 	public SimpleLinkedList<Character> getCharacters() {
@@ -35,9 +34,10 @@ public class Resources {
 	
 	public Character getRandomCharacter() {
 		if (characters.size() != 0) {
-			int rand = (int)(Math.round(Math.rand()*(characters.size()-1)));
+			int rand = (int)(Math.round(Math.random()*(characters.size()-1)));
 			return characters.get(rand);
 		}
+		return null;
 	}
 	
 	public void setCurrentStage(Stage stage) {

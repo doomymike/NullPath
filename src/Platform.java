@@ -1,29 +1,29 @@
 
-import java.awt.Rectangle;
+//import java.awt.Rectangle;
 
 public class Platform extends Item{
 	
 	private boolean hasHoney = false;
 	private boolean hasIce = false;
-	private int length,width;
-	Rectangle loc;
+	
+	//Rectangle loc;
 	
 	Platform(int x, int y) {
 		super(x, y);
 	
 	}
 	
-	Platform(int x,int y, int width, int length){
-		super(x,y);
-		this.loc = new Rectangle(x,y,width,length);
+	Platform(int x,int y, int height, int width){
+		super(x,y,height,width);
+		
 	}
 	
 	public int getLength() {
-		return length;
+		return getLength();
 	}
 	
 	public int getWidth() {
-		return width;
+		return getWidth();
 	}
 	
 	public boolean getHoney() {

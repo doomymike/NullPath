@@ -23,7 +23,7 @@ public class MovingPlatform extends Platform{
 	}
 	
 	public static BufferedImage getSprite(){
-		return null;
+		return getSprite();
 	}
 	
 	public void move(){
@@ -49,7 +49,7 @@ public class MovingPlatform extends Platform{
 				this.setX(this.getX()+speed);
 			}
 		}else{ //down
-			if(this.getY()+width <=x2){
+			if(this.getY()+getWidth() <=x2){
 				direction = 1; //down
 				this.move();
 			}else{

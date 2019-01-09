@@ -13,6 +13,6 @@ public class StationaryPlatform extends Platform{
 	}
 	
 	public static BufferedImage getSprite(){
-		return null;
+		return getSprite();
 	}
 }
