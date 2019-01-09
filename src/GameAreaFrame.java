@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 //Graphics & GUI imports
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -26,9 +25,10 @@ public class GameAreaFrame extends JFrame {
 	// Constructor
     public GameAreaFrame() {
         super("NullPath");
-        mapIntegration = new MapPlacement();
-        // Connect to server
+        //mapIntegration = new MapPlacement();
+        // Connect to server 
         //new GameClient().go();
+        //Uncomment later
         
         // Set screen size
         this.setDefaultCloseOperation (JFrame.EXIT_ON_CLOSE);
@@ -38,20 +38,21 @@ public class GameAreaFrame extends JFrame {
         // Set up the intro panel if start
         if ((panelCounter == 0) && panelChange) {
         	introPanel = new IntroPanel ();
-        	//this.add (introPanel);
+        	this.add (introPanel);
         	panelChange = false;
         }
         
         if ((panelCounter == 0) && !panelChange) {
         	if (introPanel.getSelection().equals("start")) {
-        		//this.remove(introPanel); // Remove the intro panel
+        		this.remove(introPanel); // Remove the intro panel
         		mainMenuPanel = new MainMenuPanel(); // Add the main menu panel
-        		//this.add(mainMenuPanel);
+        		this.add(mainMenuPanel);
         		panelCounter = 1;
         	}
         }
 
-        this.add(mapIntegration);
+        //this.add(mapIntegration); 
+        //Deprecated - to be replaced by stage
         
         // Add key listener
         GameKeyListener keyListener = new GameKeyListener ();
@@ -140,7 +141,7 @@ public class GameAreaFrame extends JFrame {
 	// Constructor
     public GameAreaFrame() {
         super("NullPath");
-        mapIntegration = new MapPlacement();
+        //mapIntegration = new MapPlacement();
         // Connect to server
         //new GameClient().go();
         
@@ -152,20 +153,21 @@ public class GameAreaFrame extends JFrame {
         // Set up the intro panel if start
         if ((panelCounter == 0) && panelChange) {
         	introPanel = new IntroPanel ();
-        	//this.add (introPanel);
+        	this.add (introPanel);
         	panelChange = false;
         }
         
         if ((panelCounter == 0) && !panelChange) {
         	if (introPanel.getSelection().equals("start")) {
-        		//this.remove(introPanel); // Remove the intro panel
+        		this.remove(introPanel); // Remove the intro panel
         		mainMenuPanel = new MainMenuPanel(); // Add the main menu panel
-        		//this.add(mainMenuPanel);
+        		this.add(mainMenuPanel);
         		panelCounter = 1;
         	}
         }
 
-        this.add(mapIntegration);
+        //this.add(mapIntegration);
+        //Deprecated method - to be replaced by stage
         
         // Add key listener
         GameKeyListener keyListener = new GameKeyListener ();
