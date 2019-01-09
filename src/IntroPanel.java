@@ -1,19 +1,21 @@
 import java.awt.*;
+import javax.swing.*;
 
-public IntroPanel extends JPanel {
 
-	private String buttonPressed = "";
+public class IntroPanel extends JPanel {
+
+  private String buttonPressed = "";
 	
-  public void paintComponent(graphics g) {
+  public void paintComponent(Graphics g) {
 	  
 	// Call the super class
     super.paintComponent(g);
     setDoubleBuffered(true);
     
     // Draw start button (rectangles right now)
-    g.setColour(Color.BLUE);
+    g.setColor(Color.BLUE);
     g.fillRect(400,200,200,100);
-    g.setColour(Color.BLACK);
+    g.setColor(Color.BLACK);
     g.drawRect(420,220,160,60);
     g.drawString("START",450,240);
     
@@ -29,7 +31,7 @@ public IntroPanel extends JPanel {
 	  }
   }
   
-  public void getButtonPressed() {
+  public String getButtonPressed() {
 	  return buttonPressed;
   }
 
