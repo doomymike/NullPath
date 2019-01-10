@@ -17,13 +17,14 @@ public class GameAreaFrame extends JFrame {
 	
 	private String buttonPressed = "";
 	private int panelCounter = 0;
-		// Intro - 0, Main menu - 1, Game - 2, Instructions - 3, Credits - 4
+		// Intro - 0, Main menu - 1, Game - 2, Instructions - 3, Credits - 4, Character select - 5
 	private boolean panelChange = true;
 	private IntroPanel introPanel = null;
 	private MainMenuPanel mainMenuPanel = null;
 	private GamePanel gamePanel = null;
 	private InstructionsPanel instructionsPanel = null;
 	private CreditsPanel creditsPanel = null;
+	private CharacterSelectPanel characterSelectPanel = null;
 	private MapPlacement mapIntegration = null;
 	
 	// Constructor
@@ -57,9 +58,9 @@ public class GameAreaFrame extends JFrame {
 	    if (panelCounter == 1) {
 		    if (mainMenuPanel.getSelection().equals("Start Game")) {
 			    this.remove(mainMenuPanel); // Remove main menu panel
-			    gamePanel = new GamePanel(); // Add the game panel
-			    this.add(gamePanel);
-			    panelCounter = 2;
+			    characterSelectPanel = new CharacterSelectPanel(); // Add the character select panel
+			    this.add(characterSelectPanel);
+			    panelCounter = 5;
 		    } else if (mainMenuPanel.getSelection().equals("Instructions")) {
 			    this.remove(mainMenuPanel); // Remove main menu panel
 			    instructionsPanel = new InstructionsPanel(); // Add the game panel
@@ -67,7 +68,7 @@ public class GameAreaFrame extends JFrame {
 			    panelCounter = 3;
 		    } else if (mainMenuPanel.getSelection().equals("Credits")) {
 			    this.remove(mainMenuPanel); // Remove main menu panel
-			    creditsPanel = new CreditsPanel); // Add the game panel
+			    creditsPanel = new CreditsPanel(); // Add the game panel
 			    this.add(creditsPanel);
 			    panelCounter = 4;
 		    }
