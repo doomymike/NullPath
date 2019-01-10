@@ -111,6 +111,8 @@ public class GameAreaFrame extends JFrame {
     
   //****** Inner Classes for KeyListener ****
 
+	//Tab doesn't work (no keycode return)
+	
     class GameKeyListener implements KeyListener{
 
         @Override
@@ -129,7 +131,7 @@ public class GameAreaFrame extends JFrame {
 		} else if (panelCounter == 4) {
 			creditsPanel.setButtonPressed(buttonPressed);
 		}
-            } else if (e.getKeyCode() == 13) { //enter pressed
+            } else if (e.getKeyCode() == 10) { //enter pressed
             	buttonPressed = "enter";
             	if (panelCounter == 0) {
             		introPanel.setButtonPressed(buttonPressed);
