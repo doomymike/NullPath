@@ -2,7 +2,8 @@ public MainMenuPanel extends JPanel {
 	
 	private String buttonPressed = "";
 	private String selection = "";
-	private int currentHover = "Start Game";
+	private int currentHover = 0;
+	private String[] possibleSelections = {"Start Game", "Instructions", "Credits"};
 	
 	public void repaint(Graphics g) {
 		
@@ -11,8 +12,9 @@ public MainMenuPanel extends JPanel {
 	    setDoubleBuffered(true);
 	    
 	    // Draw start button (rectangles right now)
-	    if (currentHover.equals("Start Game")) {
-	    	
+	    if (currentHover == 0) {
+	    	g.setColor(Color.RED);
+		    g.drawRect(399,199,202,102);
 	    }
 	    g.setColor(Color.BLUE);
 	    g.fillRect(400,200,200,100);
@@ -22,8 +24,9 @@ public MainMenuPanel extends JPanel {
 	    g.drawString("START GAME",450,240);
 	    
 	    // Draw the instructions button
-	    if (currentHover.equals("Instructions")) {
-	    	
+	    if (currentHover == 1) {
+	    	g.setColor(Color.RED);
+		    g.drawRect(399,199,202,102);
 	    }
 	    g.setColor(Color.BLUE);
 	    g.fillRect(400,240,200,100);
@@ -33,8 +36,9 @@ public MainMenuPanel extends JPanel {
 	    g.drawString("INSTRUCTIONS",450,280);
 	    
 	    // Draw the credits button
-	    if (currentHover.equals("Credits")) {
-	    	
+	    if (currentHover == 2) {
+	    	g.setColor(Color.RED);
+		    g.drawRect(399,199,202,102);
 	    }
 	    g.setColor(Color.BLUE);
 	    g.fillRect(400,280,200,100);
@@ -50,7 +54,21 @@ public MainMenuPanel extends JPanel {
 	
 	public void setButtonPressed(String buttonPressed) {
 		this.buttonPressed = buttonPressed;
-		// set selection (if statements)
+		if (buttonPressed.equals("down") || buttonPressed.equals("tab")) {
+			if (currentHover == 2) {
+				currentHover == 0;
+			} else {
+				currentHover += 1;
+			}
+		} else if (buttonPressed.equals("up")) {
+			if (currentHover == 0) {
+				currentHover == 2;
+			} else {
+				currentHover -= 1;
+			}
+		} else if (buttonPressed.equals("enter")) {
+			selection = possibleSelections[currentHover]; // User uses enter key to select option from menu
+		}
 	}
 	
 	public String getSelection() {
