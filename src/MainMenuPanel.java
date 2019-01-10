@@ -1,3 +1,6 @@
+import java.awt.*;
+import java.swing.*;
+
 public MainMenuPanel extends JPanel {
 	
 	private String buttonPressed = "";
