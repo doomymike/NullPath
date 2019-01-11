@@ -4,6 +4,7 @@ public class Player {
 	private String name;
 	private Character character;
 	private int score;
+	private boolean finished;
 	
 	public Player(String name) {
 		this.name = name;
@@ -25,8 +26,20 @@ public class Player {
 		this.score = score;
 	}
 	
+	public boolean getFinished() {
+		return finished;
+	}
+	
+	public void setFinished(boolean finished) {
+		this.finished = finished;
+	}
+	
 	public String getName() {
 		return name;
+	}
+	
+	public void die(){
+		
 	}
 	
 }
