@@ -8,7 +8,7 @@ public class MainMenuPanel extends JPanel {
 	private int currentHover = 0;
 	private String[] possibleSelections = {"Start Game", "Instructions", "Credits"};
 	
-	public void repaint(Graphics g) {
+	public void paintComponent(Graphics g) {
 		
 		// Call the super class
 	    super.paintComponent(g);
