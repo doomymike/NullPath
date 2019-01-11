@@ -1,7 +1,7 @@
 import java.awt.*;
 import java.swing.*;
 
-public MainMenuPanel extends JPanel {
+public class MainMenuPanel extends JPanel {
 	
 	private String buttonPressed = "";
 	private String selection = "";
@@ -59,13 +59,13 @@ public MainMenuPanel extends JPanel {
 		this.buttonPressed = buttonPressed;
 		if (buttonPressed.equals("down") || buttonPressed.equals("tab")) {
 			if (currentHover == 2) {
-				currentHover == 0;
+				currentHover = 0;
 			} else {
 				currentHover += 1;
 			}
 		} else if (buttonPressed.equals("up")) {
 			if (currentHover == 0) {
-				currentHover == 2;
+				currentHover = 2;
 			} else {
 				currentHover -= 1;
 			}
