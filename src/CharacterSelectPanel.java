@@ -1,3 +1,5 @@
+// ADD BACK BUTTON
+
 import java.awt.Graphics;
 import java.swing.*
 
@@ -8,9 +10,9 @@ public class CharacterSelectPanel extends JPanel {
 	private int currentCharacter = 0;
 	private String buttonPressed = "";
 	private String selection = "";
+	private String[] possibleSelections = {Blue, Green, Red, Yellow};
 	Resources resource = null;
 	
-
 	public void paintComponent(Graphics g) {
 	  
 		// Call the super class
@@ -20,38 +22,38 @@ public class CharacterSelectPanel extends JPanel {
 	    // Draw start button (rectangles right now)
 	    if (currentHover == 0) {
 	    	g.setColor(Color.RED);
-		    g.drawRect(399,199,202,102);
+		    g.drawRect(399,199,102,202);
 	    }
 	    g.setColor(Color.BLUE);
-	    g.fillRect(400,200,200,100);
+	    g.fillRect(400,200,100,200);
 	    g.setColor(Color.white);
-	    g.fillRect(420,220,160,60);
+	    g.fillRect(420,220,60,160);
 		  g.setColor(Color.BLACK);
-	    g.drawString("START GAME",450,240);
+	    g.drawString("Character 1",450,240);
 	    
 	    // Draw the instructions button
 	    if (currentHover == 1) {
 	    	g.setColor(Color.RED);
-		    g.drawRect(399,199,202,102);
+		    g.drawRect(439,199,102,202);
 	    }
 	    g.setColor(Color.BLUE);
-	    g.fillRect(400,240,200,100);
+	    g.fillRect(440,200,100,200);
 	    g.setColor(Color.white);
-	    g.fillRect(420,260,160,60);
+	    g.fillRect(460,220,60,160);
 		  g.setColor(Color.BLACK);
-	    g.drawString("INSTRUCTIONS",450,280);
+	    g.drawString("Character 2",490,240);
 	    
 	    // Draw the credits button
 	    if (currentHover == 2) {
 	    	g.setColor(Color.RED);
-		    g.drawRect(399,199,202,102);
+		    g.drawRect(479,199,102,202);
 	    }
 	    g.setColor(Color.BLUE);
-	    g.fillRect(400,280,200,100);
+	    g.fillRect(480,200,100,200);
 	    g.setColor(Color.white);
-	    g.fillRect(420,300,160,60);
+	    g.fillRect(500,200,60,160);
 		  g.setColor(Color.BLACK);
-	    g.drawString("CREDITS",450,320);
+	    g.drawString("Character 3",530,240);
 	    
 	    // Repaint
 	    repaint();
@@ -64,6 +66,22 @@ public class CharacterSelectPanel extends JPanel {
 	
 	public void setButtonPressed(String buttonPressed) {
 		this.buttonPressed = buttonPressed;
+		this.buttonPressed = buttonPressed;
+		if (buttonPressed.equals("right")) {
+			if (currentHover == 3) {
+				currentHover = 0;
+			} else {
+				currentHover += 1;
+			}
+		} else if (buttonPressed.equals("left")) {
+			if (currentHover == 0) {
+				currentHover = 3;
+			} else {
+				currentHover -= 1;
+			}
+		} else if (buttonPressed.equals("enter")) {
+			selection = possibleSelections[currentHover]; // User uses enter key to select option from menu
+		}
 	}
 	
 	public String getSelection() {

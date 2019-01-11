@@ -22,14 +22,17 @@ public class GameAreaFrame extends JFrame {
 	
 	private String buttonPressed = "";
 	private int panelCounter = 0;
-		// Intro - 0, Main menu - 1, Game - 2, Instructions - 3, Credits - 4
+		// Intro - 0, Main menu - 1, Game - 2, Instructions - 3, Credits - 4, CharacterSelect - 5
 	private boolean panelChange = true;
 	private IntroPanel introPanel = null;
 	private MainMenuPanel mainMenuPanel = null;
 	private GamePanel gamePanel = null;
 	private InstructionsPanel instructionsPanel = null;
 	private CreditsPanel creditsPanel = null;
+	private CharacterSelectPanel characterSelectPanel = null;
 	private MapPlacement mapIntegration = null;
+	
+	private Player player = null; // Player that is running the game
 	
 	// Constructor
     public GameAreaFrame() {
@@ -77,12 +80,13 @@ public class GameAreaFrame extends JFrame {
             		panelCounter = 1;
             	}
             }
+            
     	    // Switch to the screen chosen from main menu
     	    if (panelCounter == 1) {
     		    if (mainMenuPanel.getSelection().equals("Start Game")) {
     			    this.remove(mainMenuPanel); // Remove main menu panel
-    			    gamePanel = new GamePanel(); // Add the game panel
-    			    this.add(gamePanel);
+    			    characterSelectPanel = new CharacterSelectPanel(); // Add the game panel
+    			    this.add(characterSelectPanel);
     			    panelCounter = 2;
     		    } else if (mainMenuPanel.getSelection().equals("Instructions")) {
     			    this.remove(mainMenuPanel); // Remove main menu panel
@@ -116,6 +120,37 @@ public class GameAreaFrame extends JFrame {
     			    panelCounter = 1;
     		    }
     	    }
+    	    
+    	    // Character select screen (back button and character selection)
+    	    if (panelCounter == 5) {
+    	    	
+    	    	// Character assignment
+    	    	if (characterSelectPanel.getSelection().equals("blue")) {
+    	    		player.setCharacter(new Character("blue"));
+    	    		// add to resources object?
+    	    	} else if (characterSelectPanel.getSelection().equals("green")) {
+    	    		player.setCharacter(new Character("green"));
+    	    	} else if (characterSelectPanel.getSelection().equals("red")) {
+    	    		player.setCharacter(new Character("green"));
+    	    	} else if (characterSelectPanel.getSelection().equals("yellow")) {
+    	    		player.setCharacter(new Character("green"));
+    	    	}
+    	    	
+    	    	// Change to game panel or back to menu panel
+    	    	if ((characterSelectPanel.getSelection().equals("blue")) || (characterSelectPanel.getSelection().equals("blue")) || (characterSelectPanel.getSelection().equals("blue")) || (characterSelectPanel.getSelection().equals("blue"))) {
+    	    		this.remove(characterSelectPanel);
+    	    		gamePanel = new GamePanel();
+    	    		this.add(gamePanel);
+    	    		panelCounter = 2;
+    	    	} else if (characterSelectPanel.getSelection().equals("back")) {
+    	    		this.remove(characterSelectPanel);
+    	    		mainMenuPanel = new MainMenuPanel();
+    	    		this.add(mainMenuPanel);
+    	    		panelCounter = 1;
+    	    	}
+    	    	
+    	    }
+    	    
         }
 
     } // End of constructor
