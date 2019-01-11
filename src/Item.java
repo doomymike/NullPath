@@ -1,7 +1,10 @@
+
+
 public class Item {
 	private int x,y,height, width, radius;
 	private double dx,dy;
 	private boolean affectGravity = true;
+	private Player placer;
 	
 	public boolean getGravity() {
 		return affectGravity;
@@ -12,6 +15,10 @@ public class Item {
 	}
 	public int getY(){
 		return y;
+	}
+	
+	public Player getPlacer(){
+		return placer;
 	}
 	
 	public double[] getVel() {
@@ -54,6 +61,10 @@ public class Item {
 		dy = newDy;
 	}
 	
+	public void setPlacer(Player placer) {
+		this.placer = placer;
+	}
+	
 	Item(int x, int y, int height, int width, boolean affectGravity){
 		this.x = x;
 		this.y = y;
@@ -69,16 +80,12 @@ public class Item {
 		this.width = width;
 	}
 	
-	
-	Item(int x, int y, int height, int width, int radius, double[] speed, boolean affectGravity){
+	Item(int x, int y, int height, int width,int radius){
 		this.x = x;
 		this.y = y;
 		this.height = height;
 		this.width = width;
 		this.radius=radius;
-		this.dx = speed[0];
-		this.dy = speed[1];
-		this.affectGravity = affectGravity;
 	}
 	
 	Item(int x, int y){
