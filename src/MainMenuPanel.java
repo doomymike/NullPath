@@ -7,9 +7,9 @@ public class MainMenuPanel extends JPanel {
 	private String selection = "";
 	private int currentHover = 0;
 	private String[] possibleSelections = {"Start Game", "Instructions", "Credits"};
-	
+
 	public void paintComponent(Graphics g) {
-		
+
 		// Call the super class
 	    super.paintComponent(g);
 	    setDoubleBuffered(true);
@@ -52,7 +52,7 @@ public class MainMenuPanel extends JPanel {
 	    
 	    // Repaint
 	    repaint();
-		
+
 	}
 	
 	public void setButtonPressed(String buttonPressed) {

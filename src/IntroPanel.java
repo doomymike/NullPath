@@ -7,7 +7,7 @@ public class IntroPanel extends JPanel {
 
   private String buttonPressed = "";
 	private String selection = "";
-	
+
   public void paintComponent(Graphics g) {
 	  
 	// Call the super class
@@ -21,7 +21,7 @@ public class IntroPanel extends JPanel {
     g.fillRect(420,220,160,60);
 	  g.setColor(Color.BLACK);
     g.drawString("START",450,240);
-    
+
     // Repaint
     repaint();
 	  
