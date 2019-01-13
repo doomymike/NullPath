@@ -1,13 +1,30 @@
-
+import java.util.ArrayList;
 
 public class Item {
 	private int x,y,height, width, radius;
 	private double dx,dy;
 	private boolean affectGravity = true;
-	private Player placer;
+	private ArrayList<Integer> charIntersect = new ArrayList<Integer>(); //Every item contains a reference of which characters it's intersecting with
 	
 	public boolean getGravity() {
 		return affectGravity;
+	}
+	
+	public void addChar(int uniqueTag) {
+		charIntersect.add(uniqueTag);
+	}
+	
+	public void removeChar(int uniqueTag) {
+		charIntersect.remove(uniqueTag);
+	}
+	
+	public boolean checkChar(int uniqueTag) {
+		for (int i = 0; i < charIntersect.size(); i++) {
+			if (charIntersect.get(i) == uniqueTag) {
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	public int getX(){
@@ -15,10 +32,6 @@ public class Item {
 	}
 	public int getY(){
 		return y;
-	}
-	
-	public Player getPlacer(){
-		return placer;
 	}
 	
 	public double[] getVel() {
@@ -61,10 +74,6 @@ public class Item {
 		dy = newDy;
 	}
 	
-	public void setPlacer(Player placer) {
-		this.placer = placer;
-	}
-	
 	Item(int x, int y, int height, int width, boolean affectGravity){
 		this.x = x;
 		this.y = y;
@@ -80,12 +89,23 @@ public class Item {
 		this.width = width;
 	}
 	
-	Item(int x, int y, int height, int width,int radius){
+	Item(int x, int y, int height, int width, int speed, int direction1, int direction2){
+		this.x = x;
+		this.y = y;
+		this.height = height;
+		this.width = width;
+	}
+	
+	
+	Item(int x, int y, int height, int width, int radius, double[] speed, boolean affectGravity){
 		this.x = x;
 		this.y = y;
 		this.height = height;
 		this.width = width;
 		this.radius=radius;
+		this.dx = speed[0];
+		this.dy = speed[1];
+		this.affectGravity = affectGravity;
 	}
 	
 	Item(int x, int y){

@@ -1,10 +1,8 @@
-
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
-
 
 public class Character {
 
@@ -13,11 +11,12 @@ public class Character {
 	private boolean alive;
 	private BufferedImage sprite;
 	private BufferedImage[] sprites = new BufferedImage[32];
-	boolean affectGravity = true;
 	int speed = 10;
+	private boolean inJump = false;
+	private boolean affectGravity = true;
+	private int uniqueTag;
 	
-	
-	public Character(String name) throws IOException{
+	Character(String name) throws IOException{
 		
 		sprites[0] = ImageIO.read(new File("resources/"+name+"CrouchReference"));
 		for (int i = 1;i<7;i++){
@@ -38,12 +37,36 @@ public class Character {
 		}
 	}
 	
-	public Character(BufferedImage sprite) {
+	Character(BufferedImage sprite) {
 		this.sprite = sprite;
+	}
+	
+	Character(int x, int y, int height, int width, int tag){
+		this.x = x;
+		this.y = y;
+		this.height = height;
+		this.width = width;
+		this.uniqueTag = tag;
+	}
+
+	public int getTag() {
+		return uniqueTag;
+	}
+	
+	public boolean jumpMotion() {
+		return inJump;
+	}
+	
+	public void setJump(boolean state) {
+		inJump = state;
 	}
 	
 	public boolean getGravity() {
 		return affectGravity;
+	}
+	
+	public void setGravity(boolean state) {
+		affectGravity = state;
 	}
 	
 	public BufferedImage getSprite(){
@@ -56,8 +79,8 @@ public class Character {
 	}
 	
 	public void setVelocity(double [] newVel) {
-		dx = newVel[0];
-		dy = newVel[1];
+		dy = newVel[0];
+		dx = newVel[1];
 	}
 	
 	public boolean isAlive() {
@@ -89,20 +112,21 @@ public class Character {
 		return width;
 	}
 	
-	public void moveLeft() {
-		this.setPosition(x-speed, y);
-	}
-	
-	public void moveRight() {
-		this.setPosition(x+speed, y);
-	}
-	
 	public void crouch() {
 		
 	}
 	
 	public void jump() {
-		
+		inJump = true;
+	}
+	
+	public void resetGravity() {
+		affectGravity = true;
+	}
+	
+	public void resetY() {
+		affectGravity = false;
+		dy = 0;
 	}
 	
 }
