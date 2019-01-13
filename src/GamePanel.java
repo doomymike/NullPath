@@ -7,6 +7,8 @@ import javax.swing.JPanel;
 public class GamePanel extends JPanel {
 	
 	Resources resource;
+	private String buttonPressed = "";
+
 	public void paintComponent(Graphics g) {
 	  
 	}
@@ -40,6 +42,10 @@ public class GamePanel extends JPanel {
 		}
 			
 		
+	}
+
+	public void setButtonPressed(String buttonPressed) {
+		this.buttonPressed = buttonPressed;
 	}
 	
 }

@@ -1,4 +1,4 @@
-package heckpath;
+//package heckpath;
 //Graphics & GUI imports
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -12,6 +12,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 //Util
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class GameAreaFrame extends JFrame {
@@ -123,18 +124,22 @@ public class GameAreaFrame extends JFrame {
     	    
     	    // Character select screen (back button and character selection)
     	    if (panelCounter == 5) {
-    	    	
-    	    	// Character assignment
-    	    	if (characterSelectPanel.getSelection().equals("blue")) {
-    	    		player.setCharacter(new Character("blue"));
-    	    		// add to resources object?
-    	    	} else if (characterSelectPanel.getSelection().equals("green")) {
-    	    		player.setCharacter(new Character("green"));
-    	    	} else if (characterSelectPanel.getSelection().equals("red")) {
-    	    		player.setCharacter(new Character("green"));
-    	    	} else if (characterSelectPanel.getSelection().equals("yellow")) {
-    	    		player.setCharacter(new Character("green"));
-    	    	}
+
+            	try {
+					// Character assignment
+					if (characterSelectPanel.getSelection().equals("blue")) {
+						player.setCharacter(new Character("blue"));
+						// add to resources object?
+					} else if (characterSelectPanel.getSelection().equals("green")) {
+						player.setCharacter(new Character("green"));
+					} else if (characterSelectPanel.getSelection().equals("red")) {
+						player.setCharacter(new Character("green"));
+					} else if (characterSelectPanel.getSelection().equals("yellow")) {
+						player.setCharacter(new Character("green"));
+					}
+				} catch (IOException e) {
+            		// Shouldn't ever run (unless images are improperly labelled) - empty catch
+				}
     	    	
     	    	// Change to game panel or back to menu panel
     	    	if ((characterSelectPanel.getSelection().equals("blue")) || (characterSelectPanel.getSelection().equals("blue")) || (characterSelectPanel.getSelection().equals("blue")) || (characterSelectPanel.getSelection().equals("blue"))) {

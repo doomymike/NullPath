@@ -88,6 +88,14 @@ public class Item {
 		this.height = height;
 		this.width = width;
 	}
+
+	Item(int x, int y, int height, int width, int radius){
+		this.x = x;
+		this.y = y;
+		this.height = height;
+		this.width = width;
+		this.radius = radius;
+	}
 	
 	Item(int x, int y, int height, int width, int speed, int direction1, int direction2){
 		this.x = x;

@@ -1,16 +1,15 @@
 // ADD BACK BUTTON
 
 import java.awt.Graphics;
-import java.swing.*
-
+import java.awt.Color;
 import javax.swing.JPanel;
 
 public class CharacterSelectPanel extends JPanel {
 
-	private int currentCharacter = 0;
+	private int currentHover = 0;
 	private String buttonPressed = "";
 	private String selection = "";
-	private String[] possibleSelections = {Blue, Green, Red, Yellow};
+	private String[] possibleSelections = {"Blue", "Green", "Red", "Yellow"};
 	Resources resource = null;
 	
 	public void paintComponent(Graphics g) {
