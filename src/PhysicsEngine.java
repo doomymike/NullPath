@@ -54,7 +54,8 @@ public class PhysicsEngine {
 								object.addChar(player.getTag());
 							} //Reverse effect if no intersection occurs (bottom)
 						} else if (((Platform)object).getIce() == true) {
-							
+							player.setIce(true);
+							player.setPDx(player.getVelocity()[0]/2);
 						}
 					}
 					if (object instanceof CharacterLauncher) {
@@ -73,6 +74,11 @@ public class PhysicsEngine {
 			}
 			
 			if (object.checkChar(player.getTag())) {
+				if (object instanceof Platform) {
+					if (((Platform)object).getIce() == true) {
+						player.setIce(false);
+					}
+				}
 				object.removeChar(player.getTag());
 				player.resetGravity();
 			}
