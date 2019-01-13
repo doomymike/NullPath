@@ -5,21 +5,22 @@ public class PhysicsEngine {
 	public void move(Character player){
 		int xPos = player.getPosition()[0];
 		int yPos = player.getPosition()[1];
-		player.setPosition((int)Math.round(xPos + player.getVelocity()[0]), (int)Math.round(yPos + player.getVelocity()[1]));
+				
 		if (player.getGravity()) {
-			player.setVelocity(new double[] {player.getVelocity()[0], player.getVelocity()[1] - 0.5});
-		}
+			player.setVelocity(new double[] {player.getVelocity()[0], player.getVelocity()[1]-10}); //Not using getGravityV to sequentially decrease dy
+			player.setPosition((int)Math.round(xPos + player.getVelocity()[0]), (int)Math.round(yPos + player.getVelocity()[1]));
+		} 
 	}
 	
 	public void move(Item object) {
 		int xPos = object.getX();
 		int yPos = object.getY();
+		if (object.getGravity()) {
+			object.setDy(object.getVel()[1] - 10); //Gravity
+		}
 		object.setX((int)Math.round(xPos + object.getVel()[0]));
 		object.setY((int)Math.round(yPos + object.getVel()[1]));
 		
-		if (object.getGravity()) {
-			object.setDy(object.getVel()[1] - 0.5); //Gravity
-		}
 	}
 	
 	public static boolean checkCollision(Character player, Item object, boolean circular) {
@@ -45,8 +46,35 @@ public class PhysicsEngine {
 			int itemHY = object.getY() + object.getHeight();
 			if ((itemLX < lowerX && itemHX > higherX) || (itemHX < higherX && itemLX > lowerX) || (itemLX > lowerX && itemHX < higherX)) {
 				if ((itemHY > higherY && itemLY < higherY) || (itemLY < higherY && itemHY > lowerY) || (itemHY < higherY && itemLY > lowerY)) {
+					if (object instanceof Platform || object instanceof VelocityModifier) {
+						player.resetY();
+						if (((Platform)object).getHoney() == true) {
+							if (object.checkChar(player.getTag()) == false) {
+								player.setVelocity(new double[] {Math.min(player.getVelocity()[0]-20, 0), Math.min(player.getVelocity()[1]-20, 0)});
+								object.addChar(player.getTag());
+							} //Reverse effect if no intersection occurs (bottom)
+						} else if (((Platform)object).getIce() == true) {
+							
+						}
+					}
+					if (object instanceof CharacterLauncher) {
+						player.resetY();
+						//Player has already been reset (movement)
+						((CharacterLauncher) object).launchChar(player);
+					} else if (object instanceof VelocityModifier) {
+						//player.resetY(); - Already reset above (redundant)
+						if (object.checkChar(player.getTag()) == false) {
+							player.setVelocity(new double[] {player.getVelocity()[0]+(((VelocityModifier)object).getSpeed())[0], player.getVelocity()[1] + (((VelocityModifier)object).getSpeed())[1]});
+							object.addChar(player.getTag());
+						}
+					}		
 					return true;
 				}
+			}
+			
+			if (object.checkChar(player.getTag())) {
+				object.removeChar(player.getTag());
+				player.resetGravity();
 			}
 		}
 		

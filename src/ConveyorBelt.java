@@ -15,22 +15,26 @@ public class ConveyorBelt extends VelocityModifier{
 		
 		if (getDirectionXY() == 0) {
 			if (getDirection() == 2) {
-				dx = -1*speed;	
+				dx = -speed;
+				dy = 0;
 			} else {
 				dx = speed;
+				dy = 0;
 			}
 		} else {
 			if (getDirection() == 2) {
-				dx = -1*speed;
+				dy = -1*speed;
+				dx = 0;
 			} else {
-				dx = speed;
+				dy = speed;
+				dx = 0;
 			}
 		}
 		
 	}
 	
-	public static int getSpeed() {
-		return speed;
+	public int[] getSpeed() {
+		return new int[]{dx, dy};
 	}
 
 	//public static BufferedImage getSprite()

@@ -21,6 +21,10 @@ public class VelocityModifier extends Item{
 		return xyDir;
 	}
 	
+	public int[] getSpeed() {
+		return null;
+	}
+	
 	public VelocityModifier(int x, int y, int height, int width, int direction, int direction2) {
 		super (x, y, height, width);
 		this.dirMarker = direction;
