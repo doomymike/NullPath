@@ -5,6 +5,7 @@ public class Item {
 	private double dx,dy;
 	private boolean affectGravity = true;
 	private ArrayList<Integer> charIntersect = new ArrayList<Integer>(); //Every item contains a reference of which characters it's intersecting with
+	private Player placer;
 	
 	public void printCharLen() {
 		System.out.println(charIntersect.size());
@@ -115,6 +116,14 @@ public class Item {
 	Item(int x, int y){
 		this.x = x;
 		this.y = y;
+	}
+
+	public Player getPlacer() {
+		return placer;
+	}
+
+	public void setPlacer(Player placer) {
+		this.placer = placer;
 	}
 	
 }
