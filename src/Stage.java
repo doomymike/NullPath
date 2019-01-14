@@ -1,4 +1,9 @@
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.util.Scanner;
+
+import javax.imageio.ImageIO;
 
 public class Stage {
 
@@ -6,6 +11,9 @@ public class Stage {
     private SimpleLinkedList<Item> items;
     private SimpleLinkedList<Character> characters;
     private ItemBox itemBox;
+    
+    private String[][] skyFortressMapCollision = new String[36][86];
+	private BufferedImage skyFortressImage;
 
     public Stage(BufferedImage sprite) {
         this.sprite = sprite;
@@ -74,4 +82,30 @@ public class Stage {
         }
     	return false;
     }
+    
+    private void mapInit(String mapName) {
+    	try {
+			skyFortressImage = ImageIO.read(new File("/resources/SkyFortress.png")); //idk if this is right pathname
+		} catch (IOException e) {
+
+		}
+		try {
+			Scanner input = new Scanner(new File("/resources/SkyFortressCollision")); //idk if pathname is correct
+			input.close();
+			String line;
+			int index = 0;
+			if (mapName.equals("SkyFortress")) {
+				while (input.hasNext()) {
+					line = input.nextLine();
+					for (int i = 0; i < 86; i++) {
+						skyFortressMapCollision[index][i] = line.substring(i,i+1);
+					}
+					index++;
+				}
+			}
+		} catch(IOException e) {
+
+		}
+	}
+    
 }

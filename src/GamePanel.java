@@ -11,41 +11,16 @@ public class GamePanel extends JPanel {
 	
 	Resources resource;
 	private String buttonPressed = "";
-	private String[][] skyFortressMapCollision = new String[36][86];
-	private BufferedImage skyFortressImage;
+	
 	private int lowX,lowY,highX,HighY,ratio;
 	
 	
 	GamePanel() {
-		try {
-			skyFortressImage = ImageIO.read(new File("/resources/SkyFortress.png")); //idk if this is right pathname
-		} catch (IOException e) {
-
-		}
+		
 	}
 
 	public void paintComponent(Graphics g) {
 	  
-	}
-
-	public void mapInit(String mapName) {
-		try {
-			Scanner input = new Scanner(new File("/resources/SkyFortressCollision")); //idk if pathname is correct
-			input.close();
-			String line;
-			int index = 0;
-			if (mapName.equals("SkyFortress")) {
-				while (input.hasNext()) {
-					line = input.nextLine();
-					for (int i = 0; i < 86; i++) {
-						skyFortressMapCollision[index][i] = line.substring(i,i+1);
-					}
-					index++;
-				}
-			}
-		} catch(IOException e) {
-
-		}
 	}
   	
 	void setResources(Resources resource){
