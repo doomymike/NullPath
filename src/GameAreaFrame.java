@@ -1,3 +1,5 @@
+// init player objects somewhere !!!
+
 //Graphics & GUI imports
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -94,6 +96,7 @@ public class GameAreaFrame extends JFrame {
     			    this.getContentPane().remove(mainMenuPanel); // Remove main menu panel
     			    characterSelectPanel = new CharacterSelectPanel(); // Add the game panel
     			    this.getContentPane().add(characterSelectPanel);
+    			    characterSelectPanel.setResources(resources); // Pass in reference to resources object (so players can be assigned characters)
     			    panelCounter = 5;
 					this.revalidate();
 					repaint();
@@ -162,6 +165,7 @@ public class GameAreaFrame extends JFrame {
     	    		this.getContentPane().remove(characterSelectPanel);
     	    		gamePanel = new GamePanel();
     	    		this.getContentPane().add(gamePanel);
+    	    		gamePanel.setResources(resources); // Pass in reference to resources object
     	    		panelCounter = 2;
 					this.revalidate();
 					repaint();
