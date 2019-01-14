@@ -77,7 +77,7 @@ public class GamePanel extends JPanel {
 			minX = Math.max(minX, 0);
 			minY = Math.max(minY, 0);
 			maxX = Math.min(maxX, 860);
-			maxX = Math.min(minX, 380);
+			maxY = Math.min(maxY, 380);
 		}
 		
 		//gonna need a ratio ops
