@@ -1,4 +1,3 @@
-//package heckpath;
 //Graphics & GUI imports
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -14,6 +13,8 @@ import java.awt.event.KeyListener;
 //Util
 import java.io.IOException;
 import java.util.ArrayList;
+
+import java.awt.image.*;
 
 public class GameAreaFrame extends JFrame {
 	
@@ -174,6 +175,14 @@ public class GameAreaFrame extends JFrame {
         }
 
     } // End of constructor
+    
+    /**
+     * initCharacters
+     * Initializes resources object, which inits character objects (blue, red, green, yellow)
+     */
+    private void initResources() {
+    	Resources resources = new Resources();
+    }
     
   //****** Inner Classes for KeyListener ****
 

@@ -10,6 +10,10 @@ public class Stage {
     public Stage(BufferedImage sprite) {
         this.sprite = sprite;
     }
+    
+    public Stage(String stageName) {
+    	
+    }
 
     public SimpleLinkedList<Item> getItems() {
         return items;

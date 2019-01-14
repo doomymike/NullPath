@@ -1,5 +1,7 @@
 //0 = left, 
 
+import java.io.*;
+
 public class Resources {
 
 	private static SimpleLinkedList<Stage> stages = new SimpleLinkedList<Stage>();
@@ -13,7 +15,20 @@ public class Resources {
 	private SimpleLinkedList<Player> players = new SimpleLinkedList<Player>();
 	
 	Resources() {
-		//Default??
+		
+		//Initialize character objects (will add players when players are assigned)
+		try {
+			characters.add(new Character("Blue"));
+			characters.add(new Character("Green"));
+			characters.add(new Character("Red"));
+			characters.add(new Character("Yellow"));
+		} catch (IOException e) {
+			
+		}
+		
+		//Add all stages to list
+		
+		
 	}
 	
 	public static SimpleLinkedList<Stage> getStages() {
