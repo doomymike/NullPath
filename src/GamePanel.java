@@ -61,7 +61,7 @@ public class GamePanel extends JPanel {
 		int maxY = minY;
 		
 		for(int i =1;i<4;i++){
-			if (players.get(i).getCharacter().getPosition()[0] <minX){
+			if (players.get(i).getCharacter().getPosition()[0] <minX){ ///AAAAAAAAAAAAAAAHHHHHHHHHHHHHHH CHARACTER DIMENSIONS
 				minX = players.get(i).getCharacter().getPosition()[0];
 			}
 			if (players.get(i).getCharacter().getPosition()[0] > maxX){
@@ -74,10 +74,25 @@ public class GamePanel extends JPanel {
 				maxY = players.get(i).getCharacter().getPosition()[1];
 			}
 			
+			minX-=20;
+			maxX+=20;
+			minY-=20;
+			maxY+=20;
+			
 			minX = Math.max(minX, 0);
 			minY = Math.max(minY, 0);
 			maxX = Math.min(maxX, 860);
 			maxY = Math.min(maxY, 380);
+		}
+		
+		
+		//AAAAAAAAAAAAAAAHHHHHHHHHHHHHHHHHH EXPAND CAMERA OUT OF SCREEN AAAAAAAAAAAHHHHHHHHH :(((((
+		double tempRatio = (maxX-minX)/(maxY-minY);
+		int tempAmount;
+		
+		if (tempRatio > 36.0/29.0){ //too much x
+			tempAmount = (int)Math.round((maxX-minX)*29.0/36.0);
+			//fix y
 		}
 		
 		//gonna need a ratio ops
