@@ -6,6 +6,10 @@ public class Item {
 	private boolean affectGravity = true;
 	private ArrayList<Integer> charIntersect = new ArrayList<Integer>(); //Every item contains a reference of which characters it's intersecting with
 	
+	public void printCharLen() {
+		System.out.println(charIntersect.size());
+	}
+	
 	public boolean getGravity() {
 		return affectGravity;
 	}
@@ -87,14 +91,6 @@ public class Item {
 		this.y = y;
 		this.height = height;
 		this.width = width;
-	}
-
-	Item(int x, int y, int height, int width, int radius){
-		this.x = x;
-		this.y = y;
-		this.height = height;
-		this.width = width;
-		this.radius = radius;
 	}
 	
 	Item(int x, int y, int height, int width, int speed, int direction1, int direction2){

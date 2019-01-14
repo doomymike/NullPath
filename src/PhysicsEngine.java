@@ -7,9 +7,10 @@ public class PhysicsEngine {
 		int yPos = player.getPosition()[1];
 				
 		if (player.getGravity()) {
-			player.setVelocity(new double[] {player.getVelocity()[0], player.getVelocity()[1]-10}); //Not using getGravityV to sequentially decrease dy
-			player.setPosition((int)Math.round(xPos + player.getVelocity()[0]), (int)Math.round(yPos + player.getVelocity()[1]));
-		} 
+			player.setVelocity(new double[] {player.getVelocity()[0], player.getVelocity()[1]+0.08}); //Not using getGravityV to sequentially decrease dy
+		}
+		//System.out.println(player.getVelocity()[0] + " X_vel" + player.getVelocity()[1] + " Y_vel");
+		player.setPosition((int)Math.round(xPos + player.getVelocity()[0]), (int)Math.round(yPos + player.getVelocity()[1]));
 	}
 	
 	public void move(Item object) {
@@ -44,28 +45,44 @@ public class PhysicsEngine {
 			int itemHX = object.getX() + object.getWidth();
 			int itemLY = object.getY();
 			int itemHY = object.getY() + object.getHeight();
-			if ((itemLX < lowerX && itemHX > higherX) || (itemHX < higherX && itemLX > lowerX) || (itemLX > lowerX && itemHX < higherX)) {
-				if ((itemHY > higherY && itemLY < higherY) || (itemLY < higherY && itemHY > lowerY) || (itemHY < higherY && itemLY > lowerY)) {
-					if (object instanceof Platform || object instanceof VelocityModifier) {
+			if ((itemLX <= lowerX && itemHX >= higherX) || (itemLX >= lowerX && itemLX <= higherX) || (itemLX <= lowerX && itemHX >= lowerX)) {
+				if ((lowerY <= itemLY) && (higherY >= itemLY)) {
+					if (object instanceof Platform) {
 						player.resetY();
+
 						if (((Platform)object).getHoney() == true) {
 							if (object.checkChar(player.getTag()) == false) {
-								player.setVelocity(new double[] {Math.min(player.getVelocity()[0]-20, 0), Math.min(player.getVelocity()[1]-20, 0)});
+								player.setVelocity(honeyMod(player.getVelocity()));
 								object.addChar(player.getTag());
 							} //Reverse effect if no intersection occurs (bottom)
 						} else if (((Platform)object).getIce() == true) {
 							player.setIce(true);
 							player.setPDx(player.getVelocity()[0]/2);
+						} else if (object.checkChar(player.getTag()) == false){
+							object.addChar(player.getTag());
 						}
-					}
-					if (object instanceof CharacterLauncher) {
+						return true;
+					} else if (object instanceof CharacterLauncher) {
 						player.resetY();
 						//Player has already been reset (movement)
 						((CharacterLauncher) object).launchChar(player);
-					} else if (object instanceof VelocityModifier) {
-						//player.resetY(); - Already reset above (redundant)
+						return true;
+					} else if (object instanceof ConveyorBelt) {
 						if (object.checkChar(player.getTag()) == false) {
-							player.setVelocity(new double[] {player.getVelocity()[0]+(((VelocityModifier)object).getSpeed())[0], player.getVelocity()[1] + (((VelocityModifier)object).getSpeed())[1]});
+							player.resetY();
+							player.setVelocity(new double[] {player.getVelocity()[0]+(((VelocityModifier)object).getSpeed())[0], player.getVelocity()[1] - (((VelocityModifier)object).getSpeed())[1]});
+							object.addChar(player.getTag());
+						}
+						return true;
+					}
+					
+					
+				}
+				if ((itemHY >= higherY && itemLY <= higherY) || (itemLY <= higherY && itemHY >= lowerY) || (itemHY <= higherY && itemLY >= lowerY)) {
+					if (object instanceof VelocityModifier && !(object instanceof ConveyorBelt)) {
+						if (object.checkChar(player.getTag()) == false) {
+							player.resetY();
+							player.setVelocity(new double[] {player.getVelocity()[0]+(((VelocityModifier)object).getSpeed())[0], player.getVelocity()[1] - (((VelocityModifier)object).getSpeed())[1]});
 							object.addChar(player.getTag());
 						}
 					}		
@@ -74,17 +91,43 @@ public class PhysicsEngine {
 			}
 			
 			if (object.checkChar(player.getTag())) {
+				if (object instanceof ConveyorBelt) {
+					player.setVelocity(new double[]{player.getVelocity()[0] - ((ConveyorBelt)object).getSpeed()[0], player.getVelocity()[1]});
+				}
+				if (object instanceof FanWind) {
+					player.setVelocity(new double[]{player.getVelocity()[0], player.getVelocity()[1] + ((FanWind)object).getSpeed()[1]});
+				}
+				
 				if (object instanceof Platform) {
 					if (((Platform)object).getIce() == true) {
 						player.setIce(false);
 					}
 				}
-				object.removeChar(player.getTag());
 				player.resetGravity();
+				object.printCharLen();
+				object.removeChar(player.getTag());
 			}
 		}
 		
 		return false;	
+	}
+	
+	public static double[] honeyMod(double [] vel) {
+		double dx = vel[0];
+		double dy = vel[1];
+		
+		double new_dx = dx - Integer.signum((int)dx);
+		double new_dy = dy - Integer.signum((int)dy)*3;
+		
+		if (Integer.signum((int)Math.round(new_dx)) != Integer.signum((int)dx)) {
+			new_dx = 0;
+		}
+		
+		if (Integer.signum((int)Math.round(new_dy)) != Integer.signum((int)dy)) {
+			new_dy = 0;
+		}
+		
+		return new double[] {new_dx, new_dy};
 	}
 	
 	public static boolean checkCollision(Item object1, Item object2, boolean circular1, boolean circular2) {

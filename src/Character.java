@@ -12,10 +12,23 @@ public class Character {
 	private BufferedImage sprite;
 	private BufferedImage[] sprites = new BufferedImage[32];
 	int speed = 10;
-	private boolean inJump = false;
 	private boolean affectGravity = true;
 	private int uniqueTag;
+	private double preserveDx = 0;
+	private boolean onIce = false;
+	private boolean canJump = false;
+	private boolean [] motionState = {false, false, false, false};
+	//MotionState: Used in correspondance to keyListeners to ensure that velocities are only changed once (no acceleration)
+	//{leftState, rightState, upState, downState}
 	
+	public boolean[] getMotion() {
+		return motionState;
+	}
+	
+	public void setMotion(boolean state, int idx) {
+		motionState[idx] = state;
+	}
+		
 	Character(String name) throws IOException{
 		
 		sprites[0] = ImageIO.read(new File("resources/"+name+"CrouchReference"));
@@ -47,18 +60,32 @@ public class Character {
 		this.height = height;
 		this.width = width;
 		this.uniqueTag = tag;
+		this.dx = 0;
+		this.dy = 0;
 	}
 
+	public boolean getIce() {
+		return onIce;
+	}
+	
+	public void setIce(boolean state) {
+		onIce = state;
+	}
+	
+	public void setPDx(double newDx) {
+		preserveDx = newDx;
+	}
+	
+	public double getPDx() {
+		return preserveDx;
+	}
+	
 	public int getTag() {
 		return uniqueTag;
 	}
 	
-	public boolean jumpMotion() {
-		return inJump;
-	}
-	
 	public void setJump(boolean state) {
-		inJump = state;
+		canJump = state;
 	}
 	
 	public boolean getGravity() {
@@ -79,8 +106,8 @@ public class Character {
 	}
 	
 	public void setVelocity(double [] newVel) {
-		dy = newVel[0];
-		dx = newVel[1];
+		dx = newVel[0];
+		dy = newVel[1];
 	}
 	
 	public boolean isAlive() {
@@ -116,8 +143,8 @@ public class Character {
 		
 	}
 	
-	public void jump() {
-		inJump = true;
+	public boolean getJump() {
+		return canJump;
 	}
 	
 	public void resetGravity() {
@@ -126,7 +153,9 @@ public class Character {
 	
 	public void resetY() {
 		affectGravity = false;
-		dy = 0;
+		if (dy > 0) {
+			dy = 0;
+		}
 	}
 	
 }

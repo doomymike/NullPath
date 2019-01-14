@@ -21,7 +21,7 @@ public class VelocityModifier extends Item{
 		return xyDir;
 	}
 	
-	public int[] getSpeed() {
+	public double[] getSpeed() {
 		return null;
 	}
 	

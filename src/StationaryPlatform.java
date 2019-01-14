@@ -4,12 +4,10 @@ public class StationaryPlatform extends Platform{
 	
 	StationaryPlatform(int x, int y) {
 		super(x, y);
-		// TODO Auto-generated constructor stub
 	}
 	
-	StationaryPlatform(int x, int y, int width, int length) {
-		super(x, y,width,length);
-		// TODO Auto-generated constructor stub
+	StationaryPlatform(int x, int y, int height, int length) {
+		super(x, y,height,length);
 	}
 	
 	public static BufferedImage getSprite(){
