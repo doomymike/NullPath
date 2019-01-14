@@ -27,7 +27,7 @@ public class Resources {
 		}
 		
 		//Add all stages to list
-		
+		stages.add(new Stage("SkyFortress"));
 		
 	}
 	

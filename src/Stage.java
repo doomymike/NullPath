@@ -12,7 +12,7 @@ public class Stage {
     private SimpleLinkedList<Character> characters;
     private ItemBox itemBox;
     
-    private String[][] skyFortressMapCollision = new String[36][86];
+    private String[][] skyFortressMapCollision = new String[38][86];
 	private BufferedImage skyFortressImage;
 
     public Stage(BufferedImage sprite) {
@@ -20,7 +20,7 @@ public class Stage {
     }
     
     public Stage(String stageName) {
-    	
+    	mapInit(stageName);
     }
 
     public SimpleLinkedList<Item> getItems() {
@@ -84,13 +84,9 @@ public class Stage {
     }
     
     private void mapInit(String mapName) {
-    	try {
-			skyFortressImage = ImageIO.read(new File("/resources/SkyFortress.png")); //idk if this is right pathname
-		} catch (IOException e) {
-
-		}
 		try {
-			Scanner input = new Scanner(new File("/resources/SkyFortressCollision")); //idk if pathname is correct
+			skyFortressImage = ImageIO.read(new File("/resources/SkyFortress.png")); //idk if this is right pathname
+			Scanner input = new Scanner(new File("/resources/SkyFortressCollision.txt")); //idk if pathname is correct
 			input.close();
 			String line;
 			int index = 0;

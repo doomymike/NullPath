@@ -36,6 +36,8 @@ public class GameAreaFrame extends JFrame {
 	
 	private Player player = null; // Player that is running the game
 	
+	Resources resources;
+	
 	// Constructor
     public GameAreaFrame() {
         super("NullPath");
@@ -55,7 +57,6 @@ public class GameAreaFrame extends JFrame {
         	panelChange = false;
         }
         
-
         //this.add(mapIntegration);
         //Deprecated method - to be replaced by stage
         
@@ -68,6 +69,9 @@ public class GameAreaFrame extends JFrame {
 
         // Make the frame visible
         this.setVisible (true);
+        
+        // Initialize resources object (with characters + stage)
+        resources = new Resources();
         
         while(true) {
 
@@ -175,14 +179,6 @@ public class GameAreaFrame extends JFrame {
         }
 
     } // End of constructor
-    
-    /**
-     * initCharacters
-     * Initializes resources object, which inits character objects (blue, red, green, yellow)
-     */
-    private void initResources() {
-    	Resources resources = new Resources();
-    }
     
   //****** Inner Classes for KeyListener ****
 
