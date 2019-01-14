@@ -101,6 +101,13 @@ public class Item {
 		this.width = width;
 	}
 	
+	Item(int x, int y, int height, int width, int radius){
+		this.x = x;
+		this.y = y;
+		this.height = height;
+		this.width = width;
+		this.radius=radius;
+	}
 	
 	Item(int x, int y, int height, int width, int radius, double[] speed, boolean affectGravity){
 		this.x = x;
