@@ -56,22 +56,22 @@ public class GamePanel extends JPanel {
 	
 	public void CameraAdjust(SimpleLinkedList<Player> players){
 		int minX = players.get(0).getCharacter().getPosition()[0];
-		int maxX = minX;
+		int maxX = minX+players.get(0).getCharacter().getWidth();
 		int minY = players.get(0).getCharacter().getPosition()[1];
-		int maxY = minY;
+		int maxY = minY+players.get(0).getCharacter().getHeight() ;
 		
 		for(int i =1;i<4;i++){
 			if (players.get(i).getCharacter().getPosition()[0] <minX){ ///AAAAAAAAAAAAAAAHHHHHHHHHHHHHHH CHARACTER DIMENSIONS
 				minX = players.get(i).getCharacter().getPosition()[0];
 			}
 			if (players.get(i).getCharacter().getPosition()[0] > maxX){
-				maxX = players.get(i).getCharacter().getPosition()[0];
+				maxX = players.get(i).getCharacter().getPosition()[0]+players.get(i).getCharacter().getWidth();
 			}
 			if (players.get(i).getCharacter().getPosition()[1] <minY){
 				minY = players.get(i).getCharacter().getPosition()[1];
 			}
 			if (players.get(i).getCharacter().getPosition()[0] >maxY){
-				maxY = players.get(i).getCharacter().getPosition()[1];
+				maxY = players.get(i).getCharacter().getPosition()[1]+players.get(i).getCharacter().getHeight();
 			}
 			
 			minX-=20;
