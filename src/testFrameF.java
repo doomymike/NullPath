@@ -41,7 +41,6 @@ public class testFrameF extends JPanel implements KeyListener{
     	public void paintComponent(Graphics g) {
     		  
     		int convSec = (int)(System.nanoTime()/(Math.pow(10, 9)) - initStart);
-    		
     		// Call the super class
     	    super.paintComponent(g);
     	    setDoubleBuffered(true);
@@ -87,6 +86,12 @@ public class testFrameF extends JPanel implements KeyListener{
     				if (testPlayer.getHoney()) {
     					testPlayer.setHMotion(true, 1);
     					testPlayer.setVelocity(new double[] {testPlayer.getVelocity()[0]+1, testPlayer.getVelocity()[1]});
+    				} else if (testPlayer.getIce()){
+    					if (testPlayer.getIMotion()) {
+    						testPlayer.setVelocity(new double[] {testPlayer.getVelocity()[0]-testPlayer.getLastI() , testPlayer.getVelocity()[1]});
+    					}
+    					testPlayer.setVelocity(new double[] {testPlayer.getVelocity()[0]+2, testPlayer.getVelocity()[1]});
+    					testPlayer.setIMotion(false);
     				} else {
     					testPlayer.setVelocity(new double[] {testPlayer.getVelocity()[0]+2, testPlayer.getVelocity()[1]});
     				}
@@ -94,6 +99,10 @@ public class testFrameF extends JPanel implements KeyListener{
     			}
     		} else if (c == 'w' && testPlayer.getJump()) {
     			if (testPlayer.getMotion()[2] == false) {
+    				if(testPlayer.getIMotion()) {
+    					testPlayer.setVelocity(new double[] {testPlayer.getVelocity()[0]-testPlayer.getLastI() , testPlayer.getVelocity()[1]});
+    					testPlayer.setIMotion(false);
+    				}
     				if (testPlayer.getHoney()) {
     					testPlayer.setVelocity(new double[] {testPlayer.getVelocity()[0], testPlayer.getVelocity()[1]-3});
     				} else {
@@ -104,9 +113,14 @@ public class testFrameF extends JPanel implements KeyListener{
     		} else if (c == 'a') {
     			if (testPlayer.getMotion()[0] == false) {
     				if (testPlayer.getHoney()) {
-    					System.out.println("STARTD");
     					testPlayer.setHMotion(true, 0);
     					testPlayer.setVelocity(new double[] {testPlayer.getVelocity()[0]-1, testPlayer.getVelocity()[1]});
+    				} else if (testPlayer.getIce()){
+    					if (testPlayer.getIMotion()) {
+    						testPlayer.setVelocity(new double[] {testPlayer.getVelocity()[0]-testPlayer.getLastI() , testPlayer.getVelocity()[1]});
+    					}
+    					testPlayer.setVelocity(new double[] {testPlayer.getVelocity()[0]-2 , testPlayer.getVelocity()[1]});
+    					testPlayer.setIMotion(false);
     				} else {
     					testPlayer.setVelocity(new double[] {testPlayer.getVelocity()[0]-2, testPlayer.getVelocity()[1]});
     				}
@@ -119,10 +133,15 @@ public class testFrameF extends JPanel implements KeyListener{
     		char c = e.getKeyChar();
     		if (c == 'd') {
     			if (testPlayer.getMotion()[1]) {
+    				System.out.println(testPlayer.getVelocity()[0]);
     				if (testPlayer.getHMotion()[1]) {
-    					System.out.println("PLS");
     					testPlayer.setHMotion(false, 1);
     					testPlayer.setVelocity(new double[] {testPlayer.getVelocity()[0]-1, testPlayer.getVelocity()[1]});
+    				} else if (testPlayer.getIce() && testPlayer.getIMotion() == false){
+    					testPlayer.setIMotion(true);
+    					testPlayer.setLastI(testPlayer.getVelocity()[0]*(.33));
+    					System.out.println(testPlayer.getVelocity()[0]*(.33));
+    					testPlayer.setVelocity(new double[] {testPlayer.getVelocity()[0]*(.33), testPlayer.getVelocity()[1]});
     				} else { 
     					testPlayer.setVelocity(new double[] {testPlayer.getVelocity()[0]-2, testPlayer.getVelocity()[1]});
     				}
@@ -138,6 +157,10 @@ public class testFrameF extends JPanel implements KeyListener{
     				if (testPlayer.getHMotion()[0]) {
     					testPlayer.setHMotion(false, 0);
     					testPlayer.setVelocity(new double[] {testPlayer.getVelocity()[0]+1, testPlayer.getVelocity()[1]});	
+    				} else if (testPlayer.getIce() && testPlayer.getIMotion() == false) {
+    					testPlayer.setIMotion(true);
+    					testPlayer.setLastI(testPlayer.getVelocity()[0]*(.33));
+    					testPlayer.setVelocity(new double[] {testPlayer.getVelocity()[0]*(.33), testPlayer.getVelocity()[1]});
     				} else {
     					testPlayer.setVelocity(new double[] {testPlayer.getVelocity()[0]+2, testPlayer.getVelocity()[1]});	
     				}

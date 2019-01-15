@@ -8,6 +8,9 @@ public class PhysicsEngine {
 		this.contactMap = contactMap;
 	}
 	
+	PhysicsEngine(){
+	}
+	
 	public void move(Character player){
 		int xPos = player.getPosition()[0];
 		int yPos = player.getPosition()[1];
@@ -57,14 +60,16 @@ public class PhysicsEngine {
 						player.resetY();
 
 						if (((Platform)object).getHoney() == true) {
+							System.out.println("BAD");
 							if (player.getHoney() == false) {
 								//player.setVelocity(honeyMod(player, player.getVelocity()));
 								player.setHoney(true);
 								//object.addChar(player.getTag());
 							} //Reverse effect if no intersection occurs (bottom)
 						} else if (((Platform)object).getIce() == true) {
-							((Platform)object).addVelEntry(player.getTag(), player.getVelocity()[0]/3);
-							player.setVelocity(new double[]{player.getVelocity()[0]- Integer.signum((int)player.getVelocity()[0])*(player.getVelocity()[0]/3), player.getVelocity()[1]});
+							if (player.getIce() == false) {
+								player.setIce(true);
+							}
 						} 
 						if (object.checkChar(player.getTag()) == false){
 							System.out.println("ON");
@@ -116,8 +121,6 @@ public class PhysicsEngine {
 					}
 					if (((Platform)object).getIce() == true) {
 						player.setIce(false);
-						player.setVelocity(new double[] {player.getVelocity()[0]+ Integer.signum((int)(((Platform)object).getEntry(player.getTag())))*(((Platform)object).getEntry(player.getTag())), player.getVelocity()[1]});
-						((Platform)object).removeVelEntry(player.getTag());
 					}
 				}
 				player.resetGravity();
