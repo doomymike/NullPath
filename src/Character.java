@@ -18,8 +18,27 @@ public class Character {
 	private boolean onIce = false;
 	private boolean canJump = false;
 	private boolean [] motionState = {false, false, false, false};
+	private boolean [] lastHoney = {false, false};
 	//MotionState: Used in correspondance to keyListeners to ensure that velocities are only changed once (no acceleration)
 	//{leftState, rightState, upState, downState}
+	public boolean applyHoney = false;
+	public boolean honeyMotion = false;
+	
+	public boolean[] getHMotion() {
+		return lastHoney;
+	}
+	
+	public void setHMotion(boolean motion, int idx) {
+		lastHoney[idx] = motion;
+	}
+	
+	public boolean getHoney() {
+		return applyHoney;
+	}
+	
+	public void setHoney(boolean state) {
+		applyHoney = state;
+	}
 	
 	public boolean[] getMotion() {
 		return motionState;

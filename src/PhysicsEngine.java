@@ -2,12 +2,18 @@ import java.awt.Rectangle;
 
 public class PhysicsEngine {
 	
+	String [][] contactMap = null;
+	
+	PhysicsEngine(String[][] contactMap){
+		this.contactMap = contactMap;
+	}
+	
 	public void move(Character player){
 		int xPos = player.getPosition()[0];
 		int yPos = player.getPosition()[1];
 				
 		if (player.getGravity()) {
-			player.setVelocity(new double[] {player.getVelocity()[0], player.getVelocity()[1]+0.08}); //Not using getGravityV to sequentially decrease dy
+			player.setVelocity(new double[] {player.getVelocity()[0], player.getVelocity()[1]+0.06}); //Not using getGravityV to sequentially decrease dy
 		}
 		//System.out.println(player.getVelocity()[0] + " X_vel" + player.getVelocity()[1] + " Y_vel");
 		player.setPosition((int)Math.round(xPos + player.getVelocity()[0]), (int)Math.round(yPos + player.getVelocity()[1]));
@@ -51,20 +57,26 @@ public class PhysicsEngine {
 						player.resetY();
 
 						if (((Platform)object).getHoney() == true) {
-							if (object.checkChar(player.getTag()) == false) {
-								player.setVelocity(honeyMod(player.getVelocity()));
-								object.addChar(player.getTag());
+							if (player.getHoney() == false) {
+								//player.setVelocity(honeyMod(player, player.getVelocity()));
+								player.setHoney(true);
+								//object.addChar(player.getTag());
 							} //Reverse effect if no intersection occurs (bottom)
 						} else if (((Platform)object).getIce() == true) {
-							player.setIce(true);
-							player.setPDx(player.getVelocity()[0]/2);
-						} else if (object.checkChar(player.getTag()) == false){
+							((Platform)object).addVelEntry(player.getTag(), player.getVelocity()[0]/3);
+							player.setVelocity(new double[]{player.getVelocity()[0]- Integer.signum((int)player.getVelocity()[0])*(player.getVelocity()[0]/3), player.getVelocity()[1]});
+						} 
+						if (object.checkChar(player.getTag()) == false){
+							System.out.println("ON");
 							object.addChar(player.getTag());
 						}
 						return true;
 					} else if (object instanceof CharacterLauncher) {
 						player.resetY();
 						//Player has already been reset (movement)
+						if (object.checkChar(player.getTag()) == false) {
+							object.addChar(player.getTag());
+						}
 						((CharacterLauncher) object).launchChar(player);
 						return true;
 					} else if (object instanceof ConveyorBelt) {
@@ -99,36 +111,48 @@ public class PhysicsEngine {
 				}
 				
 				if (object instanceof Platform) {
+					if (((Platform)object).getHoney()) {
+						player.setHoney(false);
+					}
 					if (((Platform)object).getIce() == true) {
 						player.setIce(false);
+						player.setVelocity(new double[] {player.getVelocity()[0]+ Integer.signum((int)(((Platform)object).getEntry(player.getTag())))*(((Platform)object).getEntry(player.getTag())), player.getVelocity()[1]});
+						((Platform)object).removeVelEntry(player.getTag());
 					}
 				}
 				player.resetGravity();
-				object.printCharLen();
+				System.out.println("STAPP");
 				object.removeChar(player.getTag());
 			}
 		}
 		
 		return false;	
 	}
-	
-	public static double[] honeyMod(double [] vel) {
+
+	/*
+	public static double[] honeyMod(Character player, double [] vel) {
 		double dx = vel[0];
 		double dy = vel[1];
 		
 		double new_dx = dx - Integer.signum((int)dx);
 		double new_dy = dy - Integer.signum((int)dy)*3;
 		
-		if (Integer.signum((int)Math.round(new_dx)) != Integer.signum((int)dx)) {
+		if (Integer.signum((int)new_dx) != Integer.signum((int)dx)) {
 			new_dx = 0;
 		}
 		
-		if (Integer.signum((int)Math.round(new_dy)) != Integer.signum((int)dy)) {
+		if (Integer.signum((int)new_dy) != Integer.signum((int)dy)) {
 			new_dy = 0;
 		}
 		
+		if (new_dx == 0 && new_dy == 0) {
+			player.setHoney(false);
+		}
+		
+		System.out.println(dx+" "+dy+" NEW: "+new_dx+" "+new_dy);
 		return new double[] {new_dx, new_dy};
 	}
+	*/
 	
 	public static boolean checkCollision(Item object1, Item object2, boolean circular1, boolean circular2) {
 		int centerLX, centerHX, centerLY, centerHY, otherLX, otherHX, otherLY, otherHY;
