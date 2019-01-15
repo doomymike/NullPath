@@ -20,7 +20,10 @@ public class GamePanel extends JPanel {
 	}
 
 	public void paintComponent(Graphics g) {
-	  
+		
+		CameraAdjust(resource.getPlayers()); // Adjust camera values
+		// Draw extra background in back here
+		g.drawImage(Resources.getStages().get(0).getSprite(), lowX, lowY, highX-lowX, highY-lowY, this); // Draw image of stage
 	}
   	
 	void setResources(Resources resource){
@@ -74,18 +77,19 @@ public class GamePanel extends JPanel {
 				maxY = players.get(i).getCharacter().getPosition()[1]+players.get(i).getCharacter().getHeight();
 			}
 			
-			minX-=20;
-			maxX+=20;
-			minY-=20;
-			maxY+=20;
 			
-			//don't think we need this bc its different now because we can show offscreen
-//			minX = Math.max(minX, 0);
-//			minY = Math.max(minY, 0);
-//			maxX = Math.min(maxX, 860);
-//			maxY = Math.min(maxY, 380);
 		}
 		
+		minX-=20;
+		maxX+=20;
+		minY-=20;
+		maxY+=20;
+		
+		//don't think we need this bc its different now because we can show offscreen
+//		minX = Math.max(minX, 0);
+//		minY = Math.max(minY, 0);
+//		maxX = Math.min(maxX, 860);
+//		maxY = Math.min(maxY, 380);
 		
 		double tempRatio = (maxX-minX)/(maxY-minY);
 		int tempAmount;
