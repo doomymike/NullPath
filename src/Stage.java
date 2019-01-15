@@ -38,6 +38,10 @@ public class Stage {
     public BufferedImage getSprite() {
         return sprite;
     }
+    
+    public String[][] getCollisionMap() {
+    	return skyFortressMapCollision;
+    }
 
     public void addItem(Item item) {
         if (!(item instanceof Bomb)) {

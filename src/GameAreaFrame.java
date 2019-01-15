@@ -40,6 +40,8 @@ public class GameAreaFrame extends JFrame {
 	
 	Resources resources;
 	
+	PhysicsEngine physicsEngine;
+	
 	// Constructor
     public GameAreaFrame() {
         super("NullPath");
@@ -74,6 +76,9 @@ public class GameAreaFrame extends JFrame {
         
         // Initialize resources object (with characters + stage)
         resources = new Resources();
+        
+        // Initialize physics object
+        physicsEngine = new PhysicsEngine(resources.getStages().get(0).getCollisionMap());
         
         while(true) {
 
