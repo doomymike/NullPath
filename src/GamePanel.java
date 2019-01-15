@@ -12,7 +12,7 @@ public class GamePanel extends JPanel {
 	Resources resource;
 	private String buttonPressed = "";
 	
-	private int lowX,lowY,highX,HighY,ratio;
+	private int lowX,lowY,highX,highY,ratio;
 	
 	
 	GamePanel() {
@@ -79,28 +79,70 @@ public class GamePanel extends JPanel {
 			minY-=20;
 			maxY+=20;
 			
-			minX = Math.max(minX, 0);
-			minY = Math.max(minY, 0);
-			maxX = Math.min(maxX, 860);
-			maxY = Math.min(maxY, 380);
+			//don't think we need this bc its different now because we can show offscreen
+//			minX = Math.max(minX, 0);
+//			minY = Math.max(minY, 0);
+//			maxX = Math.min(maxX, 860);
+//			maxY = Math.min(maxY, 380);
 		}
 		
 		
-		//AAAAAAAAAAAAAAAHHHHHHHHHHHHHHHHHH EXPAND CAMERA OUT OF SCREEN AAAAAAAAAAAHHHHHHHHH :(((((
 		double tempRatio = (maxX-minX)/(maxY-minY);
 		int tempAmount;
 		
 		if (tempRatio > 36.0/29.0){ //too much x
 			tempAmount = (int)Math.round((maxX-minX)*29.0/36.0);
 			//fix y
+			tempAmount /=2;
+			if(minY> tempAmount){
+				minY-=tempAmount;
+				if(maxY<380-tempAmount){ //maxY can't be above 380
+					maxY+= tempAmount;
+				}else{
+					int leftOver = 380-maxY;
+					maxY =380;
+					minY -= leftOver;
+				}
+			}
+			
+		}else if(tempRatio < 36.0/29.0){ //too much y
+			tempAmount = (int)Math.round((maxY-minY)*36.0/29.0);
+			//fix x
+			tempAmount /=2;
+			minX-=tempAmount;
+			maxX+=tempAmount;
 		}
 		
 		//gonna need a ratio ops
 		//360 by 290
+		
+		//AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHHHHHHHHHHHHHHHHHH USE OTHER SPRITE IF ZOOM OUT OF CAMERA
+		this.highX= maxX;
+		this.highY= maxY;
+		this.lowX= minX;
+		this.lowY= minY;
+		
+		//ratio time
+		//ngl super unsure about this boi
+		this.ratio = 360/(maxX-minX);
+				
+		
 	}
 
 	public void setButtonPressed(String buttonPressed) {
 		this.buttonPressed = buttonPressed;
 	}
 	
+	public int[] getScreen(){
+		int[] dimensions = new int[4];
+		dimensions[0]= lowX;
+		dimensions[1]= highX;
+		dimensions[2]= lowY;
+		dimensions[3]= highY;
+		return dimensions;
+	}
+	
+	public double getRatio(){
+		return ratio;
+	}
 }
