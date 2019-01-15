@@ -64,20 +64,21 @@ public class GamePanel extends JPanel {
 		int maxY = minY+players.get(0).getCharacter().getHeight() ;
 		
 		for(int i =1;i<4;i++){
-			if (players.get(i).getCharacter().getPosition()[0] <minX){ ///AAAAAAAAAAAAAAAHHHHHHHHHHHHHHH CHARACTER DIMENSIONS
-				minX = players.get(i).getCharacter().getPosition()[0];
-			}
-			if (players.get(i).getCharacter().getPosition()[0] > maxX){
-				maxX = players.get(i).getCharacter().getPosition()[0]+players.get(i).getCharacter().getWidth();
-			}
-			if (players.get(i).getCharacter().getPosition()[1] <minY){
-				minY = players.get(i).getCharacter().getPosition()[1];
-			}
-			if (players.get(i).getCharacter().getPosition()[0] >maxY){
-				maxY = players.get(i).getCharacter().getPosition()[1]+players.get(i).getCharacter().getHeight();
-			}
+			if(players.get(i).getCharacter().isAlive()){
+				if (players.get(i).getCharacter().getPosition()[0] <minX){ ///AAAAAAAAAAAAAAAHHHHHHHHHHHHHHH CHARACTER DIMENSIONS
+					minX = players.get(i).getCharacter().getPosition()[0];
+				}
+				if (players.get(i).getCharacter().getPosition()[0] > maxX){
+					maxX = players.get(i).getCharacter().getPosition()[0]+players.get(i).getCharacter().getWidth();
+				}
+				if (players.get(i).getCharacter().getPosition()[1] <minY){
+					minY = players.get(i).getCharacter().getPosition()[1];
+				}
+				if (players.get(i).getCharacter().getPosition()[0] >maxY){
+					maxY = players.get(i).getCharacter().getPosition()[1]+players.get(i).getCharacter().getHeight();
+				}
 			
-			
+			}
 		}
 		
 		minX-=20;
