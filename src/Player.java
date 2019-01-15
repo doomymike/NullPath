@@ -5,6 +5,7 @@ public class Player {
 	private Character character;
 	private int score;
 	private boolean finished;
+	private Item killedBy;
 	
 	public Player(String name) {
 		this.name = name;
@@ -40,6 +41,14 @@ public class Player {
 	
 	public void die(){
 		
+	}
+
+	public Item getKilledBy() {
+		return killedBy;
+	}
+
+	public void setKilledBy(Item killedBy) {
+		this.killedBy = killedBy;
 	}
 	
 }
