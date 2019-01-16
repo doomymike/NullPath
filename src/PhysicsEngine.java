@@ -25,38 +25,57 @@ public class PhysicsEngine {
 		if (character.getVelocity()[1] == 0) { // if character has no vertical component of velocity
 			if (character.getVelocity()[0] == 0) { // if character is not moving at all
 				character.setCurrentAction("idle");
+				if ((character.getCurrentFrameIndex() < 8) || (character.getCurrentFrameIndex() > 12)) {
+					character.setCurrentFrameIndex(8);
+				} else {
+					character.setCurrentFrameIndex(character.getCurrentFrameIndex()+1);
+				}
 			} else if (character.getVelocity()[0] < 0) { // if character is moving left on some surface (not fall/jump)
 				character.setCurrentAction("run");
-				if (character.getDirectionFacing().equals("right")) {
+				if (character.getDirectionFacing().equals("right")) { // change direction to left (and frame to first frame of run)
 					character.setDirectionFacing("left");
+					character.setCurrentFrameIndex(15);
+				} else {
+					if ((character.getCurrentFrameIndex() > 14) || (character.getCurrentFrameIndex() < 22)) {
+						character.setCurrentFrameIndex(character.getCurrentFrameIndex()+1);
+					} else {
+						character.setCurrentFrameIndex(15);
+					}
 				}
 			} else { // if character is moving right on some surface (not fall/jump)
 				character.setCurrentAction("run");
-				if (character.getDirectionFacing().equals("left")) {
+				if (character.getDirectionFacing().equals("left")) { // change direction to right (and frame to first frame of run)
 					character.setDirectionFacing("right");
+					character.setCurrentFrameIndex(15);
+				} else {
+					if ((character.getCurrentFrameIndex() > 14) || (character.getCurrentFrameIndex() < 22)) {
+						character.setCurrentFrameIndex(character.getCurrentFrameIndex()+1);
+					} else {
+						character.setCurrentFrameIndex(15);
+					}
 				}
 			}
 		} else if (character.getVelocity()[1] < 0) { // Falling
+			character.setCurrentFrameIndex(7); // set to fall frame index
+			character.setCurrentAction("fall"); // set to fall action
 			if (character.getVelocity()[0] < 0) { // if character is falling left
-				character.setCurrentAction("fall");
-				if (character.getDirectionFacing().equals("right")) {
+				if (character.getDirectionFacing().equals("right")) { // change direction to left
 					character.setDirectionFacing("left");
 				}
-			} else { // if character is falling right (or straight down)
-				character.setCurrentAction("fall");
-				if (character.getDirectionFacing().equals("left")) {
+			} else { // if character is falling right
+				if (character.getDirectionFacing().equals("left")) { // change direction to right
 					character.setDirectionFacing("right");
 				}
 			}
 		} else {
+			character.setCurrentFrameIndex(14); // set to jump frame index
+			character.setCurrentAction("jump"); // set to jump action
 			if (character.getVelocity()[0] < 0) { // if character is jumping left
-				character.setCurrentAction("jump");
-				if (character.getDirectionFacing().equals("right")) {
+				if (character.getDirectionFacing().equals("right")) { // change direction to left
 					character.setDirectionFacing("left");
 				}
 			} else { // if character is jumping right
-				character.setCurrentAction("jump");
-				if (character.getDirectionFacing().equals("left")) {
+				if (character.getDirectionFacing().equals("left")) { // change direction to right
 					character.setDirectionFacing("right");
 				}
 			}

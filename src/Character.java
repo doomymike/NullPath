@@ -27,6 +27,8 @@ public class Character {
 	public boolean iceMotion = false;
 	private String currentAction = "idle";
 	private String directionFacing = "right";
+	private BufferedImage activeFrame;
+	private int currentFrameIndex;
 	
 	public void setLastI(double recentIce){
 		lastIce = recentIce;
@@ -227,6 +229,18 @@ public class Character {
 	public void die() {
 		alive = false;
 		currentAction = "death";
+	}
+	
+	public BufferedImage getActiveFrame() {
+		return activeFrame;
+	}
+
+	public int getCurrentFrameIndex() {
+		return currentFrameIndex;
+	}
+
+	public void setCurrentFrameIndex(int currentFrameIndex) {
+		this.currentFrameIndex = currentFrameIndex;
 	}
 	
 }
