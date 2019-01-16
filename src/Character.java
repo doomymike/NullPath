@@ -25,6 +25,8 @@ public class Character {
 	public boolean applyHoney = false;
 	public boolean honeyMotion = false;
 	public boolean iceMotion = false;
+	private String currentAction = "idle";
+	private String directionFacing = "right";
 	
 	public void setLastI(double recentIce){
 		lastIce = recentIce;
@@ -68,23 +70,38 @@ public class Character {
 		
 	Character(String name) throws IOException{
 		
+		// currentAction = "crouch"
 		sprites[0] = ImageIO.read(new File("resources/"+name+"CrouchReference"));
+		
+		// currentAction = "death"
 		for (int i = 1;i<7;i++){
 			sprites[0+i] = ImageIO.read(new File("resources/"+name+"DeathReference"+i));
 		}
 		
+		// currentAction = "fall"
 		sprites[7] = ImageIO.read(new File("resources/"+name+"FallReference"));
+		
+		// currentAction = "idle"
 		for (int i = 1;i<7;i++){
 			sprites[7+i] = ImageIO.read(new File("resources/"+name+"IdleReference"+i));
 		}
+		
+		// currentAction = "jump"
 		sprites[14] = ImageIO.read(new File("resources/"+name+"JumpReference"));
+		
+		// currentAction = "run"
 		for (int i = 1;i<9;i++){
 			sprites[14+i] = ImageIO.read(new File("resources/"+name+"RunReference"+i));
 		}
+		
+		// currentAction = "slide"
 		sprites[23] = ImageIO.read(new File("resources/"+name+"SlideReference"));
+		
+		// currentAction = "victory"
 		for (int i = 1;i<9;i++){
 			sprites[23+i] = ImageIO.read(new File("resources/"+name+"VictoryReference"+i));
 		}
+		
 	}
 	
 	Character(BufferedImage sprite) {
@@ -193,6 +210,23 @@ public class Character {
 		if (dy > 0) {
 			dy = 0;
 		}
+	}
+	
+	public void setCurrentAction(String action) {
+		this.currentAction = currentAction;
+	}
+	
+	public String getDirectionFacing() {
+		return directionFacing;
+	}
+	
+	public void setDirectionFacing(String directionFacing) {
+		this.directionFacing = directionFacing;
+	}
+	
+	public void die() {
+		alive = false;
+		currentAction = "death";
 	}
 	
 }

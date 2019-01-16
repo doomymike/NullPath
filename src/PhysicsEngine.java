@@ -20,6 +20,48 @@ public class PhysicsEngine {
 		}
 		//System.out.println(player.getVelocity()[0] + " X_vel" + player.getVelocity()[1] + " Y_vel");
 		player.setPosition((int)Math.round(xPos + player.getVelocity()[0]), (int)Math.round(yPos + player.getVelocity()[1]));
+		
+		// Determine action performed by character
+		if (player.getVelocity()[1] == 0) { // if character has no vertical component of velocity
+			if (player.getVelocity()[0] == 0) { // if character is not moving at all
+				player.setCurrentAction("idle");
+			} else if (player.getVelocity()[0] < 0) { // if character is moving left on some surface (not fall/jump)
+				player.setCurrentAction("run");
+				if (player.getDirectionFacing().equals("right")) {
+					player.setDirectionFacing("left");
+				}
+			} else { // if character is moving right on some surface (not fall/jump)
+				player.setCurrentAction("run");
+				if (player.getDirectionFacing().equals("left")) {
+					player.setDirectionFacing("right");
+				}
+			}
+		} else if (player.getVelocity()[1] < 0) { // Falling
+			if (player.getVelocity()[0] < 0) { // if character is falling left
+				player.setCurrentAction("fall");
+				if (player.getDirectionFacing().equals("right")) {
+					player.setDirectionFacing("left");
+				}
+			} else { // if character is falling right (or straight down)
+				player.setCurrentAction("fall");
+				if (player.getDirectionFacing().equals("left")) {
+					player.setDirectionFacing("right");
+				}
+			}
+		} else {
+			if (player.getVelocity()[0] < 0) { // if character is jumping left
+				player.setCurrentAction("jump");
+				if (player.getDirectionFacing().equals("right")) {
+					player.setDirectionFacing("left");
+				}
+			} else { // if character is jumping right
+				player.setCurrentAction("jump");
+				if (player.getDirectionFacing().equals("left")) {
+					player.setDirectionFacing("right");
+				}
+			}
+		}
+		
 	}
 	
 	public void move(Item object) {
