@@ -1,12 +1,25 @@
 
-
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import javax.swing.*;
 
 
-public class IntroPanel extends JPanel {
+public class IntroPanel extends JPanel implements KeyListener {
 
     private String selection = "";
+    private boolean next = false;
+
+    //Override KeyListener Methods (proceed to next frame upon keypressed)
+    public void keyTyped(KeyEvent e) {
+    }
+    public void keyReleased(KeyEvent e){
+
+    }
+    public void keyPressed(KeyEvent e) {
+        next = true;
+    }
+
 
     public void paintComponent(Graphics g) {
 
@@ -32,11 +45,13 @@ public class IntroPanel extends JPanel {
         flow.setLocation(0,0);
         flow.setSize(1000,750);
 
+        addKeyListener(this);
         // Repaint
         repaint();
 
     }
 
+    public boolean getNext(){return this.next;}
     public String getSelection() {
         return selection;
     }
