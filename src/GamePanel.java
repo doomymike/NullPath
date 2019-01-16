@@ -12,8 +12,8 @@ public class GamePanel extends JPanel {
 	Resources resource;
 	private String buttonPressed = "";
 	
-	private int lowX,lowY,highX,highY,ratio;
-	
+	private int lowX,lowY,highX,highY;
+	private double ratio;
 	
 	GamePanel() {
 		
@@ -24,6 +24,18 @@ public class GamePanel extends JPanel {
 		CameraAdjust(resource.getPlayers()); // Adjust camera values
 		// Draw extra background in back here
 		g.drawImage(Resources.getStages().get(0).getSprite(), lowX, lowY, highX-lowX, highY-lowY, this); // Draw image of stage
+		
+		for(int i = 0;i<4;i++){
+			if (!resource.getCharacters().get(i).isAlive()){
+				g.drawImage(resource.getCharacters().get(i).getSprites()[6], resource.getCharacters().get(i).getPosition()[0]-lowX, resource.getCharacters().get(i).getPosition()[0]-lowX, (int)(resource.getCharacters().get(i).getWidth()*ratio), (int)(resource.getCharacters().get(i).getHeight()*ratio), this);
+			}
+			//fix the living drawing boi for flipperino
+			g.drawImage(resource.getCharacters().get(i).getActiveFrame(), resource.getCharacters().get(i).getPosition()[0]-lowX, resource.getCharacters().get(i).getPosition()[0]-lowX, (int)(resource.getCharacters().get(i).getWidth()*ratio), (int)(resource.getCharacters().get(i).getHeight()*ratio), this);
+			
+		}
+		for (int i =0;i<resource.getCurrentStage().getItems().size();i++){
+			g.drawImage(resource.getCurrentStage().getItems().get(i).getImage(), resource.getCurrentStage().getItems().get(i).getX()-lowX, resource.getCurrentStage().getItems().get(i).getY()-lowY, (int)(resource.getCurrentStage().getItems().get(i).getWidth()*ratio), (int)(resource.getCurrentStage().getItems().get(i).getHeight()*ratio), this);
+		}
 	}
   	
 	void setResources(Resources resource){
@@ -65,7 +77,7 @@ public class GamePanel extends JPanel {
 		
 		for(int i =1;i<4;i++){
 			if(players.get(i).getCharacter().isAlive()){
-				if (players.get(i).getCharacter().getPosition()[0] <minX){ ///AAAAAAAAAAAAAAAHHHHHHHHHHHHHHH CHARACTER DIMENSIONS
+				if (players.get(i).getCharacter().getPosition()[0] <minX){ 
 					minX = players.get(i).getCharacter().getPosition()[0];
 				}
 				if (players.get(i).getCharacter().getPosition()[0] > maxX){
@@ -121,7 +133,7 @@ public class GamePanel extends JPanel {
 		//gonna need a ratio ops
 		//360 by 290
 		
-		//AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHHHHHHHHHHHHHHHHHH USE OTHER SPRITE IF ZOOM OUT OF CAMERA
+		
 		this.highX= maxX;
 		this.highY= maxY;
 		this.lowX= minX;
