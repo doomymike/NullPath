@@ -51,12 +51,15 @@ public class GameAreaFrame extends JFrame {
 
         // Set screen size
         this.setDefaultCloseOperation (JFrame.EXIT_ON_CLOSE);
-        this.setSize(1000,1000); //Filler values
+        this.setSize(1000,750); //Filler values
         this.setResizable (false);
 
         // Set up the intro panel if start
         if ((panelCounter == 0) && panelChange) {
             introPanel = new IntroPanel ();
+            introPanel.addKeyListener(introframe);
+            introPanel.setFocusable(true);
+            
             this.getContentPane().add (introPanel);
             panelChange = false;
         }
