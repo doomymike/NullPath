@@ -243,4 +243,7 @@ public class Character {
 		this.currentFrameIndex = currentFrameIndex;
 	}
 	
+	public BufferedImage[] getSprites(){
+		return sprites;
+	}
 }
