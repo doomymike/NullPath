@@ -199,7 +199,7 @@ public class GameAreaFrame extends JFrame {
             if (e.getKeyCode() == 27) { //esc pressed
             	buttonPressed = "esc";
             	if (panelCounter == 0) {
-            		introPanel.setButtonPressed(buttonPressed);
+            		//introPanel.setButtonPressed(buttonPressed);
             	} else if (panelCounter == 1) {
 					mainMenuPanel.setButtonPressed(buttonPressed);
 				} else if (panelCounter == 2) {
@@ -213,7 +213,7 @@ public class GameAreaFrame extends JFrame {
             	buttonPressed = "enter";
             	System.out.println("enter pressed");
             	if (panelCounter == 0) {
-            		introPanel.setButtonPressed(buttonPressed);
+            		//introPanel.setButtonPressed(buttonPressed);
             	} else if (panelCounter == 1) {
 					mainMenuPanel.setButtonPressed(buttonPressed);
 				} else if (panelCounter == 2) {
@@ -226,7 +226,7 @@ public class GameAreaFrame extends JFrame {
             } else if (e.getKeyCode() == 9) { //tab pressed
             	buttonPressed = "tab";
             	if (panelCounter == 0) {
-            		introPanel.setButtonPressed(buttonPressed);
+            		//introPanel.setButtonPressed(buttonPressed);
             	} else if (panelCounter == 1) {
 					mainMenuPanel.setButtonPressed(buttonPressed);
 				} else if (panelCounter == 2) {
@@ -251,7 +251,7 @@ public class GameAreaFrame extends JFrame {
             if (e.getKeyCode() == 37) { //Left pressed
             	buttonPressed = "left";
             	if (panelCounter == 0) {
-            		introPanel.setButtonPressed(buttonPressed);
+            		//introPanel.setButtonPressed(buttonPressed);
             	} else if (panelCounter == 1) {
 					mainMenuPanel.setButtonPressed(buttonPressed);
 				} else if (panelCounter == 2) {
@@ -264,7 +264,7 @@ public class GameAreaFrame extends JFrame {
             } else if (e.getKeyCode() == 38) {//Up pressed
             	buttonPressed = "up";
             	if (panelCounter == 0) {
-            		introPanel.setButtonPressed(buttonPressed);
+            		//introPanel.setButtonPressed(buttonPressed);
             	} else if (panelCounter == 1) {
 					mainMenuPanel.setButtonPressed(buttonPressed);
 				} else if (panelCounter == 2) {
@@ -277,7 +277,7 @@ public class GameAreaFrame extends JFrame {
             } else if (e.getKeyCode() == 39) { //Right pressed
             	buttonPressed = "right";
             	if (panelCounter == 0) {
-            		introPanel.setButtonPressed(buttonPressed);
+            		//introPanel.setButtonPressed(buttonPressed);
             	} else if (panelCounter == 1) {
 					mainMenuPanel.setButtonPressed(buttonPressed);
 				} else if (panelCounter == 2) {
@@ -290,7 +290,7 @@ public class GameAreaFrame extends JFrame {
             } else if (e.getKeyCode() == 40) { //Down pressed
             	buttonPressed = "down";
             	if (panelCounter == 0) {
-            		introPanel.setButtonPressed(buttonPressed);
+            		//introPanel.setButtonPressed(buttonPressed);
             	} else if (panelCounter == 1) {
 					mainMenuPanel.setButtonPressed(buttonPressed);
 				} else if (panelCounter == 2) {
