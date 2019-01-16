@@ -83,8 +83,7 @@ public class GameAreaFrame extends JFrame {
         while(true) {
 
             if ((panelCounter == 0) && !panelChange) {
-            	System.out.println(introPanel.getSelection());
-            	if (introPanel.getSelection().equals("start")) {
+            	if (introPanel.getNext()) {
             		this.getContentPane().remove(introPanel); // Remove the intro panel
             		mainMenuPanel = new MainMenuPanel(); // Add the main menu panel
             		this.getContentPane().add(mainMenuPanel);
