@@ -26,14 +26,22 @@ public class GamePanel extends JPanel {
 		
 		for(int i = 0;i<4;i++){
 			if (!resource.getCharacters().get(i).isAlive()){
-				g.drawImage(resource.getCharacters().get(i).getSprites()[6], resource.getCharacters().get(i).getPosition()[0]-lowX, resource.getCharacters().get(i).getPosition()[0]-lowX, (int)(resource.getCharacters().get(i).getWidth()*ratio), (int)(resource.getCharacters().get(i).getHeight()*ratio), this);
+				if ((resource.getCharacters().get(i).getCurrentFrameIndex() == 0) || (resource.getCharacters().get(i).getCurrentFrameIndex() > 6)) {
+					resource.getCharacters().get(i).setCurrentFrameIndex(1);
+				}
 			}
-			//fix the living drawing boi for flipperino
+			// draw character sprite
 			if(resource.getCharacters().get(i).getDirectionFacing().equals("right")){
 				g.drawImage(resource.getCharacters().get(i).getActiveFrame(), resource.getCharacters().get(i).getPosition()[0]-lowX, resource.getCharacters().get(i).getPosition()[0]-lowX, (int)(resource.getCharacters().get(i).getWidth()*ratio), (int)(resource.getCharacters().get(i).getHeight()*ratio), this);
 			}else{
 				g.drawImage(resource.getCharacters().get(i).getActiveFrame(), resource.getCharacters().get(i).getPosition()[0]-lowX +resource.getCharacters().get(i).getWidth(), resource.getCharacters().get(i).getPosition()[0]-lowX, -(int)(resource.getCharacters().get(i).getWidth()*ratio), (int)(resource.getCharacters().get(i).getHeight()*ratio), this);
 			}
+			
+			// increase active frame index if character is dead
+			if (!resource.getCharacters().get(i).isAlive()) {
+				resource.getCharacters().get(i).setCurrentFrameIndex(1);
+			}
+			
 		}
 		for (int i =0;i<resource.getCurrentStage().getItems().size();i++){
 			g.drawImage(resource.getCurrentStage().getItems().get(i).getImage(), resource.getCurrentStage().getItems().get(i).getX()-lowX, resource.getCurrentStage().getItems().get(i).getY()-lowY, (int)(resource.getCurrentStage().getItems().get(i).getWidth()*ratio), (int)(resource.getCurrentStage().getItems().get(i).getHeight()*ratio), this);

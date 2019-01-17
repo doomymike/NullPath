@@ -241,6 +241,7 @@ public class Character {
 
 	public void setCurrentFrameIndex(int currentFrameIndex) {
 		this.currentFrameIndex = currentFrameIndex;
+		activeFrame = sprites[currentFrameIndex];
 	}
 	
 	public BufferedImage[] getSprites(){
