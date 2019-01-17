@@ -57,7 +57,7 @@ public class GameAreaFrame extends JFrame {
         // Set up the intro panel if start
         if ((panelCounter == 0) && panelChange) {
             introPanel = new IntroPanel ();
-            introPanel.addKeyListener(introPanel);
+            introPanel.addKeyListener(introframe);
             introPanel.setFocusable(true);
             
             this.getContentPane().add (introPanel);
