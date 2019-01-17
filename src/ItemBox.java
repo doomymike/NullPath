@@ -60,4 +60,8 @@ public class ItemBox {
 		items.clear();
 	}
 	
+	public SimpleLinkedList<String> getItems(){
+		return items;
+	}
+	
 }
