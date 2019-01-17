@@ -20,7 +20,7 @@ public class GamePanel extends JPanel {
  }
 	public void paintComponent(Graphics g) {
 		
-		CameraAdjust(resource.getPlayers()); // Adjust camera values
+		cameraAdjust(resource.getPlayers()); // Adjust camera values
 		// Draw extra background in back here
 		g.drawImage(Resources.getStages().get(0).getSprite(), lowX, lowY, highX-lowX, highY-lowY, this); // Draw image of stage
 		
@@ -79,7 +79,7 @@ public class GamePanel extends JPanel {
   
  }
  
- public void CameraAdjust(SimpleLinkedList<Player> players){
+ public void cameraAdjust(SimpleLinkedList<Player> players){
   int minX = players.get(0).getCharacter().getPosition()[0];
   int maxX = minX+players.get(0).getCharacter().getWidth();
   int minY = players.get(0).getCharacter().getPosition()[1];
@@ -155,6 +155,12 @@ public class GamePanel extends JPanel {
     
   
  }
+	
+public void itemBoxDraw(){
+	ItemBox box = new ItemBox(4);
+	//AAAAAAAHHHHHHHHH HOW TO DRAW AAAAAAAAAAAAAAAAHHHHHHHHHH
+	
+}
 
  public void setButtonPressed(String buttonPressed) {
   this.buttonPressed = buttonPressed;
