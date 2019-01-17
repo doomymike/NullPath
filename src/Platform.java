@@ -1,16 +1,21 @@
 import java.util.HashMap;
 import java.util.Map;
 
-//import java.awt.Rectangle;
 
+/**
+ * Platform.java
+ * @author Brian Li, James Liang, Michael Oren, Brian Zhang
+ * Class for platforms
+ *
+ */
 public class Platform extends Item{
 	
 	private boolean hasHoney = false;
 	private boolean hasIce = false;
 	private HashMap<Integer, Double> lastVel = new HashMap<Integer, Double>();
 	
-	//Rectangle loc;
 	
+	//velocity entries for velocity modifiers
 	public void addVelEntry(int uniqueTag, double dx) {
 		lastVel.put(uniqueTag, dx);
 	}
@@ -28,6 +33,7 @@ public class Platform extends Item{
 		return -1;
 	}
 	
+	//constructors
 	Platform(int x, int y) {
 		super(x, y);
 	
@@ -38,6 +44,7 @@ public class Platform extends Item{
 		
 	}
 	
+	//getters and setters
 	public boolean getHoney() {
 		return hasHoney;
 	}
@@ -55,4 +62,3 @@ public class Platform extends Item{
 	}
 	
 }
-
