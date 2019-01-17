@@ -1,5 +1,5 @@
 /**
- * Contact.java
+ * ContactDamage.java
  * @author Brian Li, James Liang, Michael Oren, Brian Zhang
  * Class for damaging objects
  *
