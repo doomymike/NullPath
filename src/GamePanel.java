@@ -30,8 +30,11 @@ public class GamePanel extends JPanel {
 				g.drawImage(resource.getCharacters().get(i).getSprites()[6], resource.getCharacters().get(i).getPosition()[0]-lowX, resource.getCharacters().get(i).getPosition()[0]-lowX, (int)(resource.getCharacters().get(i).getWidth()*ratio), (int)(resource.getCharacters().get(i).getHeight()*ratio), this);
 			}
 			//fix the living drawing boi for flipperino
-			g.drawImage(resource.getCharacters().get(i).getActiveFrame(), resource.getCharacters().get(i).getPosition()[0]-lowX, resource.getCharacters().get(i).getPosition()[0]-lowX, (int)(resource.getCharacters().get(i).getWidth()*ratio), (int)(resource.getCharacters().get(i).getHeight()*ratio), this);
-			
+			if(resource.getCharacters().get(i).getDirectionFacing().equals("right")){
+				g.drawImage(resource.getCharacters().get(i).getActiveFrame(), resource.getCharacters().get(i).getPosition()[0]-lowX, resource.getCharacters().get(i).getPosition()[0]-lowX, (int)(resource.getCharacters().get(i).getWidth()*ratio), (int)(resource.getCharacters().get(i).getHeight()*ratio), this);
+			}else{
+				g.drawImage(resource.getCharacters().get(i).getActiveFrame(), resource.getCharacters().get(i).getPosition()[0]-lowX +resource.getCharacters().get(i).getWidth(), resource.getCharacters().get(i).getPosition()[0]-lowX, -(int)(resource.getCharacters().get(i).getWidth()*ratio), (int)(resource.getCharacters().get(i).getHeight()*ratio), this);
+			}
 		}
 		for (int i =0;i<resource.getCurrentStage().getItems().size();i++){
 			g.drawImage(resource.getCurrentStage().getItems().get(i).getImage(), resource.getCurrentStage().getItems().get(i).getX()-lowX, resource.getCurrentStage().getItems().get(i).getY()-lowY, (int)(resource.getCurrentStage().getItems().get(i).getWidth()*ratio), (int)(resource.getCurrentStage().getItems().get(i).getHeight()*ratio), this);
