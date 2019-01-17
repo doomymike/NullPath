@@ -1,18 +1,15 @@
-
+/**
+ * Contact.java
+ * @author Brian Li, James Liang, Michael Oren, Brian Zhang
+ * Class for damaging objects
+ *
+ */
 public class ContactDamage extends Item{
 	
-	
-	ContactDamage(int x, int y) {
-		super(x, y);
-		// TODO Auto-generated constructor stub
-	}
-	
+	//constructor		
 	ContactDamage(int x,int y, int height, int width, int radius){
 		super(x,y,height, width, radius);
 		
 	}
-	
-	
-	
-
+		
 }
