@@ -1,7 +1,13 @@
 import java.awt.image.BufferedImage;
-
+/**
+ * StationaryPlatform.java
+ * @author Brian Li, James Liang, Michael Oren, Brian Zhang
+ * Class for stationary platforms
+ *
+ */
 public class StationaryPlatform extends Platform{
 	
+	//constructors
 	StationaryPlatform(int x, int y) {
 		super(x, y);
 	}
