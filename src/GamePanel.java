@@ -18,40 +18,6 @@ public class GamePanel extends JPanel {
  GamePanel() {
   
  }
-
-<<<<<<< HEAD
- public void paintComponent(Graphics g) {
-  
-  CameraAdjust(resource.getPlayers()); // Adjust camera values
-  // Draw extra background in back here
-  g.drawImage(Resources.getStages().get(0).getSprite(), lowX, lowY, highX-lowX, highY-lowY, this); // Draw image of stage
-  
-  for(int i = 0;i<4;i++){
-   if (!resource.getCharacters().get(i).isAlive()){
-    g.drawImage(resource.getCharacters().get(i).getSprites()[6], resource.getCharacters().get(i).getPosition()[0]-lowX, resource.getCharacters().get(i).getPosition()[0]-lowX, (int)(resource.getCharacters().get(i).getWidth()*ratio), (int)(resource.getCharacters().get(i).getHeight()*ratio), this);
-   }
-   //fix the living drawing boi for flipperino
-   g.drawImage(resource.getCharacters().get(i).getActiveFrame(), resource.getCharacters().get(i).getPosition()[0]-lowX, resource.getCharacters().get(i).getPosition()[0]-lowX, (int)(resource.getCharacters().get(i).getWidth()*ratio), (int)(resource.getCharacters().get(i).getHeight()*ratio), this);
-   
-  }
-  for (int i =0;i<resource.getCurrentStage().getItems().size();i++){
-   //g.drawImage(resource.getCurrentStage().getItems().get(i).getImage(), resource.getCurrentStage().getItems().get(i).getX()-lowX, resource.getCurrentStage().getItems().get(i).getY()-lowY, (int)(resource.getCurrentStage().getItems().get(i).getWidth()*ratio), (int)(resource.getCurrentStage().getItems().get(i).getHeight()*ratio), this);
-  }
- }
-   
- void setResources(Resources resource){
-  this.resource = resource;
- }
-  
- void givePoints(Player p, int amount){
-  p.setScore(p.getScore()+amount);
-  
- }
- 
- void death(){
-  
- }
-=======
 	public void paintComponent(Graphics g) {
 		
 		CameraAdjust(resource.getPlayers()); // Adjust camera values
@@ -86,7 +52,6 @@ public class GamePanel extends JPanel {
 	void death(){
 		
 	}
->>>>>>> b7c00742bcc1920bf94b4c3adcf81b05b9ea334c
 
  void end(){
   if(resource.getPlayers().get(0).getFinished()&&resource.getPlayers().get(1).getFinished()&&resource.getPlayers().get(2).getFinished()&&resource.getPlayers().get(3).getFinished()){
