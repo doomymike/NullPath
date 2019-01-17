@@ -36,7 +36,11 @@ public class GameServer {
                 clients.add(new GameClientHandler(client)); //Add new ConnectionHandler for new client into list of handlers
                 Thread t = new Thread(clients.get(clients.size()-1)); //Create a thread for the new client and pass in handler
                 t.start(); //Start the new thread
+                
+                // new thread for message output to all clients (while queue is not null)
+                
             }
+            
         } catch(Exception e) {
             try {
                 client.close();
@@ -45,6 +49,7 @@ public class GameServer {
             }
             System.exit(-1); //Close program
         }
+        
     }
 
     /**
@@ -57,6 +62,8 @@ public class GameServer {
         private BufferedReader input; //Stream for network input
         private Socket client;  //keeps track of the client socket
         private boolean running; //flags whether the client is connected or not (whether handler should run)
+        
+        private String command;
 
         /**
          * ConnectionHandler
@@ -88,7 +95,15 @@ public class GameServer {
         public void run() {
 
             while (running) {
-                //Stuff
+                try {
+					if (input.ready()) {
+						command = input.readLine();
+						commands.offer(command);
+					}
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
             }
 
             //Close the socket
@@ -110,6 +125,16 @@ public class GameServer {
             output.println(str);
             output.flush();
         } //End of write()
+        
+        /**
+         * writeToAll
+         * This message runs the write method for each client connected
+         */
+      private void writeToAll() {
+        for (int i = 0; i < clients.size(); i++) {
+           clients.get(i).write(commands.peek()); //Send command to all clients connected to server
+        }
+      } //End of writeToAll()
 
         /**
          * getClientName

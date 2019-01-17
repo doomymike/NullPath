@@ -21,6 +21,11 @@ public class GameClient {
 	JTextField typeField;
 	JFrame window;
 	JPanel southPanel;
+	
+	private String characterSelected = "";
+	private boolean characterHasBeenSelected;
+	
+	private String[] characterSelection = new String[4];
 
     /**
      * main method, runs the client
@@ -73,7 +78,6 @@ public class GameClient {
 	    southPanel.add(errorLabel);
         //Window listener needed in frame - make sure to tell client that player is exiting (so things can be closed)
 
-        /*
         //tells server if exiting program
         window.addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
@@ -82,26 +86,51 @@ public class GameClient {
                 output.flush();
             }
         });
-        */
 
         // Checks for incoming commands
-	    /*
         while (true){
+        	
+        	// look for command sent from server
             try {
                 if (input.ready()) { //check for an incoming messge
                     String temp = input.readLine();
-                    //SEND STRING (or some combo of sorts) TO PANEL/FRAME
+                    if (temp.substring(0, temp.indexOf(":::")).equals("character selection")) {
+                    	for (int i = 0; i < 4; i++) {
+                        	if (characterSelection[i].equals(null)) {
+                        		characterSelection[i] = temp.substring(temp.indexOf(":::") + 3); // set command for character select panel to read
+                        		break;
+                        	}
+                        }
+                    }
                 }
             } catch (IOException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
+            
+            // can look for other inputs by panels here
+            
         }
-        */
 
     } //End of go()
+    
+    public String getCharacterSelected() {
+    	return characterSelected;
+    }
 
+    public void setCharacterSelected(String characterSelected) {
+    	this.characterSelected = characterSelected;
+    	// write to server
+    	output.println("character selection" + ":::" + username + ":::" + characterSelected);
+    }
 
+	public String[] getCharacterSelection() {
+		return characterSelection;
+	}
+
+	public void setCharacterSelection(String[] characterSelection) {
+		this.characterSelection = characterSelection;
+	}
 
 	class buttonListener implements ActionListener{
 		  
