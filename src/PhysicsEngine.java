@@ -20,6 +20,8 @@ public class PhysicsEngine{
 				System.out.println(line.substring(i,  i+1));
 				if (line.substring(i, i+1).equals("1")){
 					contactMap[lineCount][i] = "1";
+				} else if (line.substring(i,  i+1).equals("2")){
+					contactMap[lineCount][i] = "2";
 				} else if ((line.substring(i, i+1)).equals("0")) {
 					contactMap[lineCount][i] = "0";
 				}
@@ -56,12 +58,16 @@ public class PhysicsEngine{
 	}
 	
 	public void contactMapCollision(Character testPlayer) {
-		int contactX = Math.min(Math.max((int)testPlayer.getPosition()[0]/20, 0), 85);
-		int contactY = Math.min(Math.max((int)testPlayer.getPosition()[1]/20, 0), 37);
-		if (contactMap[contactY][contactX].equals("1") && inMapTag(testPlayer.getTag()) == false) {
+		int contactX = Math.min(Math.max((int)(testPlayer.getPosition()[0])/20, 0), 85);
+		int contactY = Math.min(Math.max((int)((testPlayer.getPosition()[1]+testPlayer.getHeight()-20)/20), 0), 37);
+		if (contactMap[contactY][contactX].equals("1") && (inMapTag(testPlayer.getTag()) == false || testPlayer.getGravity())) {
 			testPlayer.resetY();
 			tagMap.add(testPlayer.getTag());
 			testPlayer.setJump(true);
+		} else if (contactMap[contactY][contactX].equals("2") && (inMapTag(testPlayer.getTag()) == false || testPlayer.getGravity())) {
+			testPlayer.resetY();
+			tagMap.add(testPlayer.getTag());
+			testPlayer.setFinished(true);
 		} else if (contactMap[contactY][contactX].equals("0")){
 			testPlayer.setJump(false);
 			if (inMapTag(testPlayer.getTag())) {
@@ -117,11 +123,11 @@ public class PhysicsEngine{
 			int itemHY = object.getY() + object.getHeight();
 			if ((itemLY <= lowerY && itemHY >= higherY) || (lowerY <= itemLY && higherY >= itemLY) || (lowerY <= itemHY && higherY >= itemHY)){
 				if (object instanceof Platform || object instanceof CharacterLauncher || object instanceof ConveyorBelt) {
-					if (lowerX < itemLX && higherX > itemLX && player.getVelocity()[0] > 0) {
+					if (lowerX <= itemLX && higherX >= itemLX && player.getVelocity()[0] >= 0) {
 						player.setPosition(itemLX-player.getWidth(), player.getPosition()[1]);
 						player.resetGravity();
 						return true;
-					} else if (lowerX < itemHX && higherX > itemHX && player.getVelocity()[0] < 0) {
+					} else if (lowerX <= itemHX && higherX >= itemHX && player.getVelocity()[0] <= 0) {
 						player.setPosition(itemHX, player.getPosition()[1]);
 						player.resetGravity();
 						return true;
@@ -131,7 +137,7 @@ public class PhysicsEngine{
 			if ((itemLX <= lowerX && itemHX >= higherX) || (itemLX >= lowerX && itemLX <= higherX) || (itemLX <= lowerX && itemHX >= lowerX)) {
 				if (object instanceof Platform || object instanceof CharacterLauncher || object instanceof ConveyorBelt) {
 					if (lowerY < itemHY && higherY > itemHY) {
-						player.setVelocity(new double[] {player.getVelocity()[0], player.getVelocity()[1]+5});
+						//player.setVelocity(new double[] {player.getVelocity()[0], player.getVelocity()[1]+5});
 						player.setPosition(player.getPosition()[0], itemHY);
 						return true;
 					}
@@ -223,6 +229,7 @@ public class PhysicsEngine{
 					}
 				}
 				player.resetGravity();
+				System.out.println("END");
 				object.removeChar(player.getTag());
 			}
 		}

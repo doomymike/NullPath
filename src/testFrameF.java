@@ -27,7 +27,7 @@ public class testFrameF extends JPanel implements KeyListener{
     	public testFrameF() throws FileNotFoundException, IOException {
     		this.setSize(new Dimension(1720, 760));
     		testPlayer = new Character(80, 240, 60, 40, 0);
-    		plat = new StationaryPlatform(80, 300, 150, 300);
+    		plat = new StationaryPlatform(80, 250, 150, 300);
     		plat.setIce(true);
     		wind = new FanWind(450, 100, 600, 50, 1, 1);
     		track = new ConveyorBelt(500, 250, 40, 200, 1, 0);
@@ -60,6 +60,9 @@ public class testFrameF extends JPanel implements KeyListener{
 	    			if (contactMap[i][a].equals("1")) {
 	    				g.setColor(Color.magenta);
 	    				g.drawRect((a+1)*20, (i+1)*20, 20, 20);
+	    			} else if (contactMap[i][a].equals("2")) {
+	    				g.setColor(Color.PINK);
+	    				g.fillRect((a+1)*20, (i+1)*20, 20, 20);
 	    			}
 	    		}
 	    	}
