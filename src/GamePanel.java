@@ -159,12 +159,6 @@ public class GamePanel extends JPanel {
     
   
  }
-	
-public void itemBoxDraw(){
-	ItemBox box = new ItemBox(4);
-	//AAAAAAAHHHHHHHHH HOW TO DRAW AAAAAAAAAAAAAAAAHHHHHHHHHH
-	
-}
 
  public void setButtonPressed(String buttonPressed) {
   this.buttonPressed = buttonPressed;
