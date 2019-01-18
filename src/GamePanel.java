@@ -29,6 +29,10 @@ public class GamePanel extends JPanel {
 				if ((resource.getCharacters().get(i).getCurrentFrameIndex() == 0) || (resource.getCharacters().get(i).getCurrentFrameIndex() > 6)) {
 					resource.getCharacters().get(i).setCurrentFrameIndex(1);
 				}
+			} else if (resource.getCharacters().get(i).getFinished()) {
+				if ((resource.getCharacters().get(i).getCurrentFrameIndex() < 24)|| (resource.getCharacters().get(i).getCurrentFrameIndex() == 32)) {
+					resource.getCharacters().get(i).setCurrentFrameIndex(24);
+				}
 			}
 			// draw character sprite
 			if(resource.getCharacters().get(i).getDirectionFacing().equals("right")){
@@ -38,8 +42,8 @@ public class GamePanel extends JPanel {
 			}
 			
 			// increase active frame index if character is dead
-			if (!resource.getCharacters().get(i).isAlive()) {
-				resource.getCharacters().get(i).setCurrentFrameIndex(1);
+			if ((!resource.getCharacters().get(i).isAlive()) || (resource.getCharacters().get(i).getFinished())) {
+				resource.getCharacters().get(i).setCurrentFrameIndex(resource.getCharacters().get(i).getCurrentFrameIndex()+1);
 			}
 			
 		}
