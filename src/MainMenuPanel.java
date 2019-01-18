@@ -5,7 +5,8 @@ import java.awt.event.MouseEvent;
 
 public class MainMenuPanel extends JPanel {
 
-    private int selection;
+    private int selection = -1;
+    private boolean next = false;
 
     //Mouse Position
     private int xPos = 0;
@@ -32,16 +33,12 @@ public class MainMenuPanel extends JPanel {
 
         this.setLayout(null);
 
-        JLabel cyber = new JLabel(new ImageIcon(Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("Cyberpunk.gif"))));
-        //this.add(cyber);
-        //cyber.setLocation(0,0);
-        //cyber.setSize(1080,900);
-
-        //Setup all buttons for pedigree options (AutoDom, AutoRec, XLinkDom, XLinkRec, YLink, Samples)
+        //Setup all buttons for options
         JButton buttonOne = new JButton(new ImageIcon(Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("Start.png"))));
         JButton buttonTwo = new JButton(new ImageIcon(Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("Options.png"))));
         JButton buttonThree = new JButton(new ImageIcon(Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("Quit.png"))));
 
+        JLabel flow = new JLabel(new ImageIcon(Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("WaterFlow.gif"))));
 
         // Draw start button (rectangles right now)
         this.add(buttonOne);
@@ -60,6 +57,8 @@ public class MainMenuPanel extends JPanel {
             public void mousePressed(java.awt.event.MouseEvent evt){
                 buttonOne.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("StartPress.png"))));
                 selection = 0;
+                next = true;
+                System.out.println("Startpressed");
             }
             public void mouseClicked(java.awt.event.MouseEvent evt){
 
@@ -83,6 +82,7 @@ public class MainMenuPanel extends JPanel {
             public void mousePressed(java.awt.event.MouseEvent evt){
                 buttonTwo.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("OptionsPress.png"))));
                 selection = 1;
+                next = true;
             }
             public void mouseClicked(java.awt.event.MouseEvent evt){
 
@@ -106,18 +106,25 @@ public class MainMenuPanel extends JPanel {
             public void mousePressed(java.awt.event.MouseEvent evt){
                 buttonThree.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("QuitPress.png"))));
                 selection = 2;
+                next = true;
             }
             public void mouseClicked(java.awt.event.MouseEvent evt){
 
             }
         });
 
+        this.add(flow);
+        flow.setLocation(0,-100);
+        flow.setSize(2000,1020);
+
         // Repaint
         repaint();
         setVisible(true);
     }
 
+    public boolean getNext(){return next;}
     public int getSelection() {
+        System.out.println("");
         return selection;
     }
 
