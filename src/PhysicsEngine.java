@@ -27,6 +27,7 @@ public class PhysicsEngine{
 				}
 			}
 		}
+		br.close();
 	}
 	
 	PhysicsEngine(){
