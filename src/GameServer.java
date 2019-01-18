@@ -12,6 +12,7 @@ public class GameServer {
     private static Boolean running = true;  //Controls if the server is accepting clients
     private ArrayList<GameClientHandler> clients; //Holds handlers for all clients connected
     private Queue<String> commands; //Holds the inputs done by player
+    //replace above with actual queue class (my own)
 
     /** Main
      * Main method that starts the server (runs the method that starts it)

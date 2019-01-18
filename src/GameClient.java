@@ -11,6 +11,8 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 
+import java.util.Queue;
+
 public class GameClient {
 
     Socket mySocket; //socket for connection
@@ -23,10 +25,16 @@ public class GameClient {
 	JFrame window;
 	JPanel southPanel;
 	
+	// for character selection
 	private String characterSelected = "";
 	private boolean characterHasBeenSelected;
 	
+	// store all players' selections
 	private String[] characterSelection = new String[4];
+	
+	// for running of game
+	private String characterMovement = "";
+	private Queue<String> movementInputs = new Queue<>(); //replace with queue class
 
     /**
      * main method, runs the client
@@ -135,6 +143,15 @@ public class GameClient {
 	
 	public boolean hasSelected() {
 		return characterHasBeenSelected;
+	}
+
+	public String getCharacterMovement() {
+		return characterMovement;
+	}
+
+	public void setCharacterMovement(String characterMovement) {
+		this.characterMovement = characterMovement;
+		output.println("character movement" + ":::" + username + ":::" + characterMovement); //write to server
 	}
 
 	class buttonListener implements ActionListener{
