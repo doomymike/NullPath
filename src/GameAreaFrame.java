@@ -18,7 +18,7 @@ import java.util.ArrayList;
 
 import java.awt.image.*;
 
-public class GameAreaFrame extends JFrame {
+public class GameAreaFrame extends JFrame implements KeyListener{
 
     public static void main(String[] args) {
         new GameAreaFrame();
@@ -42,6 +42,36 @@ public class GameAreaFrame extends JFrame {
 
     PhysicsEngine physicsEngine;
 
+    public void keyTyped(KeyEvent e) {
+        if (e.getKeyCode() == 27){
+            System.out.println("Escape detected");
+            //Return to MenuPanel, from Select
+            if(panelCounter == 2){
+                this.getContentPane().remove(characterSelectPanel); // Remove the select panel
+                mainMenuPanel = new MainMenuPanel(); // Add the mainmenu panel
+                this.getContentPane().add(mainMenuPanel);
+                System.out.println("back to main menu panel");
+                panelCounter = 1;
+                this.revalidate();
+                repaint();
+            }
+            //Return to IntroPanel, from MenuPanel
+            if(panelCounter == 1){
+                this.getContentPane().remove(mainMenuPanel); // Remove the select panel
+                introPanel = new IntroPanel(); // Add the mainmenu panel
+                this.getContentPane().add(introPanel);
+                System.out.println("back to intro panel");
+                panelCounter = 0;
+                this.revalidate();
+                repaint();
+            }
+        }
+    }
+    public void keyReleased(KeyEvent e){
+    }
+    public void keyPressed(KeyEvent e) {
+    }
+    
     // Constructor
     public GameAreaFrame() {
         super("NullPath");
@@ -116,12 +146,9 @@ public class GameAreaFrame extends JFrame {
                     this.revalidate();
                     repaint();
                 } else if (mainMenuPanel.getSelection()==2) {
-                    this.getContentPane().remove(mainMenuPanel); // Remove main menu panel
-                    creditsPanel = new CreditsPanel(); // Add the game panel
-                    this.getContentPane().add(creditsPanel);
-                    panelCounter = 4;
-                    this.revalidate();
-                    repaint();
+                    System.out.println("Program Ended");
+                      this.dispose();
+                    System.exit(0);
                 }
             }
 
