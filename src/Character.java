@@ -22,9 +22,9 @@ public class Character {
 	private double lastIce = 0;
 	//MotionState: Used in correspondance to keyListeners to ensure that velocities are only changed once (no acceleration)
 	//{leftState, rightState, upState, downState}
-	public boolean applyHoney = false;
-	public boolean honeyMotion = false;
-	public boolean iceMotion = false;
+	private boolean applyHoney = false;
+	private boolean honeyMotion = false;
+	private boolean iceMotion = false;
 	private String currentAction = "idle";
 	private String directionFacing = "right";
 	private BufferedImage activeFrame;
@@ -247,4 +247,5 @@ public class Character {
 	public BufferedImage[] getSprites(){
 		return sprites;
 	}
+	
 }

@@ -1,86 +1,85 @@
 import java.awt.Rectangle;
+import java.util.ArrayList;
+import java.io.*;
 
-public class PhysicsEngine {
+public class PhysicsEngine{
 	
+	File file = new File("resources/SkyFortressCollision.txt");
 	String [][] contactMap = null;
+	ArrayList<Integer> tagMap = new ArrayList<Integer>();	
 	
-	PhysicsEngine(String[][] contactMap){
+	PhysicsEngine(String read) throws FileNotFoundException, IOException{
+		contactMap = new String[38][86];
+		BufferedReader br = new BufferedReader(new FileReader(file));
 		this.contactMap = contactMap;
+		String line;
+		int lineCount = -1;
+		while ((line = br.readLine()) != null) {
+			lineCount += 1;
+			for (int i = 0; i < line.length(); i++) {
+				System.out.println(line.substring(i,  i+1));
+				if (line.substring(i, i+1).equals("1")){
+					contactMap[lineCount][i] = "1";
+				} else if ((line.substring(i, i+1)).equals("0")) {
+					contactMap[lineCount][i] = "0";
+				}
+			}
+		}
 	}
 	
 	PhysicsEngine(){
 	}
 	
-	public void move(Character character){
-		int xPos = character.getPosition()[0];
-		int yPos = character.getPosition()[1];
+	public String[][] retrieveCMap(){
+		return contactMap;
+	}
+	
+	public void printMap(String[][] contactMap) {
+		System.out.println(contactMap.length + " "+contactMap[0].length);
+		System.out.println("EXEC");
+		for (int i = 0; i < contactMap.length; i++) {
+			String line = "";
+			for (int a = 0; a < contactMap[0].length; a++) {
+				line += contactMap[i][a];
+			}
+			System.out.println(line);
+		}
+	}
+	
+	public boolean inMapTag(int uniqueTag) {
+		for (int i = 0; i < tagMap.size(); i++) {
+			if (tagMap.get(i) == uniqueTag) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public void contactMapCollision(Character testPlayer) {
+		int contactX = Math.min(Math.max((int)testPlayer.getPosition()[0]/20, 0), 85);
+		int contactY = Math.min(Math.max((int)testPlayer.getPosition()[1]/20, 0), 37);
+		if (contactMap[contactY][contactX].equals("1") && inMapTag(testPlayer.getTag()) == false) {
+			testPlayer.resetY();
+			tagMap.add(testPlayer.getTag());
+			testPlayer.setJump(true);
+		} else if (contactMap[contactY][contactX].equals("0")){
+			testPlayer.setJump(false);
+			if (inMapTag(testPlayer.getTag())) {
+				tagMap.remove(Integer.valueOf(testPlayer.getTag()));
+				testPlayer.resetGravity();
+			}
+		}
+	}
+	
+	public void move(Character player){
+		int xPos = player.getPosition()[0];
+		int yPos = player.getPosition()[1];
 				
-		if (character.getGravity()) {
-			character.setVelocity(new double[] {character.getVelocity()[0], character.getVelocity()[1]+0.06}); //Not using getGravityV to sequentially decrease dy
+		if (player.getGravity()) {
+			player.setVelocity(new double[] {player.getVelocity()[0], player.getVelocity()[1]+0.06}); //Not using getGravityV to sequentially decrease dy
 		}
 		//System.out.println(player.getVelocity()[0] + " X_vel" + player.getVelocity()[1] + " Y_vel");
-		character.setPosition((int)Math.round(xPos + character.getVelocity()[0]), (int)Math.round(yPos + character.getVelocity()[1]));
-		
-		// Determine action performed by character
-		if (character.getVelocity()[1] == 0) { // if character has no vertical component of velocity
-			if (character.getVelocity()[0] == 0) { // if character is not moving at all
-				character.setCurrentAction("idle");
-				if ((character.getCurrentFrameIndex() < 8) || (character.getCurrentFrameIndex() > 12)) {
-					character.setCurrentFrameIndex(8);
-				} else {
-					character.setCurrentFrameIndex(character.getCurrentFrameIndex()+1);
-				}
-			} else if (character.getVelocity()[0] < 0) { // if character is moving left on some surface (not fall/jump)
-				character.setCurrentAction("run");
-				if (character.getDirectionFacing().equals("right")) { // change direction to left (and frame to first frame of run)
-					character.setDirectionFacing("left");
-					character.setCurrentFrameIndex(15);
-				} else {
-					if ((character.getCurrentFrameIndex() > 14) || (character.getCurrentFrameIndex() < 22)) {
-						character.setCurrentFrameIndex(character.getCurrentFrameIndex()+1);
-					} else {
-						character.setCurrentFrameIndex(15);
-					}
-				}
-			} else { // if character is moving right on some surface (not fall/jump)
-				character.setCurrentAction("run");
-				if (character.getDirectionFacing().equals("left")) { // change direction to right (and frame to first frame of run)
-					character.setDirectionFacing("right");
-					character.setCurrentFrameIndex(15);
-				} else {
-					if ((character.getCurrentFrameIndex() > 14) || (character.getCurrentFrameIndex() < 22)) {
-						character.setCurrentFrameIndex(character.getCurrentFrameIndex()+1);
-					} else {
-						character.setCurrentFrameIndex(15);
-					}
-				}
-			}
-		} else if (character.getVelocity()[1] < 0) { // Falling
-			character.setCurrentFrameIndex(7); // set to fall frame index
-			character.setCurrentAction("fall"); // set to fall action
-			if (character.getVelocity()[0] < 0) { // if character is falling left
-				if (character.getDirectionFacing().equals("right")) { // change direction to left
-					character.setDirectionFacing("left");
-				}
-			} else { // if character is falling right
-				if (character.getDirectionFacing().equals("left")) { // change direction to right
-					character.setDirectionFacing("right");
-				}
-			}
-		} else {
-			character.setCurrentFrameIndex(14); // set to jump frame index
-			character.setCurrentAction("jump"); // set to jump action
-			if (character.getVelocity()[0] < 0) { // if character is jumping left
-				if (character.getDirectionFacing().equals("right")) { // change direction to left
-					character.setDirectionFacing("left");
-				}
-			} else { // if character is jumping right
-				if (character.getDirectionFacing().equals("left")) { // change direction to right
-					character.setDirectionFacing("right");
-				}
-			}
-		}
-		
+		player.setPosition((int)Math.round(xPos + player.getVelocity()[0]), (int)Math.round(yPos + player.getVelocity()[1]));
 	}
 	
 	public void move(Item object) {
@@ -94,11 +93,12 @@ public class PhysicsEngine {
 		
 	}
 	
-	public static boolean checkCollision(Character character, Item object, boolean circular) {
-		int lowerX = character.getPosition()[0];
-		int lowerY = character.getPosition()[1];
-		int higherX = lowerX + character.getWidth();
-		int higherY = lowerY + character.getHeight();
+	public boolean checkCollision(Character player, Item object, boolean circular) {
+		boolean hasCollided = false;
+		int lowerX = player.getPosition()[0];
+		int lowerY = player.getPosition()[1];
+		int higherX = lowerX + player.getWidth();
+		int higherY = lowerY + player.getHeight();
 		if (circular) {
 			int radius = object.getRadius();
 			int lowCircX = object.getX()-radius;
@@ -115,87 +115,119 @@ public class PhysicsEngine {
 			int itemHX = object.getX() + object.getWidth();
 			int itemLY = object.getY();
 			int itemHY = object.getY() + object.getHeight();
-			if ((itemLX <= lowerX && itemHX >= higherX) || (itemLX >= lowerX && itemLX <= higherX) || (itemLX <= lowerX && itemHX >= lowerX)) {
-				if ((lowerY <= itemLY) && (higherY >= itemLY)) {
-					
-					if (object instanceof ContactDamage||object instanceof Projectile){
-						character.die();
+			if ((itemLY <= lowerY && itemHY >= higherY) || (lowerY <= itemLY && higherY >= itemLY) || (lowerY <= itemHY && higherY >= itemHY)){
+				if (object instanceof Platform || object instanceof CharacterLauncher || object instanceof ConveyorBelt) {
+					if (lowerX < itemLX && higherX > itemLX && player.getVelocity()[0] > 0) {
+						player.setPosition(itemLX-player.getWidth(), player.getPosition()[1]);
+						player.resetGravity();
+						return true;
+					} else if (lowerX < itemHX && higherX > itemHX && player.getVelocity()[0] < 0) {
+						player.setPosition(itemHX, player.getPosition()[1]);
+						player.resetGravity();
+						return true;
 					}
-					
+				}
+			}
+			if ((itemLX <= lowerX && itemHX >= higherX) || (itemLX >= lowerX && itemLX <= higherX) || (itemLX <= lowerX && itemHX >= lowerX)) {
+				if (object instanceof Platform || object instanceof CharacterLauncher || object instanceof ConveyorBelt) {
+					if (lowerY < itemHY && higherY > itemHY) {
+						player.setVelocity(new double[] {player.getVelocity()[0], player.getVelocity()[1]+5});
+						player.setPosition(player.getPosition()[0], itemHY);
+						return true;
+					}
+				}
+				if ((itemLY <= higherY) && (higherY <= itemHY)){
 					if (object instanceof Platform) {
-						character.resetY();
-
+						player.resetY();
+						player.setJump(true);
 						if (((Platform)object).getHoney() == true) {
-							System.out.println("BAD");
-							if (character.getHoney() == false) {
+							if (player.getHoney() == false) {
 								//player.setVelocity(honeyMod(player, player.getVelocity()));
-								character.setHoney(true);
+								player.setHoney(true);
 								//object.addChar(player.getTag());
 							} //Reverse effect if no intersection occurs (bottom)
 						} else if (((Platform)object).getIce() == true) {
-							if (character.getIce() == false) {
-								character.setIce(true);
+							if (player.getIce() == false) {
+								player.setIce(true);
 							}
 						} 
-						if (object.checkChar(character.getTag()) == false){
-							System.out.println("ON");
-							object.addChar(character.getTag());
+						if (object.checkChar(player.getTag()) == false){
+							object.addChar(player.getTag());
 						}
-						return true;
+						hasCollided = true;
 					} else if (object instanceof CharacterLauncher) {
-						character.resetY();
+						player.resetY();
 						//Player has already been reset (movement)
-						if (object.checkChar(character.getTag()) == false) {
-							object.addChar(character.getTag());
+						if (object.checkChar(player.getTag()) == false) {
+							if (inMapTag(player.getTag())) {
+								tagMap.remove(Integer.valueOf(player.getTag()));
+							}
+							object.addChar(player.getTag());
 						}
-						((CharacterLauncher) object).launchChar(character);
-						return true;
+						((CharacterLauncher) object).launchChar(player);
+						hasCollided = true;
 					} else if (object instanceof ConveyorBelt) {
-						if (object.checkChar(character.getTag()) == false) {
-							character.resetY();
-							character.setVelocity(new double[] {character.getVelocity()[0]+(((VelocityModifier)object).getSpeed())[0], character.getVelocity()[1] - (((VelocityModifier)object).getSpeed())[1]});
-							object.addChar(character.getTag());
+						player.setJump(true);
+						player.resetY();
+						if (object.checkChar(player.getTag()) == false) {
+							if (inMapTag(player.getTag())) {
+								tagMap.remove(Integer.valueOf(player.getTag()));
+							}
+							player.setVelocity(new double[] {player.getVelocity()[0]+(((VelocityModifier)object).getSpeed())[0], player.getVelocity()[1] - (((VelocityModifier)object).getSpeed())[1]});
+							object.addChar(player.getTag());
 						}
-						return true;
+						hasCollided = true;
 					}
 					
-					
 				}
+				
 				if ((itemHY >= higherY && itemLY <= higherY) || (itemLY <= higherY && itemHY >= lowerY) || (itemHY <= higherY && itemLY >= lowerY)) {
+					if (inMapTag(player.getTag())) {
+						tagMap.remove(Integer.valueOf(player.getTag()));
+					}
 					if (object instanceof VelocityModifier && !(object instanceof ConveyorBelt)) {
-						if (object.checkChar(character.getTag()) == false) {
-							character.resetY();
-							character.setVelocity(new double[] {character.getVelocity()[0]+(((VelocityModifier)object).getSpeed())[0], character.getVelocity()[1] - (((VelocityModifier)object).getSpeed())[1]});
-							object.addChar(character.getTag());
+						player.resetY();
+						if (object.checkChar(player.getTag()) == false) {
+							player.setVelocity(new double[] {player.getVelocity()[0]+(((VelocityModifier)object).getSpeed())[0], player.getVelocity()[1] - (((VelocityModifier)object).getSpeed())[1]});
+							object.addChar(player.getTag());
 						}
+						hasCollided = true;
 					}		
-					return true;
 				}
 			}
 			
-			if (object.checkChar(character.getTag())) {
+			if (hasCollided) {
+				return true;
+			}
+			
+			if (object.checkChar(player.getTag())) {
 				if (object instanceof ConveyorBelt) {
-					character.setVelocity(new double[]{character.getVelocity()[0] - ((ConveyorBelt)object).getSpeed()[0], character.getVelocity()[1]});
+					player.setJump(false);
+					player.setVelocity(new double[]{player.getVelocity()[0] - ((ConveyorBelt)object).getSpeed()[0], player.getVelocity()[1]});
 				}
 				if (object instanceof FanWind) {
-					character.setVelocity(new double[]{character.getVelocity()[0], character.getVelocity()[1] + ((FanWind)object).getSpeed()[1]});
+					player.setVelocity(new double[]{player.getVelocity()[0], player.getVelocity()[1] + ((FanWind)object).getSpeed()[1]});
 				}
 				
 				if (object instanceof Platform) {
+					player.setJump(false);
 					if (((Platform)object).getHoney()) {
-						character.setHoney(false);
+						player.setHoney(false);
 					}
 					if (((Platform)object).getIce() == true) {
-						character.setIce(false);
+						player.setIce(false);
+						if(player.getIMotion()) {
+	    					player.setVelocity(new double[] {player.getVelocity()[0]-player.getLastI() , player.getVelocity()[1]});
+	    					player.setIMotion(false);
+	    				}
 					}
 				}
-				character.resetGravity();
-				System.out.println("STAPP");
-				object.removeChar(character.getTag());
+				player.resetGravity();
+				object.removeChar(player.getTag());
 			}
 		}
 		
-		return false;	
+		return false;
 	}
 
 	/*
