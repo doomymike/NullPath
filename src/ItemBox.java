@@ -10,7 +10,7 @@ public class ItemBox {
 		this.items = items;
 	}
 	
-	public ItemBox(int numItems, int numPlayers) {
+	public ItemBox(int numPlayers) {
 		
 		Random randomNum = new Random();
 		int randInt = 0;
