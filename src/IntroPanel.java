@@ -12,26 +12,28 @@ public class IntroPanel extends JPanel implements KeyListener {
 
     //Override KeyListener Methods (proceed to next frame upon keypressed)
     public void keyTyped(KeyEvent e) {
+        System.out.println("test1");
+        next=true;
     }
     public void keyReleased(KeyEvent e){
-
     }
     public void keyPressed(KeyEvent e) {
-        next = true;
     }
 
 
     public void paintComponent(Graphics g) {
 
+
         // Call the super class
         super.paintComponent(g);
+
         setDoubleBuffered(true);
         setLayout(null);
 
         //Initialize Logo
         JLabel logo = new JLabel(new ImageIcon(Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("NullPathLogo.png"))));
         JLabel anykey = new JLabel(new ImageIcon(Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("Continue.png"))));
-        JLabel flow = new JLabel(new ImageIcon(Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("Flow.gif"))));
+        JLabel flow = new JLabel(new ImageIcon(Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("WaterFlow.gif"))));
 
         this.add(logo);
         logo.setLocation(65,150);
@@ -41,17 +43,20 @@ public class IntroPanel extends JPanel implements KeyListener {
         anykey.setLocation(200,600);
         anykey.setSize(630,42);
 
+
         this.add(flow);
-        flow.setLocation(0,0);
-        flow.setSize(1000,750);
+        flow.setLocation(0,-100);
+        flow.setSize(2000,1020);
 
         addKeyListener(this);
-        // Repaint
         repaint();
 
     }
 
-    public boolean getNext(){return this.next;}
+    public boolean getNext(){
+        System.out.println("");
+        return this.next;
+    }
     public String getSelection() {
         return selection;
     }
