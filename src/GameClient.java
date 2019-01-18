@@ -1,3 +1,4 @@
+// something to close it
 
 import java.awt.*;
 import javax.swing.*;
@@ -98,6 +99,7 @@ public class GameClient {
                     	for (int i = 0; i < 4; i++) {
                         	if (characterSelection[i].equals(null)) {
                         		characterSelection[i] = temp.substring(temp.indexOf(":::") + 3); // set command for character select panel to read
+                        		characterHasBeenSelected = true;
                         		break;
                         	}
                         }
@@ -120,8 +122,7 @@ public class GameClient {
 
     public void setCharacterSelected(String characterSelected) {
     	this.characterSelected = characterSelected;
-    	// write to server
-    	output.println("character selection" + ":::" + username + ":::" + characterSelected);
+    	output.println("character selection" + ":::" + username + ":::" + characterSelected); // write to server
     }
 
 	public String[] getCharacterSelection() {
@@ -130,6 +131,10 @@ public class GameClient {
 
 	public void setCharacterSelection(String[] characterSelection) {
 		this.characterSelection = characterSelection;
+	}
+	
+	public boolean hasSelected() {
+		return characterHasBeenSelected;
 	}
 
 	class buttonListener implements ActionListener{

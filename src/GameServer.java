@@ -1,9 +1,10 @@
+// need something to turn running to false (flag to allow threads to close)
+
 //Java imports
 import java.io.*;
 import java.net.*;
 import java.util.ArrayList;
 import java.util.Queue;
-import java.util.LinkedList;
 
 public class GameServer {
 
@@ -30,6 +31,9 @@ public class GameServer {
 
         try {
             serverSock = new ServerSocket(5000); //Assigns a port to the server
+            MessageHandler messageHandler = new MessageHandler(); //Start thread for outputting commands in queue
+            Thread thread = new Thread(messageHandler);
+            thread.start();
             while(running) { //Loop to accept multiple clients
                 client = serverSock.accept();  //Wait for connection
                 System.out.println("Client connected"); //Show that a client has connected in console
@@ -50,6 +54,30 @@ public class GameServer {
             System.exit(-1); //Close program
         }
         
+    }
+    
+    class MessageHandler implements Runnable {
+    	
+    	private boolean running;
+    	
+    	MessageHandler() {
+    		running = true;
+    	}
+    	
+    	public void run() {
+    		
+    		while (running) {
+    			if (commands != null) {
+    				if (!commands.peek().equals(null)) {
+    					for (int i = 0; i < clients.size(); i++) {
+    						clients.get(i).write(commands.poll());
+    					}
+    				}
+    			}
+    		}
+    		
+    	}
+    	
     }
 
     /**
@@ -115,7 +143,7 @@ public class GameServer {
                 System.out.println("Failed to close socket");
             }
         } //End of run()
-
+        
         /**
          * write
          * This method takes in a string message and outputs it to the client
@@ -125,16 +153,6 @@ public class GameServer {
             output.println(str);
             output.flush();
         } //End of write()
-        
-        /**
-         * writeToAll
-         * This message runs the write method for each client connected
-         */
-      private void writeToAll() {
-        for (int i = 0; i < clients.size(); i++) {
-           clients.get(i).write(commands.peek()); //Send command to all clients connected to server
-        }
-      } //End of writeToAll()
 
         /**
          * getClientName
