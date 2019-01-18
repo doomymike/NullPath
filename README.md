@@ -12,3 +12,9 @@ Notes:
 - Bomb has no explode method (checked for when stage places the item)
 
 DO DEATH ANIMATION
+
+Game Flow:
+Loading Screen > 
+Main Menu > 
+Character Select Screen OR Options Screen (Language/Instructions) > 
+Main Game Screen 
