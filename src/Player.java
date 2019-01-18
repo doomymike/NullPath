@@ -34,12 +34,5 @@ public class Player {
 		
 	}
 
-	public Item getKilledBy() {
-		return killedBy;
-	}
-
-	public void setKilledBy(Item killedBy) {
-		this.killedBy = killedBy;
-	}
 	
 }
