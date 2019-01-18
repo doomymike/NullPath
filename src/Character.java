@@ -29,6 +29,24 @@ public class Character {
 	private String directionFacing = "right";
 	private BufferedImage activeFrame;
 	private int currentFrameIndex;
+	private boolean finished;
+	private Item killedBy;
+	
+	public Item getKilledBy() {
+		return killedBy;
+	}
+
+	public void setKilledBy(Item killedBy) {
+		this.killedBy = killedBy;
+	}
+	
+	public boolean getFinished() {
+		return finished;
+	}
+	
+	public void setFinished(boolean finished) {
+		this.finished = finished;
+	}
 	
 	public void setLastI(double recentIce){
 		lastIce = recentIce;
