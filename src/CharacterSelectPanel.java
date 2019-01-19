@@ -11,7 +11,7 @@ public class CharacterSelectPanel extends JPanel{
     private String buttonPressed = "";
     private String selection = "";
     private String[] possibleSelections = {"Blue", "Green", "Red", "Yellow"};
-    //Resources resource = null;
+    Resources resource = null;
     //Triple colon follows
 
     //Mouse Position
@@ -150,11 +150,9 @@ public class CharacterSelectPanel extends JPanel{
 
     }
 
-    /*
     public void setResources(Resources resource){
         this.resource = resource;
     }
-    */
 
     public void setButtonPressed(String buttonPressed) {
         this.buttonPressed = buttonPressed;

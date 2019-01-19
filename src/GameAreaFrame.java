@@ -7,6 +7,7 @@ import java.awt.Toolkit;
 import java.awt.Graphics;
 import java.awt.Color;
 import java.awt.Rectangle;
+import java.io.IOException;
 
 //Keyboard imports
 import java.awt.event.KeyEvent;
@@ -111,7 +112,12 @@ public class GameAreaFrame extends JFrame implements KeyListener{
         resources = new Resources();
 
         // Initialize physics object
-        physicsEngine = new PhysicsEngine(resources.getStages().get(0).getCollisionMap());
+       // try {
+            //physicsEngine = new PhysicsEngine(resources.getStages().get(0).getCollisionMap());
+        //} catch (IOException e) {
+            //e.printStackTrace();
+        //}
+
 
         while(true) {
 

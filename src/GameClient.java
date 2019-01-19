@@ -34,7 +34,7 @@ public class GameClient {
 	
 	// for running of game
 	private String characterMovement = "";
-	private Queue<String> movementInputs = new Queue<>(); //replace with queue class
+	//private Queue<String> movementInputs = new Queue<>(); //replace with queue class
 
     /**
      * main method, runs the client
