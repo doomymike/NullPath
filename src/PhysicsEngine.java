@@ -27,7 +27,6 @@ public class PhysicsEngine{
 				}
 			}
 		}
-		br.close();
 	}
 	
 	PhysicsEngine(){
@@ -58,24 +57,151 @@ public class PhysicsEngine{
 		return false;
 	}
 	
+	public boolean detectTop(int contactLX, int contactRX, int contactY, boolean win) {
+		int oneCount = 0;
+		if (contactY <= 3) {
+			return true;
+		}
+		
+		if (win) {
+			if (contactMap[contactY-1][contactLX].equals("0") && contactMap[contactY-1][contactLX].equals("0")){
+				return true;
+			}
+		} else {
+			for (int i = 1; i < 4; i++) {
+				if (contactMap[contactY-i][contactLX].equals("1") || contactMap[contactY-i][contactRX].equals("1") || contactMap[contactY-i][contactLX].equals("2") || contactMap[contactY-i][contactRX].equals("2")) {
+					oneCount += 1;
+				}
+			}
+			if (oneCount <= 2) {
+				return true;
+			}
+		}
+		
+		return false;
+	}
+	
+	public String checkHEdge(int contactLX, int contactRX, int contactY) { //Returns if left or right 
+		if ((!contactMap[contactY][contactLX].equals("1") || !contactMap[contactY][contactLX].equals("2")) && contactMap[contactY][contactRX].equals("0")) {
+			if (contactMap[contactY][contactLX+1].equals("0") || contactMap[contactY][contactLX+2].equals("0")){
+				return "R"; //Colliding into (right)
+			}
+		}
+		
+		if ((!contactMap[contactY][contactRX].equals("1") || !contactMap[contactY][contactRX].equals("2")) && contactMap[contactY][contactLX].equals("0")) {
+			if (contactMap[contactY][contactRX-1].equals("0") || contactMap[contactY][contactRX-2].equals("0")){
+				return "L";
+			}
+		}
+		
+		return "N";
+		
+		
+	}
+	
+	public int endPoint(int contactLX, int contactRX, int contactY, String LR, boolean win) {
+		int counter = 0;
+		if (LR.equals("R")) {
+			while (true) {
+				if (win) {
+					if (contactMap[contactY][contactLX+counter].equals("2")) {
+						counter++;
+					} else {
+						return 20*(contactRX+counter-2);
+					}
+				} else {
+					if (contactMap[contactY][contactLX+counter].equals("1")) {
+						counter++;
+					} else {
+						return 20*(contactRX+counter-2);
+					}
+				}
+			}
+		} else if (LR.equals("L")) {
+			while (true) {
+				if (win) {
+					if (contactMap[contactY][contactRX+counter].equals("2")) {
+						counter--;
+					} else {
+						return 20*(contactLX+counter+2);
+					}
+				} else {
+					if (contactMap[contactY][contactRX+counter].equals("1")) {
+						counter--;
+					} else {
+						return 20*(contactLX+counter+2);
+					}
+				}
+			}
+		} 
+		return 0;
+	}
+	
+	public boolean gridEquals(int contactY, int contactHY, int contactLX, int contactRX, String val) {
+		
+		if (contactMap[contactY][contactLX].equals(val) || contactMap[contactY][contactRX].equals(val)) {
+			return true;
+		} 
+		if (contactMap[contactHY][contactLX].equals(val) || contactMap[contactHY][contactRX].equals(val)) {
+			return true;
+		}
+		return false;
+		
+	}
+	
 	public void contactMapCollision(Character testPlayer) {
-		int contactX = Math.min(Math.max((int)(testPlayer.getPosition()[0])/20, 0), 85);
+		int contactLX = Math.min(Math.max((int)(testPlayer.getPosition()[0])/20, 0), 85);
+		int realLX = (int)(testPlayer.getPosition()[0]);
+		int contactRX = Math.min(Math.max((int)(testPlayer.getPosition()[0]+testPlayer.getWidth())/20, 0), 85);
+		int realRX = (int)(testPlayer.getPosition()[0]+testPlayer.getWidth());
 		int contactY = Math.min(Math.max((int)((testPlayer.getPosition()[1]+testPlayer.getHeight()-20)/20), 0), 37);
-		if (contactMap[contactY][contactX].equals("1") && (inMapTag(testPlayer.getTag()) == false || testPlayer.getGravity())) {
-			testPlayer.resetY();
-			tagMap.add(testPlayer.getTag());
-			testPlayer.setJump(true);
-		} else if (contactMap[contactY][contactX].equals("2") && (inMapTag(testPlayer.getTag()) == false || testPlayer.getGravity())) {
-			testPlayer.resetY();
-			tagMap.add(testPlayer.getTag());
-			testPlayer.setFinished(true);
-		} else if (contactMap[contactY][contactX].equals("0")){
+		int contactHY = Math.min(Math.max((int)((testPlayer.getPosition()[1]-20)/20), 0), 37);
+		boolean inCol = false; //Checks for collision with 1 or 2
+		
+		if ((contactMap[contactY][contactLX].equals("1") || contactMap[contactY][contactRX].equals("1")) && (detectTop(contactLX, contactRX, contactY, false) == false)) {
+			if (checkHEdge(contactLX, contactRX, contactY).equals("R") && testPlayer.getVelocity()[0] < 0) {
+				testPlayer.setPosition(endPoint(contactLX, contactRX, contactY, "R", false), testPlayer.getPosition()[1]);
+			} else if (checkHEdge(contactLX, contactRX, contactY).equals("L") && testPlayer.getVelocity()[0] > 0) {
+				testPlayer.setPosition(endPoint(contactLX, contactRX, contactY, "L", false), testPlayer.getPosition()[1]);
+			}
+			return;
+		}
+		
+		if ((gridEquals(contactY, contactHY, contactLX, contactRX, "2")) && (detectTop(contactLX, contactRX, contactY, true) == false)){
+			System.out.println("HINT");
+			if (checkHEdge(contactLX, contactRX, contactY).equals("R") && testPlayer.getVelocity()[0] < 0) {
+				testPlayer.setPosition(endPoint(contactLX, contactRX, contactY, "R", true), testPlayer.getPosition()[1]);
+			} else if (checkHEdge(contactLX, contactRX, contactY).equals("L") && testPlayer.getVelocity()[0] > 0) {
+				testPlayer.setPosition(endPoint(contactLX, contactRX, contactY, "L", true), testPlayer.getPosition()[1]);
+			}
+			return;
+		}
+		
+		if ((contactMap[contactY][contactLX].equals("2") || contactMap[contactY][contactRX].equals("2")) && detectTop(contactLX, contactRX, contactY, true)) {
+			inCol = true;
+			if (inMapTag(testPlayer.getTag()) == false || testPlayer.getGravity()){
+				testPlayer.resetY();
+				tagMap.add(testPlayer.getTag());
+				testPlayer.setFinished(true);
+				return;
+			}
+		} else if ((contactMap[contactY][contactLX].equals("1") || contactMap[contactY][contactRX].equals("1")) && detectTop(contactLX, contactRX, contactY, false)) {
+			inCol = true;
+			if (inMapTag(testPlayer.getTag()) == false || testPlayer.getGravity()){
+				testPlayer.resetY();
+				tagMap.add(testPlayer.getTag());
+				testPlayer.setJump(true);
+				return;
+			}
+		} else if (contactMap[contactY][contactLX].equals("0") || contactMap[contactY][contactRX].equals("0") && inCol == false){
 			testPlayer.setJump(false);
 			if (inMapTag(testPlayer.getTag())) {
 				tagMap.remove(Integer.valueOf(testPlayer.getTag()));
 				testPlayer.resetGravity();
 			}
+			return;
 		}
+		
 	}
 	
 	public void move(Character player){
