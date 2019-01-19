@@ -10,11 +10,11 @@ public class GamePanelTest {
 		Character red = null;
 		Character green = null;
 		Character yellow = null;
-		
-		Player p1 = new Player("p1");
-		Player p2 = new Player("p2");
-		Player p3 = new Player("p3");
-		Player p4 = new Player("p4");
+
+		resources.addPlayer("p1");
+		resources.addPlayer("p2");
+		resources.addPlayer("p3");
+		resources.addPlayer("p4");
 		
 		try {
 			blue = new Character("blue");
@@ -25,10 +25,10 @@ public class GamePanelTest {
 			
 		}
 		
-		p1.setCharacter(blue);
-		p2.setCharacter(red);
-		p3.setCharacter(green);
-		p4.setCharacter(yellow);
+		resources.getPlayers().get(0).setCharacter(blue);
+		resources.getPlayers().get(1).setCharacter(red);
+		resources.getPlayers().get(2).setCharacter(green);
+		resources.getPlayers().get(3).setCharacter(yellow);
 		
 		// make a game panel (with frame) here
 		
