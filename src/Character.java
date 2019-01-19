@@ -97,10 +97,6 @@ public class Character {
 		motionState[idx] = state;
 	}
 
-	Character() {
-		
-	}
-
 	Character(String name) throws IOException{
 		
 		// currentAction = "crouch"

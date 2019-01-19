@@ -11,7 +11,7 @@ public class GameServer {
     private ServerSocket serverSock;//Server socket for connection
     private static Boolean running = true;  //Controls if the server is accepting clients
     private ArrayList<GameClientHandler> clients; //Holds handlers for all clients connected
-    private Queue<String> commands; //Holds the inputs done by player
+    private SimpleQueue<String> commands; //Holds the inputs done by player
     //replace above with actual queue class (my own)
 
     /** Main
@@ -25,17 +25,21 @@ public class GameServer {
     /** Go
      * This method starts the server and loops to accept multiple client connections
      */
-    private void go() {
+    public void go() {
         System.out.println("Waiting for a client connection..");
         Socket client = null; //hold the client connection
         clients = new ArrayList<GameClientHandler>(); //Initialize client handler list
 
         try {
+
             serverSock = new ServerSocket(5000); //Assigns a port to the server
+
             MessageHandler messageHandler = new MessageHandler(); //Start thread for outputting commands in queue
             Thread thread = new Thread(messageHandler);
             thread.start();
+
             while(running) { //Loop to accept multiple clients
+
                 client = serverSock.accept();  //Wait for connection
                 System.out.println("Client connected"); //Show that a client has connected in console
                 clients.add(new GameClientHandler(client)); //Add new ConnectionHandler for new client into list of handlers
@@ -70,6 +74,7 @@ public class GameServer {
     		while (running) {
     			if (commands != null) {
     				if (!commands.peek().equals(null)) {
+                        System.out.println("Write to clients");
     					for (int i = 0; i < clients.size(); i++) {
     						clients.get(i).write(commands.poll());
     					}
@@ -126,6 +131,7 @@ public class GameServer {
             while (running) {
                 try {
 					if (input.ready()) {
+					    System.out.println("Command gotten");
 						command = input.readLine();
 						commands.offer(command);
 					}

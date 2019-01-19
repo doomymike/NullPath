@@ -13,18 +13,22 @@ import java.net.Socket;
 
 import java.util.Queue;
 
-public class GameClient {
+public class GameClient implements Runnable{
 
     Socket mySocket; //socket for connection
     BufferedReader input; //reader for network stream
     PrintWriter output;  //printwriter for network output
-    boolean running = true; //thread status via boolean
-    String username;
+    boolean running; //thread status via boolean
+    private String username;
     JButton sendButton;
 	JTextField typeField;
 	JFrame window;
 	JPanel southPanel;
-	
+
+	// for username setting (and setting of usernames of all people connected)
+	private boolean newUserSet;
+	private SimpleLinkedList<String> users = new SimpleLinkedList<>();
+
 	// for character selection
 	private String characterSelected = "";
 	private boolean characterHasBeenSelected;
@@ -61,6 +65,8 @@ public class GameClient {
 
             output = new PrintWriter(mySocket.getOutputStream()); //assign printwriter to network stream
 
+			running = true;
+
         } catch (IOException e) {  //connection error occured
             System.out.println("Connection to Server Failed");
             e.printStackTrace();
@@ -69,7 +75,8 @@ public class GameClient {
         System.out.println("Connection made.");
 
         // ------------------------------------------------------------------------
-        
+
+		/*
         window = new JFrame("Chat Client");
 	    southPanel = new JPanel();
 	    southPanel.setLayout(new GridLayout(2,0));
@@ -95,34 +102,40 @@ public class GameClient {
                 output.flush();
             }
         });
-
-        // Checks for incoming commands
-        while (true){
-        	
-        	// look for command sent from server
-            try {
-                if (input.ready()) { //check for an incoming messge
-                    String temp = input.readLine();
-                    if (temp.substring(0, temp.indexOf(":::")).equals("character selection")) {
-                    	for (int i = 0; i < 4; i++) {
-                        	if (characterSelection[i].equals(null)) {
-                        		characterSelection[i] = temp.substring(temp.indexOf(":::") + 3); // set command for character select panel to read
-                        		characterHasBeenSelected = true;
-                        		break;
-                        	}
-                        }
-                    }
-                }
-            } catch (IOException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-            
-            // can look for other inputs by panels here
-            
-        }
+        */
 
     } //End of go()
+
+	public void run() {
+
+		// Checks for incoming commands
+		while (running){
+
+			// look for command sent from server
+			try {
+				if (input.ready()) { //check for an incoming messge
+					String temp = input.readLine();
+					if (temp.substring(0, temp.indexOf(":::")).equals("character selection")) {
+						for (int i = 0; i < 4; i++) {
+							if (characterSelection[i].equals(null)) {
+								characterSelection[i] = temp.substring(temp.indexOf(":::") + 3); // set command for character select panel to read
+								characterHasBeenSelected = true;
+								break;
+							}
+						}
+					} else if (temp.substring(0, temp.indexOf(":::")).equals("user connected")) {
+						addUser(temp.substring(temp.indexOf(":::") + 3));
+					}
+				}
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+			// can look for other inputs by panels here
+
+		}
+	}
     
     public String getCharacterSelected() {
     	return characterSelected;
@@ -152,6 +165,33 @@ public class GameClient {
 	public void setCharacterMovement(String characterMovement) {
 		this.characterMovement = characterMovement;
 		output.println("character movement" + ":::" + username + ":::" + characterMovement); //write to server
+	}
+
+	public void setUsername(String username) {
+    	this.username = username;
+    	System.out.println(username + " username set");
+    	output.println("user connected" + ":::" + username); // write to server
+	}
+
+	public String getUsername() {
+    	return username;
+	}
+
+	public boolean isNewUserSet() {
+		return newUserSet;
+	}
+
+	public void setNewUserSet(boolean newUserSet) {
+    	this.newUserSet = newUserSet;
+	}
+
+	public void addUser(String username) {
+    	users.add(username);
+    	newUserSet = true;
+	}
+
+	public SimpleLinkedList<String> getUsers() {
+    	return users;
 	}
 
 	class buttonListener implements ActionListener{

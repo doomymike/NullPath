@@ -120,7 +120,7 @@ public class BigFlex extends JPanel implements KeyListener{
     			
     		}
     		for (int i =0;i<resource.getCurrentStage().getItems().size();i++){
-    			g.drawImage(resource.getCurrentStage().getItems().get(i).getImage(), resource.getCurrentStage().getItems().get(i).getX()-lowX, resource.getCurrentStage().getItems().get(i).getY()-lowY, (int)(resource.getCurrentStage().getItems().get(i).getWidth()*ratio), (int)(resource.getCurrentStage().getItems().get(i).getHeight()*ratio), this);
+    			//g.drawImage(resource.getCurrentStage().getItems().get(i).getImage(), resource.getCurrentStage().getItems().get(i).getX()-lowX, resource.getCurrentStage().getItems().get(i).getY()-lowY, (int)(resource.getCurrentStage().getItems().get(i).getWidth()*ratio), (int)(resource.getCurrentStage().getItems().get(i).getHeight()*ratio), this);
     		}
     	    
     	    newEng.contactMapCollision(testPlayer);

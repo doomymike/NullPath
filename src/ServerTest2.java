@@ -1,15 +1,12 @@
-public class ServerTest {
+public class ServerTest2 {
 
     public static void main(String[] args) {
 
-        Resources resources = new Resources();
-
         GameClient client = new GameClient();
         client.go();
-        Thread t = new Thread(client);
-        t.start();
+        client.setUsername("user 2");
 
-        client.setUsername("user 1");
+        Resources resources = new Resources();
 
         while (true) {
             if (client.isNewUserSet()) {
