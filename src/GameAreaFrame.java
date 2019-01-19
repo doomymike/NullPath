@@ -141,7 +141,7 @@ public class GameAreaFrame extends JFrame implements KeyListener{
                     characterSelectPanel = new CharacterSelectPanel(); // Add the game panel
                     this.getContentPane().add(characterSelectPanel);
                     characterSelectPanel.setResources(resources); // Pass in reference to resources object (so players can be assigned characters)
-                    panelCounter = 5;
+                    panelCounter = 4;
                     this.revalidate();
                     repaint();
                 } else if (mainMenuPanel.getSelection()==1) {
