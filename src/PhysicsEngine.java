@@ -107,13 +107,13 @@ public class PhysicsEngine{
 					if (contactMap[contactY][contactLX+counter].equals("2")) {
 						counter++;
 					} else {
-						return 20*(contactRX+counter-2);
+						return 20*(contactRX+counter);
 					}
 				} else {
 					if (contactMap[contactY][contactLX+counter].equals("1")) {
 						counter++;
 					} else {
-						return 20*(contactRX+counter-2);
+						return 20*(contactRX+counter);
 					}
 				}
 			}
@@ -123,13 +123,13 @@ public class PhysicsEngine{
 					if (contactMap[contactY][contactRX+counter].equals("2")) {
 						counter--;
 					} else {
-						return 20*(contactLX+counter+2);
+						return 20*(contactLX+counter);
 					}
 				} else {
 					if (contactMap[contactY][contactRX+counter].equals("1")) {
 						counter--;
 					} else {
-						return 20*(contactLX+counter+2);
+						return 20*(contactLX+counter);
 					}
 				}
 			}

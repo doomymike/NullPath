@@ -39,7 +39,7 @@ public class testFrameF extends JPanel implements KeyListener{
     		itemList.add(new FanWind(450, 100, 600, 50, 1, 1));
     		itemList.add(new ConveyorBelt(500, 250, 40, 200, 1, 0));
     		itemList.add(new ProjectileLauncher(600, 600,50, 50, false, "RAND"));
-    		itemList.add(new CharacterLauncher(300, 200, 20, 60, 1, 1));
+    		itemList.add(new CharacterLauncher(1000, 400, 20, 60, 1, 1));
     		itemList.add(new MovingPlatform(100, 150, 50, 150, 500, 100, new double[] {1, 0}, 1));
     		initStart = System.nanoTime()/(Math.pow(10, 9));
     		lastNum = 0;
