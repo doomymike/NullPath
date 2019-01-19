@@ -7,7 +7,7 @@ public class SimpleQueue<T> {
     }
 
     public void offer(T item) {
-        if (head == null) {
+        if (tail == null) {
             head = new Node<>(item, null);
             tail = head;
         } else {

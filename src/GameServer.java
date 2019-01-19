@@ -34,6 +34,7 @@ public class GameServer {
 
             serverSock = new ServerSocket(5000); //Assigns a port to the server
 
+            commands = new SimpleQueue<>();
             MessageHandler messageHandler = new MessageHandler(); //Start thread for outputting commands in queue
             Thread thread = new Thread(messageHandler);
             thread.start();
@@ -73,11 +74,12 @@ public class GameServer {
     		
     		while (running) {
     			if (commands != null) {
-    				if (!commands.peek().equals(null)) {
+    				if (commands.peek() != null) {
                         System.out.println("Write to clients");
     					for (int i = 0; i < clients.size(); i++) {
     						clients.get(i).write(commands.poll());
     					}
+    					commands.poll(); // dequeue command after it has been sent to everyone connected
     				}
     			}
     		}
@@ -91,7 +93,6 @@ public class GameServer {
      * Inner class that is run in a thread and manages a client connected to the server
      */
     class GameClientHandler implements Runnable {
-        private String clientName; //Name of client (username)
         private PrintWriter output; //assign printwriter to network stream
         private BufferedReader input; //Stream for network input
         private Socket client;  //keeps track of the client socket
@@ -110,12 +111,6 @@ public class GameServer {
                 this.output = new PrintWriter(client.getOutputStream());
                 InputStreamReader stream = new InputStreamReader(client.getInputStream());
                 this.input = new BufferedReader(stream);
-                while (clientName == null) {
-                    if (input.ready()) {
-                        clientName = input.readLine(); //Get username from client
-                        System.out.println("Client " + clientName + " has connected"); //Print username to console
-                    }
-                }
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -131,9 +126,11 @@ public class GameServer {
             while (running) {
                 try {
 					if (input.ready()) {
-					    System.out.println("Command gotten");
 						command = input.readLine();
-						commands.offer(command);
+						if (command != null) {
+                            commands.offer(command);
+                            System.out.println("Command gotten");
+                        }
 					}
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
@@ -160,15 +157,6 @@ public class GameServer {
             output.println(str);
             output.flush();
         } //End of write()
-
-        /**
-         * getClientName
-         * This method returns the name of the client managed by this handler
-         * @return clientName, the name of the client
-         */
-        public String getClientName() {
-            return clientName;
-        } //End of getClientName()
 
     } //End of inner class
 

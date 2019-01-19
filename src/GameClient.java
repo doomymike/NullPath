@@ -113,7 +113,7 @@ public class GameClient implements Runnable{
 
 			// look for command sent from server
 			try {
-				if (input.ready()) { //check for an incoming messge
+				if (input.ready()) { //check for an incoming message
 					String temp = input.readLine();
 					if (temp.substring(0, temp.indexOf(":::")).equals("character selection")) {
 						for (int i = 0; i < 4; i++) {
@@ -165,12 +165,14 @@ public class GameClient implements Runnable{
 	public void setCharacterMovement(String characterMovement) {
 		this.characterMovement = characterMovement;
 		output.println("character movement" + ":::" + username + ":::" + characterMovement); //write to server
+		output.flush();
 	}
 
 	public void setUsername(String username) {
     	this.username = username;
     	System.out.println(username + " username set");
     	output.println("user connected" + ":::" + username); // write to server
+		output.flush();
 	}
 
 	public String getUsername() {
@@ -194,6 +196,7 @@ public class GameClient implements Runnable{
     	return users;
 	}
 
+	/*
 	class buttonListener implements ActionListener{
 		  
 		  //performs action when button is clicked
@@ -207,4 +210,5 @@ public class GameClient implements Runnable{
 					window.dispose();
 			}
 	}
+	*/
 }	
