@@ -96,7 +96,11 @@ public class Character {
 	public void setMotion(boolean state, int idx) {
 		motionState[idx] = state;
 	}
+
+	Character() {
 		
+	}
+
 	Character(String name) throws IOException{
 		
 		// currentAction = "crouch"
