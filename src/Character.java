@@ -31,6 +31,15 @@ public class Character {
 	private int currentFrameIndex;
 	private boolean finished;
 	private Item killedBy;
+	private int platMotion;
+	
+	public void setPMotion(int motion) {
+		platMotion = motion;
+	}
+	
+	public int getPMotion() {
+		return platMotion;
+	}
 	
 	public Item getKilledBy() {
 		return killedBy;

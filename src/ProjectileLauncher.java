@@ -14,7 +14,7 @@ public class ProjectileLauncher extends Item{
 	}
 	
 	public void launchProjectile(double dx, double dy, ArrayList<Projectile> projectList) { //Appends to a projectList called in main to draw the ball
-		projectList.add(new Projectile(getX(), getY(), getHeight(), getWidth(), new double[] {dx, dy}, getGravity()));
+		projectList.add(new Pellet (getX()+getWidth()/2, getY()+getHeight()/2, 15, new double[] {dx, dy}, true));
 	}
 	
 }

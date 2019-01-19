@@ -219,11 +219,23 @@ public class PhysicsEngine{
 		int xPos = object.getX();
 		int yPos = object.getY();
 		if (object.getGravity()) {
-			object.setDy(object.getVel()[1] - 10); //Gravity
+			object.setDy(object.getVel()[1]+0.06); //Gravity
 		}
 		object.setX((int)Math.round(xPos + object.getVel()[0]));
 		object.setY((int)Math.round(yPos + object.getVel()[1]));
 		
+		if (object instanceof MovingPlatform) {
+			xPos = object.getX();
+			if ((((MovingPlatform)object).getDirection()) == 1) {
+				if (((MovingPlatform)object).getEndPos()[0] <= xPos || ((MovingPlatform)object).getStartPos()[0] >= xPos) {
+					object.setDx(-object.getVel()[0]);
+				}
+			} else if (((MovingPlatform)object).getDirection() == 0) {
+				if (((MovingPlatform)object).getEndPos()[0] >= xPos || ((MovingPlatform)object).getEndPos()[0] <= xPos) {
+					object.setDy(-object.getVel()[1]);
+				}
+			}
+		}
 	}
 	
 	public boolean checkCollision(Character player, Item object, boolean circular) {
@@ -273,6 +285,15 @@ public class PhysicsEngine{
 					if (object instanceof Platform) {
 						player.resetY();
 						player.setJump(true);
+						if (object instanceof MovingPlatform) {
+							if (object.checkChar(player.getTag()) == false) {
+								player.setPMotion((int)object.getVel()[0]);
+								player.setVelocity(new double[] {object.getVel()[0] + player.getVelocity()[0], player.getVelocity()[1]});
+							} else if (player.getPMotion() != object.getVel()[0]) { // For when the velocity of moving platform switches
+								player.setPMotion((int)object.getVel()[0]);
+								player.setVelocity(new double[] {2*object.getVel()[0] + player.getVelocity()[0], player.getVelocity()[1]});
+							}
+						}
 						if (((Platform)object).getHoney() == true) {
 							if (player.getHoney() == false) {
 								//player.setVelocity(honeyMod(player, player.getVelocity()));
@@ -336,6 +357,7 @@ public class PhysicsEngine{
 			if (object.checkChar(player.getTag())) {
 				if (object instanceof ConveyorBelt) {
 					player.setJump(false);
+					System.out.println("ER");
 					player.setVelocity(new double[]{player.getVelocity()[0] - ((ConveyorBelt)object).getSpeed()[0], player.getVelocity()[1]});
 				}
 				if (object instanceof FanWind) {
@@ -353,6 +375,9 @@ public class PhysicsEngine{
 	    					player.setVelocity(new double[] {player.getVelocity()[0]-player.getLastI() , player.getVelocity()[1]});
 	    					player.setIMotion(false);
 	    				}
+					}
+					if (object instanceof MovingPlatform) {
+						player.setVelocity(new double[] {player.getVelocity()[0] - object.getVel()[0], player.getVelocity()[1]});
 					}
 				}
 				player.resetGravity();

@@ -11,13 +11,21 @@ import java.util.ArrayList;
 
 public class testFrameF extends JPanel implements KeyListener{
 
+		ArrayList<Item> itemList = new ArrayList<Item>();
+	
+    	ArrayList <Projectile> ProjectileList = new ArrayList<Projectile>();
+		
+    	
     	Character testPlayer = null;
     	PhysicsEngine newEng = null;
+    	/*
     	StationaryPlatform plat = null;
     	FanWind wind = null;
     	ConveyorBelt track = null;
-    	ArrayList <Projectile> ProjectileList = new ArrayList<Projectile>();
     	ProjectileLauncher launcher = null;
+    	CharacterLauncher cLaunch = null;
+    	*/
+    	
     	double initStart;
     	int lastNum;
     	boolean onID;
@@ -27,17 +35,16 @@ public class testFrameF extends JPanel implements KeyListener{
     	public testFrameF() throws FileNotFoundException, IOException {
     		this.setSize(new Dimension(1720, 760));
     		testPlayer = new Character(80, 240, 60, 40, 0);
-    		plat = new StationaryPlatform(80, 250, 150, 300);
-    		plat.setIce(true);
-    		wind = new FanWind(450, 100, 600, 50, 1, 1);
-    		track = new ConveyorBelt(500, 250, 40, 200, 1, 0);
-    		launcher = new ProjectileLauncher(600, 600,50, 50, false, "RAND");
+    		itemList.add(new StationaryPlatform(80, 250, 150, 300));
+    		itemList.add(new FanWind(450, 100, 600, 50, 1, 1));
+    		itemList.add(new ConveyorBelt(500, 250, 40, 200, 1, 0));
+    		itemList.add(new ProjectileLauncher(600, 600,50, 50, false, "RAND"));
+    		itemList.add(new CharacterLauncher(300, 200, 20, 60, 1, 1));
+    		itemList.add(new MovingPlatform(100, 150, 50, 150, 500, 100, new double[] {1, 0}, 1));
     		initStart = System.nanoTime()/(Math.pow(10, 9));
     		lastNum = 0;
     		onIA = false;
     		onID = false;
-    		System.out.println(testPlayer.getPosition()[0] + " AND "+testPlayer.getPosition()[1] + ", "+(testPlayer.getPosition()[0]+testPlayer.getWidth())+" AND " + (testPlayer.getPosition()[1]+testPlayer.getHeight()));
-    		System.out.println(plat.getX() + " AND "+plat.getY() + ", "+(plat.getX()+plat.getWidth())+" AND " + (plat.getY()+plat.getHeight()));
     		newEng = new PhysicsEngine("Bad");
     		contactMap = newEng.retrieveCMap();
     	    newEng.printMap(contactMap);
@@ -72,31 +79,54 @@ public class testFrameF extends JPanel implements KeyListener{
 	    		g.drawRect(1700, 720, 20, 20);
 	    	}
     	    
-    	    g.setColor(Color.GREEN);
-    	    g.fillRect(launcher.getX(), launcher.getY(), launcher.getWidth(), launcher.getHeight());
-    	    g.setColor(Color.DARK_GRAY);
-    	    g.fillRect(plat.getX(), plat.getY(), plat.getWidth(), plat.getHeight());
-    	    g.setColor(Color.BLUE);
-    	    g.fillRect(wind.getX(), wind.getY(), wind.getWidth(), wind.getHeight());
-    	    g.setColor(Color.CYAN);
-    	    g.fillRect(track.getX(), track.getY(), track.getWidth(), track.getHeight());
-    	    g.setColor(Color.RED);
+	    	int a = 0;
+    	    newEng.contactMapCollision(testPlayer); //Make sure that the grid is overwritten by objects!!!!!
+	    	
+	    	while (a < itemList.size()) {
+	    		if (itemList.get(a) instanceof CharacterLauncher) {
+	    			g.setColor(Color.BLACK);
+	    		} else if (itemList.get(a) instanceof ProjectileLauncher) {
+	    			g.setColor(Color.GREEN);
+	    		} else if (itemList.get(a) instanceof Platform) {
+	    			g.setColor(Color.DARK_GRAY);
+	    		} else if (itemList.get(a) instanceof FanWind) {
+	    			g.setColor(Color.BLUE);
+	    		} else if (itemList.get(a) instanceof ConveyorBelt) {
+	    			g.setColor(Color.CYAN);
+	    		} 
+	    		g.fillRect(itemList.get(a).getX(), itemList.get(a).getY(), itemList.get(a).getWidth(), itemList.get(a).getHeight());
+	    		newEng.checkCollision(testPlayer, itemList.get(a), false);
+	    		
+	    		if (itemList.get(a) instanceof ProjectileLauncher) {
+	    			if (lastNum < convSec) {
+	        	    	lastNum = convSec;
+	        	    	((ProjectileLauncher)itemList.get(a)).launchProjectile(-3, -6, ProjectileList);
+	        	    }
+	    		}
+	    		
+	    		if (itemList.get(a) instanceof MovingPlatform) {
+	    			newEng.move(itemList.get(a));
+	    		}
+	    		a++;
+	    	}
+	    	
+	    	//while loop is used in case items may need to be removed
+
     	    g.fillRect(testPlayer.getPosition()[0], testPlayer.getPosition()[1], testPlayer.getWidth(), testPlayer.getHeight());
     	    
-    	    for (int i = 0; i < ProjectileList.size(); i++) {
-    	    	newEng.move(ProjectileList.get(i));
+    	    int c = 0;
+    	    while (c < ProjectileList.size()) {
+    	    	newEng.move(ProjectileList.get(c));
     	    	g.setColor(Color.RED);
-    	    	g.fillRect(ProjectileList.get(i).getX(), ProjectileList.get(i).getY(), ProjectileList.get(i).getWidth(), ProjectileList.get(i).getHeight());
+    	    	g.fillOval(ProjectileList.get(c).getX(), ProjectileList.get(c).getY(), ProjectileList.get(c).getRadius(), ProjectileList.get(c).getRadius());
+    	    	if (ProjectileList.get(c).getX() < 0 || ProjectileList.get(c).getX() > 1720 || ProjectileList.get(c).getY() < 0 || ProjectileList.get(c).getY() > 760) {
+    	    		ProjectileList.remove(c);
+    	    		c--;
+    	    	}
+    	    	c++;
+    	    	//g.fillRect(ProjectileList.get(i).getX(), ProjectileList.get(i).getY(), ProjectileList.get(i).getWidth(), ProjectileList.get(i).getHeight());
     	    }
     	    
-    	    newEng.contactMapCollision(testPlayer);
-    	    newEng.checkCollision(testPlayer, plat, false);
-    	    newEng.checkCollision(testPlayer, track, false);
-    	    newEng.checkCollision(testPlayer, wind, false);
-    	    if (lastNum < convSec) {
-    	    	lastNum = convSec;
-    	    	launcher.launchProjectile(-3, 0, ProjectileList);
-    	    }
     	    newEng.move(testPlayer);
     	    repaint();
     	}
@@ -122,6 +152,7 @@ public class testFrameF extends JPanel implements KeyListener{
     				testPlayer.setMotion(true, 1);
     			}
     		} else if (c == 'w' && testPlayer.getJump()) {
+    			System.out.println("PRESS");
     			if (testPlayer.getMotion()[2] == false) {
     				/*
     				if(testPlayer.getIMotion()) {

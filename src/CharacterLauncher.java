@@ -2,7 +2,7 @@ import java.awt.image.BufferedImage;
 
 public class CharacterLauncher extends VelocityModifier{
 
-	static int speed = 30;
+	static int speed = -10;
 	public CharacterLauncher(int x, int y, int height, int width, int direction, int direction2) {
 		// TODO Auto-generated constructor stub
 		super(x, y, height, width, direction, direction2);	
