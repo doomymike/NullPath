@@ -7,6 +7,7 @@ import java.awt.event.KeyListener;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
 import javax.swing.*;
 
 public class CharacterSelectPanel extends JPanel{
@@ -15,6 +16,7 @@ public class CharacterSelectPanel extends JPanel{
     private String buttonPressed = "";
     private String selection = "";
     private String[] possibleSelections = {"Blue", "Green", "Red", "Yellow"};
+    private boolean[] charactersSelected = {false, false, false, false};
     private boolean back = false;
     Resources resource = null;
     
@@ -24,8 +26,73 @@ public class CharacterSelectPanel extends JPanel{
     private int xPos = 0;
     private int yPos = 0;
 
+    private GameClient client;
 
     public void paintComponent(Graphics g) {
+
+        //Check to see if anyone has selected blue (if no one previously selected it)
+        if (!charactersSelected[0]) {
+            if (!client.getCharacterSelection()[0].equals("")) {
+                charactersSelected[0] = true; //Mark as blue being selected if not already done so but marked as so in client
+                try {
+                    for (int i = 0; i < 4; i++) {
+                        if (resource.getPlayers().get(i).getName().equals(client.getCharacterSelection()[0])) {
+                            resource.getPlayers().get(i).setCharacter(new Character("Blue"));
+                        }
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        //Check to see if anyone has selected green (if no one previously selected it)
+        if (!charactersSelected[1]) {
+            if (!client.getCharacterSelection()[1].equals("")) {
+                charactersSelected[1] = true; //Mark as green being selected if not already done so but marked as so in client
+                try {
+                    for (int i = 0; i < 4; i++) {
+                        if (resource.getPlayers().get(i).getName().equals(client.getCharacterSelection()[1])) {
+                            resource.getPlayers().get(i).setCharacter(new Character("Green"));
+                        }
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        //Check to see if anyone has selected red (if no one previously selected it)
+        if (!charactersSelected[2]) {
+            if (!client.getCharacterSelection()[2].equals("")) {
+                charactersSelected[2] = true; //Mark as red being selected if not already done so but marked as so in client
+                try {
+                    for (int i = 0; i < 4; i++) {
+                        if (resource.getPlayers().get(i).getName().equals(client.getCharacterSelection()[2])) {
+                            resource.getPlayers().get(i).setCharacter(new Character("Red"));
+                        }
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        //Check to see if anyone has selected yellow (if no one previously selected it)
+        if (!charactersSelected[3]) {
+            if (!client.getCharacterSelection()[3].equals("")) {
+                charactersSelected[3] = true; //Mark as yellow being selected if not already done so but marked as so in client
+                try {
+                    for (int i = 0; i < 4; i++) {
+                        if (resource.getPlayers().get(i).getName().equals(client.getCharacterSelection()[3])) {
+                            resource.getPlayers().get(i).setCharacter(new Character("Yellow"));
+                        }
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
 
         //Override mouseListener methods
         addMouseListener(new MouseAdapter(){
@@ -72,8 +139,11 @@ public class CharacterSelectPanel extends JPanel{
             }
             public void mousePressed(java.awt.event.MouseEvent evt){
                 charOne.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("BlueSelect.png"))));
-                System.out.println("Player has selected blue");
-                selection = "Blue";
+                if ((!charactersSelected[0]) && selection.equals("")) { //If blue is not already selected and no character has been selected
+                    System.out.println("Player has selected blue");
+                    selection = "Blue";
+                    client.setCharacterSelected("Blue");
+                }
             }
             public void mouseClicked(java.awt.event.MouseEvent evt){
 
@@ -96,8 +166,11 @@ public class CharacterSelectPanel extends JPanel{
             }
             public void mousePressed(java.awt.event.MouseEvent evt){
                 charTwo.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("GreenSelect.png"))));
-                System.out.println("Player has selected green");
-                selection = "Green";
+                if ((!charactersSelected[1]) && selection.equals("")) { //If green is not already selected and no character has been selected
+                    System.out.println("Player has selected green");
+                    selection = "Green";
+                    client.setCharacterSelected("Green");
+                }
             }
             public void mouseClicked(java.awt.event.MouseEvent evt){
 
@@ -119,8 +192,11 @@ public class CharacterSelectPanel extends JPanel{
             }
             public void mousePressed(java.awt.event.MouseEvent evt){
                 charThree.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("RedSelect.png"))));
-                System.out.println("Player has selected red");
-                selection = "Red";
+                if ((!charactersSelected[2]) && selection.equals("")) { //If red is not already selected and no character has been selected
+                    System.out.println("Player has selected red");
+                    selection = "Red";
+                    client.setCharacterSelected("Red");
+                }
             }
             public void mouseClicked(java.awt.event.MouseEvent evt){
 
@@ -142,8 +218,11 @@ public class CharacterSelectPanel extends JPanel{
             }
             public void mousePressed(java.awt.event.MouseEvent evt){
                 charFour.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("YellowSelect.png"))));
-                System.out.println("Player has selected yellow");
-                selection = "Yellow";
+                if ((!charactersSelected[3]) && selection.equals("")) { //If yellow is not already selected and no character has been selected
+                    System.out.println("Player has selected yellow");
+                    selection = "Yellow";
+                    client.setCharacterSelected("Yellow");
+                }
             }
             public void mouseClicked(java.awt.event.MouseEvent evt){
 
@@ -162,6 +241,10 @@ public class CharacterSelectPanel extends JPanel{
     
     public void setResources(Resources resource){
         this.resource = resource;
+    }
+
+    public void setClient(GameClient client) {
+        this.client = client;
     }
  
     public void setButtonPressed(String buttonPressed) {

@@ -1,8 +1,14 @@
+/**
+ * [GameClient.java]
+ * Client that connects to the server for the NullPath Game
+ * Authors: Brian Li, James Liang, Michael Oren, Brian Zhang
+ * January 21, 2019
+ */
+
 // something to close it
 
 import java.awt.*;
 import javax.swing.*;
-
 
 import java.awt.event.*;
 import java.io.BufferedReader;
@@ -10,8 +16,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
-
-import java.util.Queue;
 
 public class GameClient implements Runnable{
 
@@ -33,19 +37,12 @@ public class GameClient implements Runnable{
 	private boolean characterHasBeenSelected;
 	
 	// store all players' selections
-	private String[] characterSelection = new String[4];
+	private String[] characterSelection = new String[4]; //Will store the name of the user in the corresponding slot (to their character selection)
+	//Array: {Blue, Green, Red, Yellow}
 	
 	// for running of game
 	private String characterMovement = "";
-	//private Queue<String> movementInputs = new Queue<>(); //replace with queue class
-
-    /**
-     * main method, runs the client
-     * @param args parameters from command line
-     */
-    public static void main(String[] args) {
-        new GameClient().go();
-    } //End of main
+	private SimpleQueue<String> movementInputs = new SimpleQueue<>(); //stores inputs by user
 
     /**
      * go
@@ -64,7 +61,7 @@ public class GameClient implements Runnable{
 
             output = new PrintWriter(mySocket.getOutputStream()); //assign printwriter to network stream
 
-			running = true;
+			running = true; //Flag as running
 
         } catch (IOException e) {  //connection error occured
             System.out.println("Connection to Server Failed");
@@ -115,11 +112,21 @@ public class GameClient implements Runnable{
 				if (input.ready()) { //check for an incoming message
 					String temp = input.readLine();
 					if (temp.substring(0, temp.indexOf(":::")).equals("character selection")) {
-						for (int i = 0; i < 4; i++) {
-							if (characterSelection[i].equals(null)) {
-								characterSelection[i] = temp.substring(temp.indexOf(":::") + 3); // set command for character select panel to read
-								characterHasBeenSelected = true;
-								break;
+						if (temp.substring(temp.indexOf(":::", temp.indexOf(":::")+1)).equals("Blue")) {
+							if (characterSelection[0] == null) { //Ensure no one else selected the character
+								characterSelection[0] = temp.substring(temp.indexOf(":::"),temp.indexOf(":::", temp.indexOf(":::")+1));
+							}
+						} else if (temp.substring(temp.indexOf(":::", temp.indexOf(":::")+1)).equals("Green")) {
+							if (characterSelection[1] == null) { //Ensure no one else selected the character
+								characterSelection[1] = temp.substring(temp.indexOf(":::"),temp.indexOf(":::", temp.indexOf(":::")+1));
+							}
+						} else if (temp.substring(temp.indexOf(":::", temp.indexOf(":::")+1)).equals("Red")) {
+							if (characterSelection[2] == null) { //Ensure no one else selected the character
+								characterSelection[2] = temp.substring(temp.indexOf(":::"),temp.indexOf(":::", temp.indexOf(":::")+1));
+							}
+						} else if (temp.substring(temp.indexOf(":::", temp.indexOf(":::")+1)).equals("Yellow")) {
+							if (characterSelection[3] == null) { //Ensure no one else selected the character
+								characterSelection[3] = temp.substring(temp.indexOf(":::"),temp.indexOf(":::", temp.indexOf(":::")+1));
 							}
 						}
 					} else if (temp.substring(0, temp.indexOf(":::")).equals("user connected")) {
@@ -134,53 +141,53 @@ public class GameClient implements Runnable{
 			// can look for other inputs by panels here
 
 		}
-	}
+	} //End of run
     
     public String getCharacterSelected() {
     	return characterSelected;
-    }
+    } //End of getCharacterSelected
 
     public void setCharacterSelected(String characterSelected) {
     	this.characterSelected = characterSelected;
     	output.println("character selection" + ":::" + username + ":::" + characterSelected); // write to server
-    }
+    } //End of setCharacterSelected
 
 	public String[] getCharacterSelection() {
 		return characterSelection;
-	}
+	} //End of getCharacterSelection
 
 	public void setCharacterSelection(String[] characterSelection) {
 		this.characterSelection = characterSelection;
-	}
+	} //End of setCharacterSelection
 	
 	public boolean hasSelected() {
 		return characterHasBeenSelected;
-	}
+	} //End of hasSelected
 
 	public String getCharacterMovement() {
 		return characterMovement;
-	}
+	} //End of getCharacterMovement
 
 	public void setCharacterMovement(String characterMovement) {
 		this.characterMovement = characterMovement;
 		output.println("character movement" + ":::" + username + ":::" + characterMovement); //write to server
 		output.flush();
-	}
+	} //End of setCharacterMovement
 
 	public void setUsername(String username) {
     	this.username = username;
     	System.out.println(username + " username set");
     	output.println("user connected" + ":::" + username); // write to server
 		output.flush();
-	}
+	} //End of setUsername
 
 	public String getUsername() {
     	return username;
-	}
+	} //End of getUsername
 
 	public SimpleLinkedList<String> getUsers() {
     	return users;
-	}
+	} //End of getUsers
 
 	/*
 	class buttonListener implements ActionListener{
