@@ -12,11 +12,9 @@ import java.util.ArrayList;
 public class testFrameF extends JPanel implements KeyListener{
 
 		ArrayList<Item> itemList = new ArrayList<Item>();
-	
+		ArrayList<Character> characterList = new ArrayList<Character>();
     	ArrayList <Projectile> ProjectileList = new ArrayList<Projectile>();
 		
-    	
-    	Character testPlayer = null;
     	PhysicsEngine newEng = null;
     	/*
     	StationaryPlatform plat = null;
@@ -31,18 +29,25 @@ public class testFrameF extends JPanel implements KeyListener{
     	boolean onID;
     	boolean onIA;
     	String[][] contactMap;
+    	int launchCounter = -1;
     	
     	public testFrameF() throws FileNotFoundException, IOException {
     		this.setSize(new Dimension(1720, 760));
-    		testPlayer = new Character(80, 240, 60, 40, 0);
+    		characterList.add(new Character(80, 240, 60, 40, 0));
     		itemList.add(new StationaryPlatform(80, 250, 150, 300));
     		itemList.add(new FanWind(450, 100, 600, 50, 1, 1));
     		itemList.add(new ConveyorBelt(500, 250, 40, 200, 1, 0));
-    		itemList.add(new ProjectileLauncher(600, 600,50, 50, false, "RAND"));
+    		itemList.add(new ProjectileLauncher(800, 500,50, 50, -3, -6, false, "Ball", launchCounter)); //LaunchCounter used so that projectiles can collide with projectileLaunchers that didnt launch itself
+    		launchCounter++;
+    		itemList.add(new ProjectileLauncher(800, 375,50, 50, 3, 0, "ArrowH", launchCounter)); 
+    		launchCounter++;
+    		itemList.add(new ProjectileLauncher(600, 450,50, 50, 0, -3, "ArrowV", launchCounter)); // negative = upward velocity
+    		launchCounter++;
     		itemList.add(new CharacterLauncher(1000, 400, 20, 60, 1, 1));
     		itemList.add(new MovingPlatform(100, 150, 50, 150, 500, 100, new double[] {1, 0}, 1));
+    		itemList.add(new Spike(300, 200, 50, 50));
+    		itemList.add(new Saw (400, 200, 50));
     		initStart = System.nanoTime()/(Math.pow(10, 9));
-    		lastNum = 0;
     		onIA = false;
     		onID = false;
     		newEng = new PhysicsEngine("Bad");
@@ -57,7 +62,6 @@ public class testFrameF extends JPanel implements KeyListener{
     	
     	public void paintComponent(Graphics g) {
     		  
-    		int convSec = (int)(System.nanoTime()/(Math.pow(10, 9)) - initStart);
     		// Call the super class
     	    super.paintComponent(g);
     	    setDoubleBuffered(true);
@@ -79,9 +83,23 @@ public class testFrameF extends JPanel implements KeyListener{
 	    		g.drawRect(1700, 720, 20, 20);
 	    	}
     	    
+    	    newEng.contactMapCollision((characterList.get(0))); //Make sure that the grid is overwritten by objects!!!!!
+    	    
+    	    //Changed characters into ArrayList
+    	    //Character Collision:
+    	    
+    	    //Use the following for multi character integration
+    	    for (int i = 0; i < characterList.size(); i++) {
+    	    	for (int a = 0; a < ProjectileList.size(); a++) {
+    	    		if (newEng.checkCollision(characterList.get(i), ProjectileList.get(a), true)) {
+    	    			ProjectileList.remove(a);
+    	    		}
+    	    	}
+    	    }
+    	    
+
+    	    
 	    	int a = 0;
-    	    newEng.contactMapCollision(testPlayer); //Make sure that the grid is overwritten by objects!!!!!
-	    	
 	    	while (a < itemList.size()) {
 	    		if (itemList.get(a) instanceof CharacterLauncher) {
 	    			g.setColor(Color.BLACK);
@@ -93,15 +111,23 @@ public class testFrameF extends JPanel implements KeyListener{
 	    			g.setColor(Color.BLUE);
 	    		} else if (itemList.get(a) instanceof ConveyorBelt) {
 	    			g.setColor(Color.CYAN);
-	    		} 
+	    		} else {
+	    			g.setColor(Color.ORANGE);
+	    		}
+	    		if (itemList.get(a).getRadius() != 0) {
+	    			g.fillOval(itemList.get(a).getX(), itemList.get(a).getY(), itemList.get(a).getRadius(), itemList.get(a).getRadius());
+	    		}
 	    		g.fillRect(itemList.get(a).getX(), itemList.get(a).getY(), itemList.get(a).getWidth(), itemList.get(a).getHeight());
-	    		newEng.checkCollision(testPlayer, itemList.get(a), false);
+	    		for (int i = 0; i < characterList.size(); i++) {
+	    			if (itemList.get(a).getRadius() == 0) {
+	    				newEng.checkCollision(characterList.get(i), itemList.get(a), false);
+	    			} else {
+	    				newEng.checkCollision(characterList.get(i), itemList.get(a), true);
+	    			}
+	    		}
 	    		
 	    		if (itemList.get(a) instanceof ProjectileLauncher) {
-	    			if (lastNum < convSec) {
-	        	    	lastNum = convSec;
-	        	    	((ProjectileLauncher)itemList.get(a)).launchProjectile(-3, -6, ProjectileList);
-	        	    }
+        	    	((ProjectileLauncher)itemList.get(a)).launchProjectile(ProjectileList);
 	    		}
 	    		
 	    		if (itemList.get(a) instanceof MovingPlatform) {
@@ -111,9 +137,14 @@ public class testFrameF extends JPanel implements KeyListener{
 	    		//MAIN EDIT PORTION
 	    		
 	    		int reduceC = 0;
+	    		boolean projCollide = false;
 	    		for (int i = 0; i < ProjectileList.size(); i++) {
-	    			if ((newEng.checkCollision(itemList.get(a), ProjectileList.get(i), false, true) && !(itemList.get(a) instanceof ProjectileLauncher) && !(itemList.get(a) instanceof FanWind)) || newEng.checkCMCollision(ProjectileList.get(i), true)){
-	    				System.out.println(itemList.get(a));
+	    			if (ProjectileList.get(i-reduceC).getRadius() != 0) {
+	    				projCollide = newEng.checkCollision(itemList.get(a), ProjectileList.get(i-reduceC), false, true);
+	    			} else {
+	    				projCollide = newEng.checkCollision(itemList.get(a), ProjectileList.get(i-reduceC), false, false);
+	    			}
+	    			if (projCollide && ((projectileCollide(itemList.get(a), ProjectileList.get(i-reduceC))) && !(itemList.get(a) instanceof FanWind)) || newEng.checkCMCollision(ProjectileList.get(i-reduceC), true)){
 	    				ProjectileList.remove(i-reduceC);
 	    				reduceC++;
 	    			}
@@ -124,14 +155,17 @@ public class testFrameF extends JPanel implements KeyListener{
 	    	}
 	    	
 	    	//while loop is used in case items may need to be removed
-
-    	    g.fillRect(testPlayer.getPosition()[0], testPlayer.getPosition()[1], testPlayer.getWidth(), testPlayer.getHeight());
     	    
     	    int c = 0;
     	    while (c < ProjectileList.size()) {
     	    	newEng.move(ProjectileList.get(c));
     	    	g.setColor(Color.RED);
-    	    	g.fillOval(ProjectileList.get(c).getX(), ProjectileList.get(c).getY(), ProjectileList.get(c).getRadius(), ProjectileList.get(c).getRadius());
+    	    	if (ProjectileList.get(c) instanceof Pellet) {
+    	    		g.fillOval(ProjectileList.get(c).getX(), ProjectileList.get(c).getY(), ProjectileList.get(c).getRadius(), ProjectileList.get(c).getRadius());
+    	    	} else if (ProjectileList.get(c) instanceof Arrow) {
+    	    		g.fillRect(ProjectileList.get(c).getX(), ProjectileList.get(c).getY(), ProjectileList.get(c).getWidth(), ProjectileList.get(c).getHeight());
+    	    	}
+    	    	
     	    	if (ProjectileList.get(c).getX() < 0 || ProjectileList.get(c).getX() > 1720 || ProjectileList.get(c).getY() < 0 || ProjectileList.get(c).getY() > 760) {
     	    		ProjectileList.remove(c);
     	    		c--;
@@ -140,103 +174,152 @@ public class testFrameF extends JPanel implements KeyListener{
     	    	//g.fillRect(ProjectileList.get(i).getX(), ProjectileList.get(i).getY(), ProjectileList.get(i).getWidth(), ProjectileList.get(i).getHeight());
     	    }
     	    
-    	    newEng.move(testPlayer);
+	    	for (int i = 0; i < characterList.size(); i++) {
+	    		g.setColor(Color.BLACK);
+	    		g.fillRect(characterList.get(i).getPosition()[0], characterList.get(i).getPosition()[1], characterList.get(i).getWidth(),characterList.get(i).getHeight());
+	    		newEng.move(characterList.get(i));
+	    	}
+	    		
+    		if ((characterList.get(0)).isAlive() == false) {
+    			if (characterList.get(0).getMotion()[1]) {
+    				if ((characterList.get(0)).getHMotion()[1]) {
+    					(characterList.get(0)).setHMotion(false, 1);
+    					(characterList.get(0)).setVelocity(new double[] {(characterList.get(0)).getVelocity()[0]-1, (characterList.get(0)).getVelocity()[1]});
+    				} else if ((characterList.get(0)).getIce() && (characterList.get(0)).getIMotion() == false && onIA == false){
+    					(characterList.get(0)).setIMotion(true);
+    					(characterList.get(0)).setLastI((characterList.get(0)).getVelocity()[0]*(.33));
+    					System.out.println((characterList.get(0)).getVelocity()[0]*(.33));    					
+    					(characterList.get(0)).setVelocity(new double[] {(characterList.get(0)).getVelocity()[0]*(.33), (characterList.get(0)).getVelocity()[1]});
+    				} else { 
+    					(characterList.get(0)).setVelocity(new double[] {(characterList.get(0)).getVelocity()[0]-2, (characterList.get(0)).getVelocity()[1]});
+    				}
+    				(characterList.get(0)).setMotion(false, 1);
+    			}
+    			
+    			if ((characterList.get(0)).getMotion()[2]) {
+    				//(characterList.get(0)).setVelocity(new double[] {(characterList.get(0)).getVelocity()[0], (characterList.get(0)).getVelocity()[1]+6});
+    				(characterList.get(0)).setMotion(false, 2);
+    			} 
+    			
+    			if ((characterList.get(0)).getMotion()[0]) {
+    				if ((characterList.get(0)).getHMotion()[0]) {
+    					(characterList.get(0)).setHMotion(false, 0);
+    					(characterList.get(0)).setVelocity(new double[] {(characterList.get(0)).getVelocity()[0]+1, (characterList.get(0)).getVelocity()[1]});	
+    				} else if ((characterList.get(0)).getIce() && (characterList.get(0)).getIMotion() == false && onID == false) {
+    					(characterList.get(0)).setIMotion(true);
+    					(characterList.get(0)).setLastI((characterList.get(0)).getVelocity()[0]*(.33));
+    					(characterList.get(0)).setVelocity(new double[] {(characterList.get(0)).getVelocity()[0]*(.33), (characterList.get(0)).getVelocity()[1]});
+    				} else {
+    					(characterList.get(0)).setVelocity(new double[] {(characterList.get(0)).getVelocity()[0]+2, (characterList.get(0)).getVelocity()[1]});	
+    				}
+    				(characterList.get(0)).setMotion(false, 0);
+    			}
+    		}
+	    	
     	    repaint();
     	}
     	
+    	public boolean projectileCollide(Item launch, Projectile obj) {
+    		if (launch instanceof ProjectileLauncher) {
+    			if (((ProjectileLauncher) launch).getTag() == obj.getTag()) {
+    				return false;
+    			}
+    		}
+    		return true;
+    	}
     	
     	public void keyPressed(KeyEvent e) {
     		char c = e.getKeyChar();
-    		if (c == 'd') {
+    		if (c == 'd' && (characterList.get(0)).isAlive()) {
     			onID = true;
-    			if (testPlayer.getMotion()[1] == false) {
-    				if (testPlayer.getHoney()) {
-    					testPlayer.setHMotion(true, 1);
-    					testPlayer.setVelocity(new double[] {testPlayer.getVelocity()[0]+1, testPlayer.getVelocity()[1]});
-    				} else if (testPlayer.getIce()){
-    					if (testPlayer.getIMotion()) {
-    						testPlayer.setVelocity(new double[] {testPlayer.getVelocity()[0]-testPlayer.getLastI() , testPlayer.getVelocity()[1]});
+    			if ((characterList.get(0)).getMotion()[1] == false) {
+    				if ((characterList.get(0)).getHoney()) {
+    					(characterList.get(0)).setHMotion(true, 1);
+    					(characterList.get(0)).setVelocity(new double[] {(characterList.get(0)).getVelocity()[0]+1, (characterList.get(0)).getVelocity()[1]});
+    				} else if ((characterList.get(0)).getIce()){
+    					if ((characterList.get(0)).getIMotion()) {
+    						(characterList.get(0)).setVelocity(new double[] {(characterList.get(0)).getVelocity()[0]-(characterList.get(0)).getLastI() , (characterList.get(0)).getVelocity()[1]});
     					}
-    					testPlayer.setVelocity(new double[] {testPlayer.getVelocity()[0]+2, testPlayer.getVelocity()[1]});
-    					testPlayer.setIMotion(false);
+    					(characterList.get(0)).setVelocity(new double[] {(characterList.get(0)).getVelocity()[0]+2, (characterList.get(0)).getVelocity()[1]});
+    					(characterList.get(0)).setIMotion(false);
     				} else {
-    					testPlayer.setVelocity(new double[] {testPlayer.getVelocity()[0]+2, testPlayer.getVelocity()[1]});
+    					(characterList.get(0)).setVelocity(new double[] {(characterList.get(0)).getVelocity()[0]+2, (characterList.get(0)).getVelocity()[1]});
     				}
-    				testPlayer.setMotion(true, 1);
+    				(characterList.get(0)).setMotion(true, 1);
     			}
-    		} else if (c == 'w' && testPlayer.getJump()) {
-    			System.out.println("PRESS");
-    			if (testPlayer.getMotion()[2] == false) {
+    		} else if (c == 'w' && (characterList.get(0)).getJump() && (characterList.get(0)).isAlive()) {
+    			if ((characterList.get(0)).getMotion()[2] == false) {
     				/*
-    				if(testPlayer.getIMotion()) {
-    					testPlayer.setVelocity(new double[] {testPlayer.getVelocity()[0]-testPlayer.getLastI() , testPlayer.getVelocity()[1]});
-    					testPlayer.setIMotion(false);
+    				if((characterList.get(0)).getIMotion()) {
+    					(characterList.get(0)).setVelocity(new double[] {(characterList.get(0)).getVelocity()[0]-(characterList.get(0)).getLastI() , (characterList.get(0)).getVelocity()[1]});
+    					(characterList.get(0)).setIMotion(false);
     				}
     				*/
-    				if (testPlayer.getHoney()) {
-    					testPlayer.setVelocity(new double[] {testPlayer.getVelocity()[0], testPlayer.getVelocity()[1]-2.5});
+    				if ((characterList.get(0)).getHoney()) {
+    					(characterList.get(0)).setVelocity(new double[] {(characterList.get(0)).getVelocity()[0], (characterList.get(0)).getVelocity()[1]-2.5});
     				} else {
-    					testPlayer.setVelocity(new double[] {testPlayer.getVelocity()[0], testPlayer.getVelocity()[1]-4.5});
+    					(characterList.get(0)).setVelocity(new double[] {(characterList.get(0)).getVelocity()[0], (characterList.get(0)).getVelocity()[1]-4.5});
     				}
-    				testPlayer.setMotion(true, 2);
+    				(characterList.get(0)).setMotion(true, 2);
     			}
-    		} else if (c == 'a') {
+    		} else if (c == 'a' && (characterList.get(0)).isAlive()) {
     			onIA = true;
-    			if (testPlayer.getMotion()[0] == false) {
-    				if (testPlayer.getHoney()) {
-    					testPlayer.setHMotion(true, 0);
-    					testPlayer.setVelocity(new double[] {testPlayer.getVelocity()[0]-1, testPlayer.getVelocity()[1]});
-    				} else if (testPlayer.getIce()){
-    					if (testPlayer.getIMotion()) {
-    						testPlayer.setVelocity(new double[] {testPlayer.getVelocity()[0]-testPlayer.getLastI() , testPlayer.getVelocity()[1]});
+    			if ((characterList.get(0)).getMotion()[0] == false) {
+    				if ((characterList.get(0)).getHoney()) {
+    					(characterList.get(0)).setHMotion(true, 0);
+    					(characterList.get(0)).setVelocity(new double[] {(characterList.get(0)).getVelocity()[0]-1, (characterList.get(0)).getVelocity()[1]});
+    				} else if ((characterList.get(0)).getIce()){
+    					if ((characterList.get(0)).getIMotion()) {
+    						(characterList.get(0)).setVelocity(new double[] {(characterList.get(0)).getVelocity()[0]-(characterList.get(0)).getLastI() , (characterList.get(0)).getVelocity()[1]});
     					}
-    					testPlayer.setVelocity(new double[] {testPlayer.getVelocity()[0]-2 , testPlayer.getVelocity()[1]});
-    					testPlayer.setIMotion(false);
+    					(characterList.get(0)).setVelocity(new double[] {(characterList.get(0)).getVelocity()[0]-2 , (characterList.get(0)).getVelocity()[1]});
+    					(characterList.get(0)).setIMotion(false);
     				} else {
-    					testPlayer.setVelocity(new double[] {testPlayer.getVelocity()[0]-2, testPlayer.getVelocity()[1]});
+    					(characterList.get(0)).setVelocity(new double[] {(characterList.get(0)).getVelocity()[0]-2, (characterList.get(0)).getVelocity()[1]});
     				}
-    				testPlayer.setMotion(true, 0);
+    				(characterList.get(0)).setMotion(true, 0);
     			}
-    		} 
+    		}
+    		
     	}
     	
     	public void keyReleased(KeyEvent e) {
     		char c = e.getKeyChar();
-    		if (c == 'd') {
+    		if (c == 'd' && characterList.get(0).isAlive()) {
     			onID = false;
-    			if (testPlayer.getMotion()[1]) {
-    				if (testPlayer.getHMotion()[1]) {
-    					testPlayer.setHMotion(false, 1);
-    					testPlayer.setVelocity(new double[] {testPlayer.getVelocity()[0]-1, testPlayer.getVelocity()[1]});
-    				} else if (testPlayer.getIce() && testPlayer.getIMotion() == false && onIA == false){
-    					testPlayer.setIMotion(true);
-    					testPlayer.setLastI(testPlayer.getVelocity()[0]*(.33));
-    					System.out.println(testPlayer.getVelocity()[0]*(.33));    					
-    					testPlayer.setVelocity(new double[] {testPlayer.getVelocity()[0]*(.33), testPlayer.getVelocity()[1]});
+    			if (characterList.get(0).getMotion()[1]) {
+    				if ((characterList.get(0)).getHMotion()[1]) {
+    					(characterList.get(0)).setHMotion(false, 1);
+    					(characterList.get(0)).setVelocity(new double[] {(characterList.get(0)).getVelocity()[0]-1, (characterList.get(0)).getVelocity()[1]});
+    				} else if ((characterList.get(0)).getIce() && (characterList.get(0)).getIMotion() == false && onIA == false){
+    					(characterList.get(0)).setIMotion(true);
+    					(characterList.get(0)).setLastI((characterList.get(0)).getVelocity()[0]*(.33));
+    					System.out.println((characterList.get(0)).getVelocity()[0]*(.33));    					
+    					(characterList.get(0)).setVelocity(new double[] {(characterList.get(0)).getVelocity()[0]*(.33), (characterList.get(0)).getVelocity()[1]});
     				} else { 
-    					testPlayer.setVelocity(new double[] {testPlayer.getVelocity()[0]-2, testPlayer.getVelocity()[1]});
+    					(characterList.get(0)).setVelocity(new double[] {(characterList.get(0)).getVelocity()[0]-2, (characterList.get(0)).getVelocity()[1]});
     				}
-    				testPlayer.setMotion(false, 1);
+    				(characterList.get(0)).setMotion(false, 1);
     			}
-    		} else if (c == 'w') {
-    			if (testPlayer.getMotion()[2]) {
-    				//testPlayer.setVelocity(new double[] {testPlayer.getVelocity()[0], testPlayer.getVelocity()[1]+6});
-    				testPlayer.setMotion(false, 2);
+    		} else if (c == 'w' && characterList.get(0).isAlive()) {
+    			if ((characterList.get(0)).getMotion()[2]) {
+    				//(characterList.get(0)).setVelocity(new double[] {(characterList.get(0)).getVelocity()[0], (characterList.get(0)).getVelocity()[1]+6});
+    				(characterList.get(0)).setMotion(false, 2);
     			}
-    		} else if (c == 'a') {
+    		} else if (c == 'a' && characterList.get(0).isAlive()) {
     			onIA = false;
-    			if (testPlayer.getMotion()[0]) {
-    				if (testPlayer.getHMotion()[0]) {
-    					testPlayer.setHMotion(false, 0);
-    					testPlayer.setVelocity(new double[] {testPlayer.getVelocity()[0]+1, testPlayer.getVelocity()[1]});	
-    				} else if (testPlayer.getIce() && testPlayer.getIMotion() == false && onID == false) {
-    					testPlayer.setIMotion(true);
-    					testPlayer.setLastI(testPlayer.getVelocity()[0]*(.33));
-    					testPlayer.setVelocity(new double[] {testPlayer.getVelocity()[0]*(.33), testPlayer.getVelocity()[1]});
+    			if ((characterList.get(0)).getMotion()[0]) {
+    				if ((characterList.get(0)).getHMotion()[0]) {
+    					(characterList.get(0)).setHMotion(false, 0);
+    					(characterList.get(0)).setVelocity(new double[] {(characterList.get(0)).getVelocity()[0]+1, (characterList.get(0)).getVelocity()[1]});	
+    				} else if ((characterList.get(0)).getIce() && (characterList.get(0)).getIMotion() == false && onID == false) {
+    					(characterList.get(0)).setIMotion(true);
+    					(characterList.get(0)).setLastI((characterList.get(0)).getVelocity()[0]*(.33));
+    					(characterList.get(0)).setVelocity(new double[] {(characterList.get(0)).getVelocity()[0]*(.33), (characterList.get(0)).getVelocity()[1]});
     				} else {
-    					testPlayer.setVelocity(new double[] {testPlayer.getVelocity()[0]+2, testPlayer.getVelocity()[1]});	
+    					(characterList.get(0)).setVelocity(new double[] {(characterList.get(0)).getVelocity()[0]+2, (characterList.get(0)).getVelocity()[1]});	
     				}
-    				testPlayer.setMotion(false, 0);
+    				(characterList.get(0)).setMotion(false, 0);
     			}
     		} 
     	}

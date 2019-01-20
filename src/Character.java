@@ -8,7 +8,7 @@ public class Character {
 
 	private int x,y,height,width;
 	private double dx, dy;
-	private boolean alive;
+	private boolean alive = true;
 	private BufferedImage sprite;
 	private BufferedImage[] sprites = new BufferedImage[32];
 	int speed = 10;

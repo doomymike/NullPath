@@ -279,7 +279,10 @@ public class PhysicsEngine{
 			int highCircY = object.getY()+radius;
 			if ((highCircY > higherY && lowCircY < higherY) || (highCircY < higherY && lowCircY > lowerY) || (lowCircY < lowerY && highCircY > lowerY)) {
 				if ((highCircX > higherX && lowCircX < higherX) || (highCircX < higherX && lowCircX > lowerX) || (lowCircX < lowerX && highCircY > lowerX)) {
-					return true;
+					if (object instanceof Saw || object instanceof Projectile) {
+						player.setAlive(false);
+						return true;
+					}
 				}
 			}
 		} else {
@@ -365,13 +368,17 @@ public class PhysicsEngine{
 				
 				if ((itemHY >= higherY && itemLY <= higherY) || (itemLY <= higherY && itemHY >= lowerY) || (itemHY <= higherY && itemLY >= lowerY)) {
 					
+					if (object instanceof Spike) {
+						player.setAlive(false);
+						return true;
+					}
+					
 					if (object instanceof FanWind) {
 						if (inMapTag(player.getTag())) {
 							tagMap.remove(Integer.valueOf(player.getTag()));
 						}
 						player.resetY();
 						if (object.checkChar(player.getTag()) == false) {
-							System.out.println("BAD");
 							player.setVelocity(new double[] {player.getVelocity()[0]+(((VelocityModifier)object).getSpeed())[0], player.getVelocity()[1] - (((VelocityModifier)object).getSpeed())[1]});
 							object.addChar(player.getTag());
 						}
@@ -457,13 +464,21 @@ public class PhysicsEngine{
 			otherLY = object2.getY();
 			otherHY = object2.getY()+object2.getHeight();
 		}
-		
+		/*
+		if ((centerLX < otherHX && otherLX < centerLX) || (centerHX < otherHX && otherLX < centerHX)) {
+			if ((otherLY < centerHY && otherHY > centerLX) || (otherLY < centerHY && otherHY > centerHY)) {
+				return true;
+			}
+		}
+		return false;
+		*/
 		if ((otherLX < centerLX && otherHX > centerHX) || (otherHX < centerHX && otherLX > centerLX) || (otherLX > centerLX && otherHX < centerHX)) {
 			if ((otherHY > centerHY && otherLY < centerHY) || (otherLY < centerHY && otherHY > centerLY) || (otherHY < centerHY && otherLY > centerLY)) {
 				return true;
 			}
 		}
 		return false;
+
 	}
 
 	public static boolean checkBombCollision(Item object1, Item object2, boolean circular1) { //Item 2 is the bomb object

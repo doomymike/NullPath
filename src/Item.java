@@ -1,14 +1,14 @@
-import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 public class Item {
-	private int x,y,height, width, radius;
+	private int x,y;
 	private double dx,dy;
 	private boolean affectGravity = true;
 	private ArrayList<Integer> charIntersect = new ArrayList<Integer>(); //Every item contains a reference of which characters it's intersecting with
 	private Player placer;
-	private BufferedImage image;
-	private SimpleLinkedList<BufferedImage> sprites;
+	private int width = 0;
+	private int height = 0;
+	private int radius = 0;
 	
 	public void printCharLen() {
 		System.out.println(charIntersect.size());
@@ -149,25 +149,6 @@ public class Item {
 
 	public void setPlacer(Player placer) {
 		this.placer = placer;
-	}
-
-	public BufferedImage getImage() {
-		return image;
-	}
-
-	public void setImage(BufferedImage image) {
-		this.image = image;
-	}
-
-	public SimpleLinkedList<BufferedImage> getSprites() {
-		return sprites;
-	}
-
-	public void addSprite(BufferedImage sprite) {
-		if(this.sprites==null) {
-			this.sprites = new SimpleLinkedList<BufferedImage>();
-		}
-		this.sprites.add(sprite);
 	}
 	
 }
