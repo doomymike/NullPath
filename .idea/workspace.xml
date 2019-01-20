@@ -2,12 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5370bd01-8671-42d7-a834-e8a31bdbfa73" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/Character.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Character.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/GameClient$buttonListener.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/GameServer$GameClientHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/GameServer$GameClientHandler.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GameClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameClient.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/GameServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameServer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ServerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ServerTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/SimpleQueue.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/SimpleQueue.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/bin/" />
@@ -23,8 +19,8 @@
       <file leaf-file-name="ServerTest.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/ServerTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="408">
-              <caret line="24" selection-start-line="24" selection-end-line="24" />
+            <state relative-caret-position="289">
+              <caret line="17" column="41" selection-start-line="17" selection-start-column="41" selection-end-line="17" selection-end-column="41" />
             </state>
           </provider>
         </entry>
@@ -32,8 +28,8 @@
       <file leaf-file-name="GameServer.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/GameServer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="357">
-              <caret line="81" column="104" selection-start-line="81" selection-start-column="104" selection-end-line="81" selection-end-column="104" />
+            <state relative-caret-position="969">
+              <caret line="64" column="6" lean-forward="true" selection-start-line="64" selection-start-column="6" selection-end-line="64" selection-end-column="6" />
             </state>
           </provider>
         </entry>
@@ -41,8 +37,8 @@
       <file leaf-file-name="GameClient.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/GameClient.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2839">
-              <caret line="167" column="23" selection-start-line="167" selection-start-column="23" selection-end-line="167" selection-end-column="23" />
+            <state relative-caret-position="527">
+              <caret line="172" column="52" selection-start-line="172" selection-start-column="40" selection-end-line="172" selection-end-column="52" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#1106#1107#0" expanded="true" />
@@ -73,8 +69,8 @@
       <file leaf-file-name="SimpleQueue.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/SimpleQueue.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="119">
-              <caret line="10" column="42" lean-forward="true" selection-start-line="10" selection-start-column="42" selection-end-line="10" selection-end-column="42" />
+            <state relative-caret-position="170">
+              <caret line="10" column="31" selection-start-line="10" selection-start-column="31" selection-end-line="10" selection-end-column="31" />
             </state>
           </provider>
         </entry>
@@ -205,7 +201,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.GameServer">
+  <component name="RunManager" selected="Application.ServerTest">
     <configuration name="GameAreaFrame" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="GameAreaFrame" />
       <module name="NullPath" />
@@ -275,8 +271,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.GameServer" />
         <item itemvalue="Application.ServerTest" />
+        <item itemvalue="Application.GameServer" />
         <item itemvalue="Application.ServerTest2" />
         <item itemvalue="Application.GameAreaFrame" />
       </list>
@@ -307,12 +303,12 @@
       <window_info anchor="right" id="Capture Analysis" order="3" />
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
       <window_info anchor="right" id="Maven Projects" order="3" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.20827587" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.20827587" />
       <window_info anchor="bottom" id="Version Control" order="7" />
       <window_info anchor="bottom" id="Terminal" order="7" />
       <window_info id="Capture Tool" order="2" />
       <window_info id="Designer" order="2" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25065103" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25065103" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info id="UI Designer" order="2" />
@@ -679,15 +675,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/SimpleQueue.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="10" column="42" lean-forward="true" selection-start-line="10" selection-start-column="42" selection-end-line="10" selection-end-column="42" />
+        <state relative-caret-position="170">
+          <caret line="10" column="31" selection-start-line="10" selection-start-column="31" selection-end-line="10" selection-end-column="31" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/GameClient.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2839">
-          <caret line="167" column="23" selection-start-line="167" selection-start-column="23" selection-end-line="167" selection-end-column="23" />
+        <state relative-caret-position="527">
+          <caret line="172" column="52" selection-start-line="172" selection-start-column="40" selection-end-line="172" selection-end-column="52" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#1106#1107#0" expanded="true" />
@@ -716,15 +712,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/GameServer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="81" column="104" selection-start-line="81" selection-start-column="104" selection-end-line="81" selection-end-column="104" />
+        <state relative-caret-position="969">
+          <caret line="64" column="6" lean-forward="true" selection-start-line="64" selection-start-column="6" selection-end-line="64" selection-end-column="6" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/ServerTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="24" selection-start-line="24" selection-end-line="24" />
+        <state relative-caret-position="289">
+          <caret line="17" column="41" selection-start-line="17" selection-start-column="41" selection-end-line="17" selection-end-column="41" />
         </state>
       </provider>
     </entry>

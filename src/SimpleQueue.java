@@ -4,6 +4,8 @@ public class SimpleQueue<T> {
     Node<T> tail;
 
     public SimpleQueue() {
+        head = null;
+        tail = null;
     }
 
     public void offer(T item) {
@@ -37,6 +39,14 @@ public class SimpleQueue<T> {
     public void clear() {
         head = null;
         tail = null;
+    }
+
+    public boolean isEmpty() {
+        if (head == null) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
 }

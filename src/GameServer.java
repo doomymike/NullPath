@@ -35,9 +35,9 @@ public class GameServer {
             serverSock = new ServerSocket(5000); //Assigns a port to the server
 
             commands = new SimpleQueue<>();
-            MessageHandler messageHandler = new MessageHandler(); //Start thread for outputting commands in queue
-            Thread thread = new Thread(messageHandler);
-            thread.start();
+            //MessageHandler messageHandler = new MessageHandler(); //Start thread for outputting commands in queue
+            //Thread thread = new Thread(messageHandler);
+            //thread.start();
 
             while(running) { //Loop to accept multiple clients
 
@@ -61,7 +61,8 @@ public class GameServer {
         }
         
     }
-    
+
+    /*
     class MessageHandler implements Runnable {
     	
     	private boolean running;
@@ -73,20 +74,19 @@ public class GameServer {
     	public void run() {
     		
     		while (running) {
-    			if (commands != null) {
-    				if (commands.peek() != null) {
-                        System.out.println("Write to clients");
-    					for (int i = 0; i < clients.size(); i++) {
-    						clients.get(i).write(commands.poll());
-    					}
-    					commands.poll(); // dequeue command after it has been sent to everyone connected
-    				}
-    			}
+                if (!commands.isEmpty()) {
+                    System.out.println("Write to clients");
+                    for (int i = 0; i < clients.size(); i++) {
+                        clients.get(i).write(commands.peek()); // write command to each connected client
+                    }
+                    commands.poll(); // dequeue command after it has been sent to everyone connected
+                }
     		}
     		
     	}
     	
     }
+    */
 
     /**
      * GameClientHandler
@@ -129,7 +129,8 @@ public class GameServer {
 						command = input.readLine();
 						if (command != null) {
                             commands.offer(command);
-                            System.out.println("Command gotten");
+                            System.out.println(command);
+                            writeToAll();
                         }
 					}
 				} catch (IOException e) {
@@ -157,6 +158,14 @@ public class GameServer {
             output.println(str);
             output.flush();
         } //End of write()
+
+        private synchronized void writeToAll() {
+            for (int i = 0; i < clients.size(); i++) {
+                clients.get(i).write(commands.peek()); // write command to each connected client
+            }
+            commands.poll();
+            System.out.println("sent to client");
+        }
 
     } //End of inner class
 

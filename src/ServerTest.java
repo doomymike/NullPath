@@ -15,7 +15,8 @@ public class ServerTest {
             if (client.isNewUserSet()) {
                 resources.addPlayer(client.getUsers().get(client.getUsers().size()-1));
                 client.setNewUserSet(false);
-                System.out.println(resources.getPlayers().get(resources.getPlayers().size()-1) + " has been added");
+                System.out.println("--");
+                System.out.println(resources.getPlayers().get(resources.getPlayers().size()-1).getName() + " has been added");
             }
         }
 
