@@ -1,3 +1,4 @@
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 public class Item {
@@ -9,6 +10,8 @@ public class Item {
 	private int width = 0;
 	private int height = 0;
 	private int radius = 0;
+	private BufferedImage image;
+	private SimpleLinkedList<BufferedImage> sprites;
 	
 	public void printCharLen() {
 		System.out.println(charIntersect.size());
@@ -149,6 +152,25 @@ public class Item {
 
 	public void setPlacer(Player placer) {
 		this.placer = placer;
+	}
+	
+	public BufferedImage getImage() {
+		return image;
+	}
+
+	public void setImage(BufferedImage image) {
+		this.image = image;
+	}
+
+	public SimpleLinkedList<BufferedImage> getSprites() {
+		return sprites;
+	}
+
+	public void addSprite(BufferedImage sprite) {
+		if(this.sprites==null) {
+			this.sprites = new SimpleLinkedList<BufferedImage>();
+		}
+		this.sprites.add(sprite);
 	}
 	
 }
