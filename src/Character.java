@@ -97,38 +97,85 @@ public class Character {
 		motionState[idx] = state;
 	}
 		
-	Character(String name) throws IOException{
+Character(String name) throws IOException{
+		
+		
 		
 		// currentAction = "crouch"
-		sprites[0] = ImageIO.read(new File("resources/"+name+"CrouchReference"));
+		sprites[0] = ImageIO.read(new File("resources/"+name+"CrouchReference"+".png"));
 		
 		// currentAction = "death"
 		for (int i = 1;i<7;i++){
-			sprites[0+i] = ImageIO.read(new File("resources/"+name+"DeathReference"+i));
+			sprites[0+i] = ImageIO.read(new File("resources/"+name+"DeathReference"+i+".png"));
 		}
 		
 		// currentAction = "fall"
-		sprites[7] = ImageIO.read(new File("resources/"+name+"FallReference"));
+		sprites[7] = ImageIO.read(new File("resources/"+name+"FallReference"+".png"));
 		
 		// currentAction = "idle"
 		for (int i = 1;i<7;i++){
-			sprites[7+i] = ImageIO.read(new File("resources/"+name+"IdleReference"+i));
+			sprites[7+i] = ImageIO.read(new File("resources/"+name+"IdleReference"+i+".png"));
 		}
 		
 		// currentAction = "jump"
-		sprites[14] = ImageIO.read(new File("resources/"+name+"JumpReference"));
+		sprites[14] = ImageIO.read(new File("resources/"+name+"JumpReference"+".png"));
 		
 		// currentAction = "run"
 		for (int i = 1;i<9;i++){
-			sprites[14+i] = ImageIO.read(new File("resources/"+name+"RunReference"+i));
+			sprites[14+i] = ImageIO.read(new File("resources/"+name+"RunReference"+i+".png"));
 		}
 		
 		// currentAction = "slide"
-		sprites[23] = ImageIO.read(new File("resources/"+name+"SlideReference"));
+		sprites[23] = ImageIO.read(new File("resources/"+name+"SlideReference"+".png"));
 		
 		// currentAction = "victory"
 		for (int i = 1;i<9;i++){
-			sprites[23+i] = ImageIO.read(new File("resources/"+name+"VictoryReference"+i));
+			sprites[23+i] = ImageIO.read(new File("resources/"+name+"VictoryReference"+i+".png"));
+		}
+		
+	}
+	
+	
+	Character(String name,int x, int y, int height, int width, int tag) throws IOException{
+		
+		this.x = x;
+		this.y = y;
+		this.height = height;
+		this.width = width;
+		this.uniqueTag = tag;
+		this.dx = 0;
+		this.dy = 0;
+		
+		// currentAction = "crouch"
+		sprites[0] = ImageIO.read(new File("resources/"+name+"CrouchReference"+".png"));
+		
+		// currentAction = "death"
+		for (int i = 1;i<7;i++){
+			sprites[0+i] = ImageIO.read(new File("resources/"+name+"DeathReference"+i+".png"));
+		}
+		
+		// currentAction = "fall"
+		sprites[7] = ImageIO.read(new File("resources/"+name+"FallReference"+".png"));
+		
+		// currentAction = "idle"
+		for (int i = 1;i<7;i++){
+			sprites[7+i] = ImageIO.read(new File("resources/"+name+"IdleReference"+i+".png"));
+		}
+		
+		// currentAction = "jump"
+		sprites[14] = ImageIO.read(new File("resources/"+name+"JumpReference"+".png"));
+		
+		// currentAction = "run"
+		for (int i = 1;i<9;i++){
+			sprites[14+i] = ImageIO.read(new File("resources/"+name+"RunReference"+i+".png"));
+		}
+		
+		// currentAction = "slide"
+		sprites[23] = ImageIO.read(new File("resources/"+name+"SlideReference"+".png"));
+		
+		// currentAction = "victory"
+		for (int i = 1;i<9;i++){
+			sprites[23+i] = ImageIO.read(new File("resources/"+name+"VictoryReference"+i+".png"));
 		}
 		
 	}
