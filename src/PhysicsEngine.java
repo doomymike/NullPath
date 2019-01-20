@@ -6,7 +6,7 @@ public class PhysicsEngine{
 	
 	File file = new File("resources/SkyFortressCollision.txt");
 	String [][] contactMap = null;
-	ArrayList<Integer> tagMap = new ArrayList<Integer>();	
+	static ArrayList<Integer> tagMap = new ArrayList<Integer>();	
 	
 	PhysicsEngine(String read) throws FileNotFoundException, IOException{
 		contactMap = new String[38][86];
@@ -46,7 +46,7 @@ public class PhysicsEngine{
 		}
 	}
 	
-	public boolean inMapTag(int uniqueTag) {
+	public static boolean inMapTag(int uniqueTag) {
 		for (int i = 0; i < tagMap.size(); i++) {
 			if (tagMap.get(i) == uniqueTag) {
 				return true;
@@ -263,7 +263,7 @@ public class PhysicsEngine{
 		}
 	}
 	
-	public boolean checkCollision(Character player, Item object, boolean circular) {
+	public static boolean checkCollision(Character player, Item object, boolean circular) {
 		boolean hasCollided = false;
 		boolean hTest = false;
 		
@@ -425,7 +425,7 @@ public class PhysicsEngine{
 		return false;
 	}
 
-	public boolean checkCollision(Item object1, Item object2, boolean circular1, boolean circular2) {
+	public static boolean checkCollision(Item object1, Item object2, boolean circular1, boolean circular2) {
 		int centerLX, centerHX, centerLY, centerHY, otherLX, otherHX, otherLY, otherHY;
 		if (circular1 && circular2) { //Per case variable sets
 			centerLX = object1.getX()-object1.getRadius();
@@ -472,8 +472,8 @@ public class PhysicsEngine{
 		}
 		return false;
 		*/
-		if ((otherLX < centerLX && otherHX > centerHX) || (otherHX < centerHX && otherLX > centerLX) || (otherLX > centerLX && otherHX < centerHX)) {
-			if ((otherHY > centerHY && otherLY < centerHY) || (otherLY < centerHY && otherHY > centerLY) || (otherHY < centerHY && otherLY > centerLY)) {
+		if ((otherLX < centerLX && otherHX > centerHX) || (otherLX < centerHX && otherLX > centerLX) || (otherLX > centerLX && otherHX < centerHX) || (centerLX < otherHX && otherHX < centerHX)) {
+			if ((otherHY > centerHY && otherLY < centerHY) || (otherLY < centerHY && otherHY > centerLY) || (otherHY < centerHY && otherLY > centerLY) || (otherHY < centerHY && otherHY > centerLY)) {
 				return true;
 			}
 		}
