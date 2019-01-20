@@ -1,6 +1,10 @@
 // ADD BACK BUTTON (will do)
 
 import java.awt.*;
+//Keyboard imports
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.*;
@@ -11,7 +15,9 @@ public class CharacterSelectPanel extends JPanel{
     private String buttonPressed = "";
     private String selection = "";
     private String[] possibleSelections = {"Blue", "Green", "Red", "Yellow"};
+    private boolean back = false;
     Resources resource = null;
+    
     //Triple colon follows
 
     //Mouse Position
@@ -40,13 +46,13 @@ public class CharacterSelectPanel extends JPanel{
         this.setLayout(null);
 
         //Setup all buttons for options
-        JButton charOne = new JButton(new ImageIcon(Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("/resources/BlueFrame.png"))));
-        JButton charTwo = new JButton(new ImageIcon(Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("/resources/GreenFrame.png"))));
-        JButton charThree = new JButton(new ImageIcon(Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("/resources/RedFrame.png"))));
-        JButton charFour = new JButton(new ImageIcon(Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("/resources/YellowFrame.png"))));
-        JLabel select = new JLabel(new ImageIcon(Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("/resources/Select.png"))));
+        JButton charOne = new JButton(new ImageIcon(Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("BlueFrame.png"))));
+        JButton charTwo = new JButton(new ImageIcon(Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("GreenFrame.png"))));
+        JButton charThree = new JButton(new ImageIcon(Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("RedFrame.png"))));
+        JButton charFour = new JButton(new ImageIcon(Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("YellowFrame.png"))));
+        JLabel select = new JLabel(new ImageIcon(Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("Select.png"))));
 
-        JLabel flow = new JLabel(new ImageIcon(Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("/resources/WaterFlow.gif"))));
+        JLabel flow = new JLabel(new ImageIcon(Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("WaterFlow.gif"))));
 
         this.add(select);
         select.setLocation(155,50);
@@ -62,10 +68,11 @@ public class CharacterSelectPanel extends JPanel{
             public void mouseEntered(java.awt.event.MouseEvent evt){
             }
             public void mouseExited(java.awt.event.MouseEvent evt){
-                charOne.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("/resources/BlueFrame.png"))));
+                //charOne.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("BlueFrame.png"))));
             }
             public void mousePressed(java.awt.event.MouseEvent evt){
-                charOne.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("/resources/BlueSelect.png"))));
+                charOne.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("BlueSelect.png"))));
+                System.out.println("Player has selected blue");
                 selection = "Blue";
             }
             public void mouseClicked(java.awt.event.MouseEvent evt){
@@ -85,10 +92,11 @@ public class CharacterSelectPanel extends JPanel{
 
             }
             public void mouseExited(java.awt.event.MouseEvent evt){
-                charTwo.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("/resources/GreenFrame.png"))));
+                //charTwo.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("GreenFrame.png"))));
             }
             public void mousePressed(java.awt.event.MouseEvent evt){
-                charTwo.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("/resources/GreenSelect.png"))));
+                charTwo.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("GreenSelect.png"))));
+                System.out.println("Player has selected green");
                 selection = "Green";
             }
             public void mouseClicked(java.awt.event.MouseEvent evt){
@@ -107,10 +115,11 @@ public class CharacterSelectPanel extends JPanel{
             public void mouseEntered(java.awt.event.MouseEvent evt){
             }
             public void mouseExited(java.awt.event.MouseEvent evt){
-                charThree.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("/resources/RedFrame.png"))));
+                //charThree.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("RedFrame.png"))));
             }
             public void mousePressed(java.awt.event.MouseEvent evt){
-                charThree.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("/resources/RedSelect.png"))));
+                charThree.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("RedSelect.png"))));
+                System.out.println("Player has selected red");
                 selection = "Red";
             }
             public void mouseClicked(java.awt.event.MouseEvent evt){
@@ -129,10 +138,11 @@ public class CharacterSelectPanel extends JPanel{
             public void mouseEntered(java.awt.event.MouseEvent evt){
             }
             public void mouseExited(java.awt.event.MouseEvent evt){
-                charFour.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("/resources/YellowFrame.png"))));
+                //charFour.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("YellowFrame.png"))));
             }
             public void mousePressed(java.awt.event.MouseEvent evt){
-                charFour.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("/resources/YellowSelect.png"))));
+                charFour.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("YellowSelect.png"))));
+                System.out.println("Player has selected yellow");
                 selection = "Yellow";
             }
             public void mouseClicked(java.awt.event.MouseEvent evt){
@@ -149,11 +159,11 @@ public class CharacterSelectPanel extends JPanel{
         repaint();
 
     }
-
+    
     public void setResources(Resources resource){
         this.resource = resource;
     }
-
+ 
     public void setButtonPressed(String buttonPressed) {
         this.buttonPressed = buttonPressed;
         this.buttonPressed = buttonPressed;
