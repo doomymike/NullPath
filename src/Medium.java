@@ -73,17 +73,17 @@ public class Medium extends JPanel implements KeyListener{
     	    super.paintComponent(g);
     	    setDoubleBuffered(true);
     	    
-	    	for (int i = 0; i < contactMap.length; i++) {
-	    		for (int a = 0; a < contactMap[0].length; a++) {
-	    			if (contactMap[i][a].equals("1")) {
-	    				g.setColor(Color.magenta);
-	    				g.drawRect((a+1)*20, (i+1)*20, 20, 20);
-	    			} else if (contactMap[i][a].equals("2")) {
-	    				g.setColor(Color.PINK);
-	    				g.fillRect((a+1)*20, (i+1)*20, 20, 20);
-	    			}
-	    		}
-	    	}
+//	    	for (int i = 0; i < contactMap.length; i++) {
+//	    		for (int a = 0; a < contactMap[0].length; a++) {
+//	    			if (contactMap[i][a].equals("1")) {
+//	    				g.setColor(Color.magenta);
+//	    				g.drawRect((a+1)*20, (i+1)*20, 20, 20);
+//	    			} else if (contactMap[i][a].equals("2")) {
+//	    				g.setColor(Color.PINK);
+//	    				g.fillRect((a+1)*20, (i+1)*20, 20, 20);
+//	    			}
+//	    		}
+//	    	}
 	    	
 	    	try {
 				g.drawImage(ImageIO.read(new File("C:\\Users\\Michael\\eclipse-workspace\\ughPath\\src/SkyFortress.png")), 20, 20, 1720, 760, this);
@@ -92,17 +92,20 @@ public class Medium extends JPanel implements KeyListener{
 				e.printStackTrace();
 			}
 	    	
-	    	for (int i = 0; i < contactMap[0].length; i++) {
-	    		g.setColor(Color.CYAN);
-	    		g.drawRect(1700, 720, 20, 20);
-	    	}
+//	    	for (int i = 0; i < contactMap[0].length; i++) {
+//	    		g.setColor(Color.CYAN);
+//	    		g.drawRect(1700, 720, 20, 20);
+//	    	}
     	    
 	    	int a = 0;
     	    newEng.contactMapCollision(testPlayer); //Make sure that the grid is overwritten by objects!!!!!
 	    	
 	    	while (a < itemList.size()) {
-	    		g.drawImage(itemList.get(a).getImage(), itemList.get(a).getX(), itemList.get(a).getY(), itemList.get(a).getWidth(), itemList.get(a).getHeight(), this);
-//	    		
+	    		if (itemList.get(a) instanceof FanWind) {
+	    			g.drawImage(itemList.get(a).getImage(), itemList.get(a).getX(), itemList.get(a).getY()+ itemList.get(a).getHeight()-20, itemList.get(a).getWidth(), 20, this);
+	    		}else {
+	    			g.drawImage(itemList.get(a).getImage(), itemList.get(a).getX(), itemList.get(a).getY(), itemList.get(a).getWidth(), itemList.get(a).getHeight(), this);
+	    		}
 //	    		if (itemList.get(a) instanceof CharacterLauncher) {
 //	    			g.setColor(Color.BLACK);
 //	    		} else if (itemList.get(a) instanceof ProjectileLauncher) {
@@ -146,7 +149,7 @@ public class Medium extends JPanel implements KeyListener{
     	    int c = 0;
     	    while (c < ProjectileList.size()) {
     	    	newEng.move(ProjectileList.get(c));
-    	    	g.setColor(Color.RED);
+    	    	//g.setColor(Color.RED);
     	    	
     	    	g.drawImage(ProjectileList.get(c).getImage(), ProjectileList.get(c).getX(), ProjectileList.get(c).getY(), ProjectileList.get(c).getRadius(), ProjectileList.get(c).getRadius(), this);
     	    	//g.fillOval(ProjectileList.get(c).getX(), ProjectileList.get(c).getY(), ProjectileList.get(c).getRadius(), ProjectileList.get(c).getRadius());
