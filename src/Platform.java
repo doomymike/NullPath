@@ -36,7 +36,7 @@ public class Platform extends Item{
 		super(x, y);
 		
 		try {
-			this.setImage(ImageIO.read(new File("C:\\Users\\Michael\\eclipse-workspace\\ughPath\\src/PlatformGirder.png")));
+			this.setImage(ImageIO.read(new File("resources/PlatformGirder.png")));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -48,7 +48,7 @@ public class Platform extends Item{
 		super(x,y,height,width);
 		
 		try {
-			this.setImage(ImageIO.read(new File("C:\\Users\\Michael\\eclipse-workspace\\ughPath\\src/PlatformGirder.png")));
+			this.setImage(ImageIO.read(new File("resources/PlatformGirder.png")));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -58,7 +58,7 @@ public class Platform extends Item{
 	Platform(int x,int y, int height, int width, double[] vel){
 		super(x,y,height,width, vel);
 		try {
-			this.setImage(ImageIO.read(new File("C:\\Users\\Michael\\eclipse-workspace\\ughPath\\src/PlatformGirder.png")));
+			this.setImage(ImageIO.read(new File("resources/PlatformGirder.png")));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
