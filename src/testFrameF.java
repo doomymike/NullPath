@@ -3,9 +3,11 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 import java.util.ArrayList;
 
@@ -54,6 +56,11 @@ public class testFrameF extends JPanel implements KeyListener{
     		contactMap = newEng.retrieveCMap();
     	    newEng.printMap(contactMap);
     	    
+    	    itemList.get(3).setImage(ImageIO.read(new File("C:\\Users\\Michael\\eclipse-workspace\\ughPath\\src/Cannon1.png")));
+    	    itemList.get(4).setImage(ImageIO.read(new File("C:\\Users\\Michael\\eclipse-workspace\\ughPath\\src/Bow1.png")));
+    	    itemList.get(5).setImage(ImageIO.read(new File("C:\\Users\\Michael\\eclipse-workspace\\ughPath\\src/Bow1.png")));
+    	    
+    	    
     		setFocusable(true);
     		requestFocusInWindow();
             setVisible (true);
@@ -66,22 +73,28 @@ public class testFrameF extends JPanel implements KeyListener{
     	    super.paintComponent(g);
     	    setDoubleBuffered(true);
     	    
-	    	for (int i = 0; i < contactMap.length; i++) {
-	    		for (int a = 0; a < contactMap[0].length; a++) {
-	    			if (contactMap[i][a].equals("1")) {
-	    				g.setColor(Color.magenta);
-	    				g.drawRect((a+1)*20, (i+1)*20, 20, 20);
-	    			} else if (contactMap[i][a].equals("2")) {
-	    				g.setColor(Color.PINK);
-	    				g.fillRect((a+1)*20, (i+1)*20, 20, 20);
-	    			}
-	    		}
-	    	}
+//	    	for (int i = 0; i < contactMap.length; i++) {
+//	    		for (int a = 0; a < contactMap[0].length; a++) {
+//	    			if (contactMap[i][a].equals("1")) {
+//	    				g.setColor(Color.magenta);
+//	    				g.drawRect((a+1)*20, (i+1)*20, 20, 20);
+//	    			} else if (contactMap[i][a].equals("2")) {
+//	    				g.setColor(Color.PINK);
+//	    				g.fillRect((a+1)*20, (i+1)*20, 20, 20);
+//	    			}
+//	    		}
+//	    	}
+    	    try {
+				g.drawImage(ImageIO.read(new File("C:\\Users\\Michael\\eclipse-workspace\\ughPath\\src/SkyFortress.png")), 20, 20, 1720, 760, this);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 	    	
-	    	for (int i = 0; i < contactMap[0].length; i++) {
-	    		g.setColor(Color.CYAN);
-	    		g.drawRect(1700, 720, 20, 20);
-	    	}
+//	    	for (int i = 0; i < contactMap[0].length; i++) {
+//	    		g.setColor(Color.CYAN);
+//	    		g.drawRect(1700, 720, 20, 20);
+//	    	}
     	    
     	    newEng.contactMapCollision((characterList.get(0))); //Make sure that the grid is overwritten by objects!!!!!
     	    
@@ -101,23 +114,41 @@ public class testFrameF extends JPanel implements KeyListener{
     	    
 	    	int a = 0;
 	    	while (a < itemList.size()) {
-	    		if (itemList.get(a) instanceof CharacterLauncher) {
-	    			g.setColor(Color.BLACK);
-	    		} else if (itemList.get(a) instanceof ProjectileLauncher) {
-	    			g.setColor(Color.GREEN);
-	    		} else if (itemList.get(a) instanceof Platform) {
-	    			g.setColor(Color.DARK_GRAY);
-	    		} else if (itemList.get(a) instanceof FanWind) {
-	    			g.setColor(Color.BLUE);
-	    		} else if (itemList.get(a) instanceof ConveyorBelt) {
-	    			g.setColor(Color.CYAN);
-	    		} else {
-	    			g.setColor(Color.ORANGE);
+	    		
+	    		if (itemList.get(a) instanceof FanWind) {
+	    			g.drawImage(itemList.get(a).getImage(), itemList.get(a).getX(), itemList.get(a).getY()+ itemList.get(a).getHeight()-20, itemList.get(a).getWidth(), 20, this);
+	    		}else {
+	    			g.drawImage(itemList.get(a).getImage(), itemList.get(a).getX(), itemList.get(a).getY(), itemList.get(a).getWidth(), itemList.get(a).getHeight(), this);
 	    		}
-	    		if (itemList.get(a).getRadius() != 0) {
-	    			g.fillOval(itemList.get(a).getX(), itemList.get(a).getY(), itemList.get(a).getRadius(), itemList.get(a).getRadius());
+	    		
+	    		if(itemList.get(a).getSprites()!=null) {
+	    			
+	    			if(itemList.get(a).getSprites().indexOf(itemList.get(a).getImage())== itemList.get(a).getSprites().size()) {
+	    				itemList.get(a).setImage(itemList.get(a).getSprites().get(0));
+	    			}else {
+	    				itemList.get(a).setImage(itemList.get(a).getSprites().get(itemList.get(a).getSprites().indexOf(itemList.get(a).getImage())+1));
+	    			}
+	    			
+	    			
 	    		}
-	    		g.fillRect(itemList.get(a).getX(), itemList.get(a).getY(), itemList.get(a).getWidth(), itemList.get(a).getHeight());
+	    		
+//	    		if (itemList.get(a) instanceof CharacterLauncher) {
+//	    			g.setColor(Color.BLACK);
+//	    		} else if (itemList.get(a) instanceof ProjectileLauncher) {
+//	    			g.setColor(Color.GREEN);
+//	    		} else if (itemList.get(a) instanceof Platform) {
+//	    			g.setColor(Color.DARK_GRAY);
+//	    		} else if (itemList.get(a) instanceof FanWind) {
+//	    			g.setColor(Color.BLUE);
+//	    		} else if (itemList.get(a) instanceof ConveyorBelt) {
+//	    			g.setColor(Color.CYAN);
+//	    		} else {
+//	    			g.setColor(Color.ORANGE);
+//	    		}
+//	    		if (itemList.get(a).getRadius() != 0) {
+//	    			g.fillOval(itemList.get(a).getX(), itemList.get(a).getY(), itemList.get(a).getRadius(), itemList.get(a).getRadius());
+//	    		}
+//	    		g.fillRect(itemList.get(a).getX(), itemList.get(a).getY(), itemList.get(a).getWidth(), itemList.get(a).getHeight());
 	    		for (int i = 0; i < characterList.size(); i++) {
 	    			if (itemList.get(a).getRadius() == 0) {
 	    				newEng.checkCollision(characterList.get(i), itemList.get(a), false);
@@ -159,12 +190,18 @@ public class testFrameF extends JPanel implements KeyListener{
     	    int c = 0;
     	    while (c < ProjectileList.size()) {
     	    	newEng.move(ProjectileList.get(c));
-    	    	g.setColor(Color.RED);
-    	    	if (ProjectileList.get(c) instanceof Pellet) {
-    	    		g.fillOval(ProjectileList.get(c).getX(), ProjectileList.get(c).getY(), ProjectileList.get(c).getRadius(), ProjectileList.get(c).getRadius());
-    	    	} else if (ProjectileList.get(c) instanceof Arrow) {
-    	    		g.fillRect(ProjectileList.get(c).getX(), ProjectileList.get(c).getY(), ProjectileList.get(c).getWidth(), ProjectileList.get(c).getHeight());
+    	    	if(ProjectileList.get(c) instanceof Pellet) {
+    	    		g.drawImage(ProjectileList.get(c).getImage(), ProjectileList.get(c).getX(), ProjectileList.get(c).getY(), ProjectileList.get(c).getRadius(), ProjectileList.get(c).getRadius(), this);
+    	    	}else {
+    	    		g.drawImage(ProjectileList.get(c).getImage(), ProjectileList.get(c).getX(), ProjectileList.get(c).getY(), ProjectileList.get(c).getWidth(), ProjectileList.get(c).getHeight(), this);
+        	    	
     	    	}
+//    	    	g.setColor(Color.RED);
+//    	    	if (ProjectileList.get(c) instanceof Pellet) {
+//    	    		g.fillOval(ProjectileList.get(c).getX(), ProjectileList.get(c).getY(), ProjectileList.get(c).getRadius(), ProjectileList.get(c).getRadius());
+//    	    	} else if (ProjectileList.get(c) instanceof Arrow) {
+//    	    		g.fillRect(ProjectileList.get(c).getX(), ProjectileList.get(c).getY(), ProjectileList.get(c).getWidth(), ProjectileList.get(c).getHeight());
+//    	    	}
     	    	
     	    	if (ProjectileList.get(c).getX() < 0 || ProjectileList.get(c).getX() > 1720 || ProjectileList.get(c).getY() < 0 || ProjectileList.get(c).getY() > 760) {
     	    		ProjectileList.remove(c);
