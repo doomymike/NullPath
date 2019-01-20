@@ -1,4 +1,8 @@
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
 
 public class FanWind extends VelocityModifier{
 
@@ -31,6 +35,17 @@ public class FanWind extends VelocityModifier{
 				dy = speed;
 				dx = 0;
 			}
+		}
+		
+		try {
+			
+			for (int i = 1;i<7;i++){
+				this.addSprite(ImageIO.read(new File("resources/Fan"+i+".png")));
+			}
+			this.setImage(this.getSprites().get(0));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		
 	}
