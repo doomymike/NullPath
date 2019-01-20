@@ -26,7 +26,6 @@ public class GameClient implements Runnable{
 	JPanel southPanel;
 
 	// for username setting (and setting of usernames of all people connected)
-	private boolean newUserSet;
 	private SimpleLinkedList<String> users = new SimpleLinkedList<>();
 
 	// for character selection
@@ -124,7 +123,7 @@ public class GameClient implements Runnable{
 							}
 						}
 					} else if (temp.substring(0, temp.indexOf(":::")).equals("user connected")) {
-						addUser(temp.substring(temp.indexOf(":::") + 3));
+						users.add(temp.substring(temp.indexOf(":::") + 3));
 					}
 				}
 			} catch (IOException e) {
@@ -177,19 +176,6 @@ public class GameClient implements Runnable{
 
 	public String getUsername() {
     	return username;
-	}
-
-	public boolean isNewUserSet() {
-		return newUserSet;
-	}
-
-	public void setNewUserSet(boolean newUserSet) {
-    	this.newUserSet = newUserSet;
-	}
-
-	public void addUser(String username) {
-    	users.add(username);
-    	newUserSet = true;
 	}
 
 	public SimpleLinkedList<String> getUsers() {

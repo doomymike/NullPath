@@ -130,7 +130,11 @@ public class GameServer {
 						if (command != null) {
                             commands.offer(command);
                             System.out.println(command);
-                            writeToAll();
+                            if (clients.size() == 4) { // Do not send anything until all users are connected
+                                while (commands.peek() != null) {
+                                    writeToAll();
+                                }
+                            }
                         }
 					}
 				} catch (IOException e) {

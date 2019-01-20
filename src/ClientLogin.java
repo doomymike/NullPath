@@ -17,8 +17,20 @@ public class ClientLogin extends JFrame implements ActionListener{
     //Button SetUp
     private JButton login;
 
-    ClientLogin(){
+    private String[] users; // Names of users connected
+    private String thisUser = "";
+    private String server = "";
+    private String portNumber = "";
+
+    GameClient client;
+
+    Resources resources;
+
+    ClientLogin(GameClient client, Resources resources){
         super("nullpath login");
+
+        users = new String[4];
+        this.client = client;
 
         //GUI Layout Management [CardLayout]
         JPanel upperPanel = new JPanel(new GridLayout(8,1,0,50));
@@ -76,19 +88,20 @@ public class ClientLogin extends JFrame implements ActionListener{
         Object button = e.getSource();
 
         if(button == login) {
-            String username = enterField.getText().trim();
-            if(username.length() == 0) {
+            thisUser = enterField.getText().trim();
+            if(thisUser.length() == 0) {
                 return;
             }
-            String server = serverField.getText().trim();
+            server = serverField.getText().trim();
             if(server.length() == 0) {
                 return;
             }
 
-            String portNumber = portField.getText().trim();
+            portNumber = portField.getText().trim();
             if(portNumber.length() == 0) {
                 return;
             }
+            /* I think port number should work as a string? not sure though
             int port = 0;
             try {
                 port = Integer.parseInt(portNumber);
@@ -96,13 +109,48 @@ public class ClientLogin extends JFrame implements ActionListener{
             catch(Exception en) {
                 return;
             }
+            */
 
             //Server Connected Check
 
-            //Forward collected information to Client (<<<<TO_DO)
+            //Start client (connect to server) (<< ADD PORT NUMBER AND IP STUFF - will be passed into go() method)
+            client.go();
+            Thread t = new Thread(client);
+            t.start();
 
-            dispose();
+            //Forward name of user to Client
+            client.setUsername(thisUser);
+
+            while (client.getUsers().size() != 4) {
+                // Display some "waiting for players to connect" message
+                System.out.println("Waiting for all players to connect...");
+            }
+
+            for (int i = 0; i < 4; i++) {
+                resources.addPlayer(client.getUsers().get(i)); // Add player objects to resources
+            }
+
+            dispose(); // Close client login
         }
 
     }
+
+    /* Don't need these? (either used only in this class or also stored in client)
+    public String[] getUsers() {
+        return users;
+    }
+
+    public String getThisUser() {
+        return thisUser;
+    }
+
+    public String getServer() {
+        return server;
+    }
+
+    public String getPortNumber() {
+        return portNumber;
+    }
+    */
+
 }

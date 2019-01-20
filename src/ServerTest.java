@@ -12,12 +12,12 @@ public class ServerTest {
         client.setUsername("user 1");
 
         while (true) {
-            if (client.isNewUserSet()) {
+            //if (client.isNewUserSet()) {
                 resources.addPlayer(client.getUsers().get(client.getUsers().size()-1));
-                client.setNewUserSet(false);
+                //client.setNewUserSet(false);
                 System.out.println("--");
                 System.out.println(resources.getPlayers().get(resources.getPlayers().size()-1).getName() + " has been added");
-            }
+            //}
         }
 
     }

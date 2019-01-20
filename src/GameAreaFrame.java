@@ -27,7 +27,7 @@ public class GameAreaFrame extends JFrame implements KeyListener {
 
     private String buttonPressed = "";
     private int panelCounter = 0;
-    // Intro - 0, Main menu - 1, Instructions/Options - 2, Character Select - 3, Game - 4, ItemSelectBox - 5, Score/Credits - 6
+    // Intro - 0, Main menu - 1, Instructions/Options - 2, Character Select - 3, Game - 4, ItemSelectBox - 5, Score/Credits - 6, login - 7
     private boolean panelChange = true;
     private IntroPanel introPanel = null;
     private MainMenuPanel mainMenuPanel = null;
@@ -35,7 +35,10 @@ public class GameAreaFrame extends JFrame implements KeyListener {
     private InstructionsPanel instructionsPanel = null;
     private CreditsPanel creditsPanel = null;
     private CharacterSelectPanel characterSelectPanel = null;
+    private ClientLogin login = null;
     private MapPlacement mapIntegration = null;
+
+    GameClient client = new GameClient();
 
     private Player player = null; // Player that is running the game
 
@@ -139,13 +142,8 @@ public class GameAreaFrame extends JFrame implements KeyListener {
         // Switch to the screen chosen from main menu
         while (panelCounter == 1) {
             if (mainMenuPanel.getSelection() == 0) {
-                this.getContentPane().remove(mainMenuPanel); // Remove main menu panel
-                characterSelectPanel = new CharacterSelectPanel(); // Add the game panel
-                this.getContentPane().add(characterSelectPanel);
-                characterSelectPanel.setResources(resources); // Pass in reference to resources object (so players can be assigned characters)
-                panelCounter = 3;   //3 IS GAME PANEL
-                this.revalidate();
-                repaint();
+                new ClientLogin(client, resources); // Open client login above main menu
+                panelCounter = 7;
             } else if (mainMenuPanel.getSelection() == 1) {
                 this.getContentPane().remove(mainMenuPanel); // Remove main menu panel
                 instructionsPanel = new InstructionsPanel(); // Add the game panel
@@ -157,6 +155,23 @@ public class GameAreaFrame extends JFrame implements KeyListener {
                 System.out.println("Program Ended");
                 this.dispose();
                 System.exit(0);
+            }
+        }
+
+        while (panelCounter == 7) { // On login screen
+            if (resources.getPlayers().size() == 4) { // Check that all 4 player objects have been made in resources
+                for (int i = 0; i < 4; i++) {
+                    if (resources.getPlayers().get(i).getName().equals(client.getUsername())) {
+                        player = resources.getPlayers().get(i); // Set the player corresponding to this specific instance of the game
+                    }
+                }
+                this.getContentPane().remove(mainMenuPanel); // Remove main menu panel
+                characterSelectPanel = new CharacterSelectPanel(); // Add the game panel
+                this.getContentPane().add(characterSelectPanel);
+                characterSelectPanel.setResources(resources); // Pass in reference to resources object (so players can be assigned characters)
+                panelCounter = 3;   //3 IS GAME PANEL
+                this.revalidate();
+                repaint();
             }
         }
 
