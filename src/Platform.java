@@ -1,5 +1,9 @@
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+
+import javax.imageio.ImageIO;
 
 //import java.awt.Rectangle;
 
@@ -30,15 +34,35 @@ public class Platform extends Item{
 	
 	Platform(int x, int y) {
 		super(x, y);
+		
+		try {
+			this.setImage(ImageIO.read(new File("C:\\Users\\Michael\\eclipse-workspace\\ughPath\\src/PlatformGirder.png")));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	
 	}
 	
 	Platform(int x,int y, int height, int width){
 		super(x,y,height,width);
+		
+		try {
+			this.setImage(ImageIO.read(new File("C:\\Users\\Michael\\eclipse-workspace\\ughPath\\src/PlatformGirder.png")));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	Platform(int x,int y, int height, int width, double[] vel){
 		super(x,y,height,width, vel);
+		try {
+			this.setImage(ImageIO.read(new File("C:\\Users\\Michael\\eclipse-workspace\\ughPath\\src/PlatformGirder.png")));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public boolean getHoney() {
@@ -58,4 +82,3 @@ public class Platform extends Item{
 	}
 	
 }
-
