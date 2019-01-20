@@ -198,7 +198,8 @@ public class testFrameF extends JPanel implements KeyListener{
     				} else if (testPlayer.getIce() && testPlayer.getIMotion() == false && onIA == false){
     					testPlayer.setIMotion(true);
     					testPlayer.setLastI(testPlayer.getVelocity()[0]*(.33));
-    					System.out.println(testPlayer.getVelocity()[0]*(.33));    					testPlayer.setVelocity(new double[] {testPlayer.getVelocity()[0]*(.33), testPlayer.getVelocity()[1]});
+    					System.out.println(testPlayer.getVelocity()[0]*(.33));    					
+    					testPlayer.setVelocity(new double[] {testPlayer.getVelocity()[0]*(.33), testPlayer.getVelocity()[1]});
     				} else { 
     					testPlayer.setVelocity(new double[] {testPlayer.getVelocity()[0]-2, testPlayer.getVelocity()[1]});
     				}
