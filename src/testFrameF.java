@@ -107,7 +107,20 @@ public class testFrameF extends JPanel implements KeyListener{
 	    		if (itemList.get(a) instanceof MovingPlatform) {
 	    			newEng.move(itemList.get(a));
 	    		}
+	    		
+	    		//MAIN EDIT PORTION
+	    		
+	    		int reduceC = 0;
+	    		for (int i = 0; i < ProjectileList.size(); i++) {
+	    			if ((newEng.checkCollision(itemList.get(a), ProjectileList.get(i), false, true) && !(itemList.get(a) instanceof ProjectileLauncher) && !(itemList.get(a) instanceof FanWind)) || newEng.checkCMCollision(ProjectileList.get(i), true)){
+	    				System.out.println(itemList.get(a));
+	    				ProjectileList.remove(i-reduceC);
+	    				reduceC++;
+	    			}
+	    		}
+	    		
 	    		a++;
+	    		
 	    	}
 	    	
 	    	//while loop is used in case items may need to be removed

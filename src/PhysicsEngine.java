@@ -202,6 +202,33 @@ public class PhysicsEngine{
 		
 	}
 	
+	
+	public boolean checkCMCollision(Item arbItem, boolean circle) {
+		int contactLX = 0;
+		int contactRX = 0;
+		int contactY = 0;
+		int contactHY = 0;
+		
+		if (circle) {
+			contactLX = Math.min(Math.max((int)(arbItem.getX())/20, 0), 85);
+			contactRX = Math.min(Math.max((int)(arbItem.getX()+arbItem.getRadius())/20, 0), 85);
+			contactY = Math.min(Math.max((int)((arbItem.getY()+arbItem.getRadius()-20)/20), 0), 37);
+			contactHY = Math.min(Math.max((int)((arbItem.getY()-20)/20), 0), 37);
+		} else {
+			contactLX = Math.min(Math.max((int)(arbItem.getX())/20, 0), 85);
+			contactRX = Math.min(Math.max((int)(arbItem.getX()+arbItem.getWidth())/20, 0), 85);
+			contactY = Math.min(Math.max((int)((arbItem.getY()+arbItem.getHeight()-20)/20), 0), 37);
+			contactHY = Math.min(Math.max((int)((arbItem.getY()-20)/20), 0), 37);
+		}
+		
+		if (contactMap[contactY][contactLX].equals("1") || contactMap[contactY][contactLX].equals("2") || contactMap[contactY][contactRX].equals("1") || contactMap[contactY][contactRX].equals("2")) {
+			return true;
+		}
+		return false;
+		
+	}
+	
+	
 	public void move(Character player){
 		int xPos = player.getPosition()[0];
 		int yPos = player.getPosition()[1];
@@ -265,11 +292,11 @@ public class PhysicsEngine{
 				if (object instanceof Platform || object instanceof CharacterLauncher || object instanceof ConveyorBelt) {
 					if (lowerX <= itemLX && higherX >= itemLX && player.getVelocity()[0] >= 0 && Math.abs(lowerY - itemHY) > 4) { // 4 is used as a restriction for collision
 						player.setPosition(itemLX-player.getWidth(), player.getPosition()[1]);
-						player.resetGravity();
+						//player.resetGravity();
 						return true;
 					} else if (lowerX <= itemHX && higherX >= itemHX && player.getVelocity()[0] <= 0 && Math.abs(lowerY - itemHY) > 4){
 						player.setPosition(itemHX, player.getPosition()[1]);
-						player.resetGravity();
+						//player.resetGravity();
 						return true;
 					}
 				}
@@ -340,11 +367,11 @@ public class PhysicsEngine{
 					
 					if (object instanceof FanWind) {
 						if (inMapTag(player.getTag())) {
-							System.out.println("BAD");
 							tagMap.remove(Integer.valueOf(player.getTag()));
 						}
 						player.resetY();
 						if (object.checkChar(player.getTag()) == false) {
+							System.out.println("BAD");
 							player.setVelocity(new double[] {player.getVelocity()[0]+(((VelocityModifier)object).getSpeed())[0], player.getVelocity()[1] - (((VelocityModifier)object).getSpeed())[1]});
 							object.addChar(player.getTag());
 						}
@@ -391,7 +418,7 @@ public class PhysicsEngine{
 		return false;
 	}
 
-	public static boolean checkCollision(Item object1, Item object2, boolean circular1, boolean circular2) {
+	public boolean checkCollision(Item object1, Item object2, boolean circular1, boolean circular2) {
 		int centerLX, centerHX, centerLY, centerHY, otherLX, otherHX, otherLY, otherHY;
 		if (circular1 && circular2) { //Per case variable sets
 			centerLX = object1.getX()-object1.getRadius();
