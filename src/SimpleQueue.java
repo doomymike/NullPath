@@ -1,5 +1,5 @@
 /**
- * SimpleQueue
+ * [SimpleQueue.java]
  * Queue object that stores nodes containing generic items
  * Authors: Brian Li, James Liang, Michael Oren, Brian Zhang
  * Date: January 21, 2019
