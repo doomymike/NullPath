@@ -19,7 +19,7 @@ public class Saw extends ContactDamage{
 		try {
 			
 			for (int i = 1;i<25;i++){
-				this.addSprite(ImageIO.read(new File("C:\\Users\\Michael\\eclipse-workspace\\ughPath\\src/Saw"+i+".png")));
+				this.addSprite(ImageIO.read(new File("resources/Saw"+i+".png")));
 			}
 			this.setImage(this.getSprites().get(0));
 		} catch (IOException e) {
