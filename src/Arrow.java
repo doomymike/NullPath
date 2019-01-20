@@ -12,7 +12,7 @@ public class Arrow extends Projectile{
 	public Arrow(int x, int y, double[] speed, String orientation, int tag) {
 		super(x, y, height, width, speed, false, tag);
 		try {
-			this.setImage(ImageIO.read(new File("C:\\Users\\Michael\\eclipse-workspace\\ughPath\\src/Arrow.png")));
+			this.setImage(ImageIO.read(new File("resources/Arrow.png")));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
