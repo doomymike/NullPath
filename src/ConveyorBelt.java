@@ -1,3 +1,7 @@
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
 
 public class ConveyorBelt extends VelocityModifier{
 
@@ -31,6 +35,18 @@ public class ConveyorBelt extends VelocityModifier{
 				dx = 0;
 			}
 		}
+		
+		try {
+			
+			for (int i = 1;i<16;i++){
+				this.addSprite(ImageIO.read(new File("C:\\Users\\Michael\\eclipse-workspace\\ughPath\\src/Conveyor"+i+".png")));
+			}
+			this.setImage(this.getSprites().get(0));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		
 	}
 	
