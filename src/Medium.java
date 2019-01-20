@@ -53,7 +53,7 @@ public class Medium extends JPanel implements KeyListener{
     	    
     	    itemList.get(0).setImage(ImageIO.read(new File("C:\\Users\\Michael\\eclipse-workspace\\ughPath\\src/PlatformGirder.png")));
     	    itemList.get(1).setImage(ImageIO.read(new File("C:\\Users\\Michael\\eclipse-workspace\\ughPath\\src/Fan1.png")));
-    	    itemList.get(2).setImage(ImageIO.read(new File("C:\\Users\\Michael\\eclipse-workspace\\ughPath\\src/PlatformGirder.png")));
+    	    itemList.get(2).setImage(ImageIO.read(new File("C:\\Users\\Michael\\eclipse-workspace\\ughPath\\src/Conveyor1.png")));
     	    itemList.get(3).setImage(ImageIO.read(new File("C:\\Users\\Michael\\eclipse-workspace\\ughPath\\src/Cannon1.png")));
     	    itemList.get(4).setImage(ImageIO.read(new File("C:\\Users\\Michael\\eclipse-workspace\\ughPath\\src/Spring1.png")));
     	    itemList.get(5).setImage(ImageIO.read(new File("C:\\Users\\Michael\\eclipse-workspace\\ughPath\\src/PlatformGirder.png")));
