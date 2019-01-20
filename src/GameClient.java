@@ -112,21 +112,21 @@ public class GameClient implements Runnable{
 				if (input.ready()) { //check for an incoming message
 					String temp = input.readLine();
 					if (temp.substring(0, temp.indexOf(":::")).equals("character selection")) {
-						if (temp.substring(temp.indexOf(":::", temp.indexOf(":::")+1)).equals("Blue")) {
+						if (temp.substring(temp.indexOf(":::", temp.indexOf(":::")+1) + 3).equals("Blue")) {
 							if (characterSelection[0] == null) { //Ensure no one else selected the character
-								characterSelection[0] = temp.substring(temp.indexOf(":::"),temp.indexOf(":::", temp.indexOf(":::")+1));
+								characterSelection[0] = temp.substring(temp.indexOf(":::") + 3,temp.indexOf(":::", temp.indexOf(":::")+1));
 							}
 						} else if (temp.substring(temp.indexOf(":::", temp.indexOf(":::")+1)).equals("Green")) {
 							if (characterSelection[1] == null) { //Ensure no one else selected the character
-								characterSelection[1] = temp.substring(temp.indexOf(":::"),temp.indexOf(":::", temp.indexOf(":::")+1));
+								characterSelection[1] = temp.substring(temp.indexOf(":::") + 3,temp.indexOf(":::", temp.indexOf(":::")+1));
 							}
-						} else if (temp.substring(temp.indexOf(":::", temp.indexOf(":::")+1)).equals("Red")) {
+						} else if (temp.substring(temp.indexOf(":::", temp.indexOf(":::")+1) + 3).equals("Red")) {
 							if (characterSelection[2] == null) { //Ensure no one else selected the character
-								characterSelection[2] = temp.substring(temp.indexOf(":::"),temp.indexOf(":::", temp.indexOf(":::")+1));
+								characterSelection[2] = temp.substring(temp.indexOf(":::") + 3,temp.indexOf(":::", temp.indexOf(":::")+1));
 							}
-						} else if (temp.substring(temp.indexOf(":::", temp.indexOf(":::")+1)).equals("Yellow")) {
+						} else if (temp.substring(temp.indexOf(":::", temp.indexOf(":::")+1) + 3).equals("Yellow")) {
 							if (characterSelection[3] == null) { //Ensure no one else selected the character
-								characterSelection[3] = temp.substring(temp.indexOf(":::"),temp.indexOf(":::", temp.indexOf(":::")+1));
+								characterSelection[3] = temp.substring(temp.indexOf(":::") + 3,temp.indexOf(":::", temp.indexOf(":::")+1));
 							}
 						}
 					} else if (temp.substring(0, temp.indexOf(":::")).equals("user connected")) {
