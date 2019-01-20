@@ -35,7 +35,7 @@ public class testFrameF extends JPanel implements KeyListener{
     	
     	public testFrameF() throws FileNotFoundException, IOException {
     		this.setSize(new Dimension(1720, 760));
-    		characterList.add(new Character(80, 240, 60, 40, 0));
+    		characterList.add(new Character("Blue",80, 240, 60, 40, 0));
     		itemList.add(new StationaryPlatform(80, 250, 150, 300));
     		itemList.add(new FanWind(450, 100, 600, 50, 1, 1));
     		itemList.add(new ConveyorBelt(500, 250, 40, 200, 1, 0));
@@ -56,9 +56,9 @@ public class testFrameF extends JPanel implements KeyListener{
     		contactMap = newEng.retrieveCMap();
     	    newEng.printMap(contactMap);
     	    
-    	    itemList.get(3).setImage(ImageIO.read(new File("C:\\Users\\Michael\\eclipse-workspace\\ughPath\\src/Cannon1.png")));
-    	    itemList.get(4).setImage(ImageIO.read(new File("C:\\Users\\Michael\\eclipse-workspace\\ughPath\\src/Bow1.png")));
-    	    itemList.get(5).setImage(ImageIO.read(new File("C:\\Users\\Michael\\eclipse-workspace\\ughPath\\src/Bow1.png")));
+    	    itemList.get(3).setImage(ImageIO.read(new File("resources/Cannon1.png")));
+    	    itemList.get(4).setImage(ImageIO.read(new File("resources/Bow1.png")));
+    	    itemList.get(5).setImage(ImageIO.read(new File("resources/Bow1.png")));
     	    
     	    
     		setFocusable(true);
@@ -85,7 +85,7 @@ public class testFrameF extends JPanel implements KeyListener{
 //	    		}
 //	    	}
     	    try {
-				g.drawImage(ImageIO.read(new File("C:\\Users\\Michael\\eclipse-workspace\\ughPath\\src/SkyFortress.png")), 20, 20, 1720, 760, this);
+				g.drawImage(ImageIO.read(new File("resources/SkyFortress.png")), 20, 20, 1720, 760, this);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -212,8 +212,10 @@ public class testFrameF extends JPanel implements KeyListener{
     	    }
     	    
 	    	for (int i = 0; i < characterList.size(); i++) {
-	    		g.setColor(Color.BLACK);
-	    		g.fillRect(characterList.get(i).getPosition()[0], characterList.get(i).getPosition()[1], characterList.get(i).getWidth(),characterList.get(i).getHeight());
+	    		g.drawImage(characterList.get(i).getSprites()[8], characterList.get(i).getPosition()[0], characterList.get(i).getPosition()[1], characterList.get(i).getWidth(), characterList.get(i).getHeight(), this);
+		    	
+	    		//g.setColor(Color.BLACK);
+	    		//g.fillRect(characterList.get(i).getPosition()[0], characterList.get(i).getPosition()[1], characterList.get(i).getWidth(),characterList.get(i).getHeight());
 	    		newEng.move(characterList.get(i));
 	    	}
 	    		
