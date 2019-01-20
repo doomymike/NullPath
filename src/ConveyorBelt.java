@@ -39,7 +39,7 @@ public class ConveyorBelt extends VelocityModifier{
 		try {
 			
 			for (int i = 1;i<16;i++){
-				this.addSprite(ImageIO.read(new File("C:\\Users\\Michael\\eclipse-workspace\\ughPath\\src/Conveyor"+i+".png")));
+				this.addSprite(ImageIO.read(new File("resources/Conveyor"+i+".png")));
 			}
 			this.setImage(this.getSprites().get(0));
 		} catch (IOException e) {
