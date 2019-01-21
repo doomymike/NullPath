@@ -181,7 +181,6 @@ public class PhysicsEngine{
 		}
 		
 		if (gridEquals(contactY, contactHY, contactLX, contactRX, "2") && (detectTop(contactLX, contactRX, contactY, true) == false)){
-			System.out.println("E1");
 			if (checkHEdge(contactLX, contactRX, contactY).equals("R") && testPlayer.getVelocity()[0] < 0) {
 				testPlayer.setPosition(endPoint(contactLX, contactRX, contactY, "R", true), testPlayer.getPosition()[1]);
 			} else if (checkHEdge(contactLX, contactRX, contactY).equals("L") && testPlayer.getVelocity()[0] > 0) {
@@ -298,11 +297,7 @@ public class PhysicsEngine{
 			if((hcY > lowerY && lcY < lowerY) || (hcY > higherY && lcY < higherY)) {
 				if ((hcX > lowerX && lcX < lowerX) || (hcX > higherX && lcX < higherX)) {
 					if (object instanceof Saw || object instanceof Projectile) {
-						System.out.println("NO");
-						System.out.println(player.getPosition()[1]);
-						System.out.println(player.getHeight());
-						System.out.println(lcY+" "+hcY+" "+lcX+" "+hcX+" "+player.getPosition()[1]+" "+(player.getPosition()[1]+player.getHeight()));
-						player.setAlive(false);
+						player.die();
 						return true;
 					}
 				}
@@ -401,8 +396,13 @@ public class PhysicsEngine{
 				
 				if ((itemHY >= higherY && itemLY <= higherY) || (itemLY <= higherY && itemHY >= lowerY) || (itemHY <= higherY && itemLY >= lowerY)) {
 					
+					if (object instanceof Projectile) {
+						player.die();
+						return true;
+					}
+					
 					if (object instanceof Spike) {
-						player.setAlive(false);
+						player.die();
 						return true;
 					}
 					
