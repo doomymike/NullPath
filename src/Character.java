@@ -178,6 +178,7 @@ Character(String name) throws IOException{
 			sprites[23+i] = ImageIO.read(new File("resources/"+name+"VictoryReference"+i+".png"));
 		}
 		
+		currentFrameIndex = 8;
 	}
 	
 	Character(BufferedImage sprite) {
@@ -301,8 +302,13 @@ Character(String name) throws IOException{
 	}
 	
 	public void die() {
+		if(alive) {
+			this.setCurrentFrameIndex(1);
+		}
 		alive = false;
 		currentAction = "death";
+		
+		
 	}
 	
 	public BufferedImage getActiveFrame() {
