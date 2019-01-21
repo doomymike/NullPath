@@ -38,7 +38,7 @@ public class GameAreaFrame extends JFrame implements KeyListener {
     private ClientLogin login = null;
     private MapPlacement mapIntegration = null;
 
-    GameClient client = new GameClient();
+    GameClient client = null;
 
     private Player player = null; // Player that is running the game
 
@@ -89,6 +89,15 @@ public class GameAreaFrame extends JFrame implements KeyListener {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(1000, 750); //Filler values
         this.setResizable(false);
+
+        this.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+                if (client != null) {
+                    client.close();
+                }
+            }
+        });
 
         // Set up the intro panel if start
         if ((panelCounter == 0) && panelChange) {
@@ -142,6 +151,7 @@ public class GameAreaFrame extends JFrame implements KeyListener {
         // Switch to the screen chosen from main menu
         while (panelCounter == 1) {
             if (mainMenuPanel.getSelection() == 0) {
+                client = new GameClient();
                 new ClientLogin(client, resources); // Open client login above main menu
                 panelCounter = 7;
             } else if (mainMenuPanel.getSelection() == 1) {

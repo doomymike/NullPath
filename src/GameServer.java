@@ -133,6 +133,10 @@ public class GameServer {
 					if (input.ready()) {
 						command = input.readLine();
 						if (command != null) {
+						    if (command.equals("/exit")) {
+						        running = false;
+						        break;
+                            }
                             commands.offer(command);
                             System.out.println(command);
                             if (clients.size() == 4) { // Do not send anything until all users are connected

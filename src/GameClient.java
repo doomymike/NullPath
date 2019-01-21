@@ -189,6 +189,12 @@ public class GameClient implements Runnable{
     	return users;
 	} //End of getUsers
 
+	public void close() {
+    	output.println("/exit");
+    	output.flush();
+    	running = false;
+	}
+
 	/*
 	class buttonListener implements ActionListener{
 		  
