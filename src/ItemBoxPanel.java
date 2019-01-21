@@ -12,7 +12,24 @@ public class ItemBoxPanel extends JPanel{
     private int xPos = 0;
     private int yPos = 0;
 
+    private boolean itemSelected;
+    private GameClient client;
+    private boolean[] itemsSelected = new boolean[6];
+    private String[] itemNames = new String[6];
+
+    private JButton[] items = new JButton[6];
+
     public void paintComponent(Graphics g) {
+
+        //Check for client selection
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 6; j++) {
+                if ((client.getItemsHeld()[i].equals(itemNames[j])) && (!itemsSelected[j])) { //Read from client (see if any player has selected an item)
+                    itemsSelected[j] = true; //Mark as item selected
+                    items[j].setVisible(false); //Grey out selected item
+                }
+            }
+        }
 
         //Override mouseListener methods
         addMouseListener(new MouseAdapter(){
@@ -38,6 +55,19 @@ public class ItemBoxPanel extends JPanel{
 
     }
 
+    public void setClient(GameClient client) {
+        this.client = client;
+    }
+
+    private int getIndexOfItem(String name) {
+        for (int i = 0; i < 6; i++) {
+            if (itemNames[i].equals(name)) {
+                return i;
+            }
+        }
+        return 0; //Should never reach for what we are using it for
+    }
+
     public ItemBoxPanel(){
         box = new ItemBox(4); //should be num players
 
@@ -45,6 +75,7 @@ public class ItemBoxPanel extends JPanel{
             //draw the boi on the screen, draw each individual item
                 System.out.println("Item generated:"+box.getItems().get(i));
                 itemname = box.getItems().get(i);
+                itemNames[i] = itemname;
 
                 //Image transformation
                 Image base = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("/resources/"+itemname+".png"));
@@ -52,6 +83,8 @@ public class ItemBoxPanel extends JPanel{
 
                 ImageIcon itemN = new ImageIcon(base.getScaledInstance(test.getIconWidth()*4,test.getIconHeight()*4,Image.SCALE_SMOOTH));
                 JButton itemize = new JButton(itemN);
+
+                items[i] = itemize;
 
                 double itemizeW = itemize.getPreferredSize().getWidth();
                 double itemizeH = itemize.getPreferredSize().getHeight();
@@ -70,8 +103,14 @@ public class ItemBoxPanel extends JPanel{
 
                 }
                 public void mousePressed(java.awt.event.MouseEvent evt){
-                    //Select the item for the player
-                    itemize.setVisible(false);
+
+                    if ((!itemSelected) && (!itemsSelected[getIndexOfItem(itemname)])) { //If player has not yet selected an item and the item they want to select has not been selected
+
+                        //Send info to server
+                        client.setItemSelected(itemname); //Get name of corresponding item
+
+                    }
+
                 }
                 public void mouseClicked(java.awt.event.MouseEvent evt){
                 }

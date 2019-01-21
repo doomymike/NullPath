@@ -243,6 +243,10 @@ public class GameClient implements Runnable{
     	return itemSelected;
 	} //End of getItemSelected
 
+	public String[] getItemsHeld() {
+    	return itemsHeld;
+	}
+
 	/**
 	 * setItemSelected
 	 * Sets the item selected by the player
