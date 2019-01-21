@@ -297,7 +297,7 @@ public class PhysicsEngine{
 			if((hcY > lowerY && lcY < lowerY) || (hcY > higherY && lcY < higherY)) {
 				if ((hcX > lowerX && lcX < lowerX) || (hcX > higherX && lcX < higherX)) {
 					if (object instanceof Saw || object instanceof Projectile) {
-						player.setAlive(false);
+						player.die();
 						return true;
 					}
 				}
@@ -397,12 +397,12 @@ public class PhysicsEngine{
 				if ((itemHY >= higherY && itemLY <= higherY) || (itemLY <= higherY && itemHY >= lowerY) || (itemHY <= higherY && itemLY >= lowerY)) {
 					
 					if (object instanceof Projectile) {
-						player.setAlive(false);
+						player.die();
 						return true;
 					}
 					
 					if (object instanceof Spike) {
-						player.setAlive(false);
+						player.die();
 						return true;
 					}
 					
