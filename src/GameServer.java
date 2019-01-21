@@ -1,16 +1,10 @@
-/**
- * [GameServer.java]
- * Server for NullPath game
- * Authors: Brian Li, James Liang, Michael Oren, Brian Zhang
- * January 21, 2019
- */
-
 // need something to turn running to false (flag to allow threads to close)
 
 //Java imports
 import java.io.*;
 import java.net.*;
 import java.util.ArrayList;
+import java.util.Queue;
 
 public class GameServer {
 
@@ -18,6 +12,7 @@ public class GameServer {
     private static Boolean running = true;  //Controls if the server is accepting clients
     private ArrayList<GameClientHandler> clients; //Holds handlers for all clients connected
     private SimpleQueue<String> commands; //Holds the inputs done by player
+    //replace above with actual queue class (my own)
 
     /** Main
      * Main method that starts the server (runs the method that starts it)
@@ -33,11 +28,11 @@ public class GameServer {
     public void go() {
         System.out.println("Waiting for a client connection..");
         Socket client = null; //hold the client connection
-        clients = new ArrayList<>(); //Initialize client handler list
+        clients = new ArrayList<GameClientHandler>(); //Initialize client handler list
 
         try {
 
-            serverSock = new ServerSocket(5000); //Assigns a port to the server
+            serverSock = new ServerSocket(5132); //Assigns a port to the server
 
             commands = new SimpleQueue<>();
             //MessageHandler messageHandler = new MessageHandler(); //Start thread for outputting commands in queue
@@ -133,10 +128,6 @@ public class GameServer {
 					if (input.ready()) {
 						command = input.readLine();
 						if (command != null) {
-						    if (command.equals("/exit")) {
-						        running = false;
-						        break;
-                            }
                             commands.offer(command);
                             System.out.println(command);
                             if (clients.size() == 4) { // Do not send anything until all users are connected
@@ -172,10 +163,6 @@ public class GameServer {
             output.flush();
         } //End of write()
 
-        /**
-         * writeToAll
-         * Method that outputs to each client connected to the server
-         */
         private synchronized void writeToAll() {
             for (int i = 0; i < clients.size(); i++) {
                 clients.get(i).write(commands.peek()); // write command to each connected client
@@ -186,4 +173,4 @@ public class GameServer {
 
     } //End of inner class
 
-} //End of class
+}
