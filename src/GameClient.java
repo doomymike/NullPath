@@ -58,13 +58,13 @@ public class GameClient implements Runnable{
      * go
      * This method connects to server and checks for messages
      */
-    public void go(){
+    public void go(String IP, int portNum){
 
         // Make connection ------------------------------------------------------
         System.out.println("Attempting to make a connection..");
 
         try {
-            mySocket = new Socket("127.0.0.1",5000); //attempt socket connection (local address). This will wait until a connection is made
+            mySocket = new Socket(IP,portNum); //attempt socket connection (local address). This will wait until a connection is made
 
             InputStreamReader stream1= new InputStreamReader(mySocket.getInputStream()); //Stream for network input
             input = new BufferedReader(stream1);
@@ -99,7 +99,6 @@ public class GameClient implements Runnable{
 	    southPanel.add(sendButton);
 	    southPanel.add(errorLabel);
         //Window listener needed in frame - make sure to tell client that player is exiting (so things can be closed)
-
         //tells server if exiting program
         window.addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
@@ -280,6 +279,20 @@ public class GameClient implements Runnable{
     	output.flush();
     	running = false;
 	}
+	
+	/**
+	 * clearGameValues
+	 * Run after each round has finished to reset what is needed to start a new round
+	 */
+	public void clearGameValues() {
+		itemSelected = "";
+		itemsHeld = new String[4];
+		itemPlacementCoordinates = new String[2];
+		allItemPlacementCoordinates = new String[4][2];
+		characterMovement = "";
+		movementInputs = new SimpleQueue<>();
+		gameplayInputs = new SimpleQueue[4]; 
+	}
 
 	/*
 	class buttonListener implements ActionListener{
@@ -296,4 +309,4 @@ public class GameClient implements Runnable{
 			}
 	}
 	*/
-}	
+}
