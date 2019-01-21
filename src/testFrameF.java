@@ -129,8 +129,6 @@ public class testFrameF extends JPanel implements KeyListener{
 	    		}else if(itemList.get(a) instanceof ProjectileLauncher) {
 	    			g.drawImage(itemList.get(a).getImage(), itemList.get(a).getX(), itemList.get(a).getY(), itemList.get(a).getWidth(), itemList.get(a).getHeight(), this);
 		    		
-	    			System.out.println(itemList.get(a).getSprites().indexOf(itemList.get(a).getImage()));
-		    		System.out.println(itemList.get(a).getImage());
 	    			if(!itemList.get(a).getImage().equals(itemList.get(a).getSprites().get(0))&&!itemList.get(a).getImage().equals(itemList.get(a).getSprites().get(itemList.get(a).getSprites().size()-1))) {
 		    			itemList.get(a).setImage(itemList.get(a).getSprites().get(itemList.get(a).getSprites().indexOf(itemList.get(a).getImage())+1));
 		    		}else {
