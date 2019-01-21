@@ -32,6 +32,15 @@ public class Character {
 	private boolean finished;
 	private Item killedBy;
 	private int platMotion;
+	private boolean fanWindM;
+	
+	public void setFWM(boolean newFanM) {
+		fanWindM = newFanM;
+	}
+	
+	public boolean getFWM() {
+		return fanWindM;
+	}
 	
 	public void setPMotion(int motion) {
 		platMotion = motion;

@@ -335,8 +335,12 @@ public class PhysicsEngine{
 			if ((itemLX <= lowerX && itemHX >= higherX) || (itemLX >= lowerX && itemLX <= higherX) || (itemLX <= lowerX && itemHX >= lowerX)) {
 				if (object instanceof Platform || object instanceof CharacterLauncher || object instanceof ConveyorBelt) {
 					if (lowerY < itemHY && higherY > itemHY) {
-						//player.setVelocity(new double[] {player.getVelocity()[0], player.getVelocity()[1]+5});
+
+						if (player.getFWM() == false) {
+							player.setVelocity(new double[] {player.getVelocity()[0], player.getVelocity()[1]+5});
+						}
 						player.setPosition(player.getPosition()[0], itemHY);
+						
 						return true;
 					}
 				}
@@ -408,10 +412,11 @@ public class PhysicsEngine{
 					
 					if (object instanceof FanWind) {
 						if (inMapTag(player.getTag())) {
+							player.setFWM(true);
 							tagMap.remove(Integer.valueOf(player.getTag()));
 						}
 						player.resetY();
-						if (object.checkChar(player.getTag()) == false) {
+						if (object.checkChar(player.getTag()) == false || player.getVelocity()[1] == 0) {
 							player.setVelocity(new double[] {player.getVelocity()[0]+(((VelocityModifier)object).getSpeed())[0], player.getVelocity()[1] - (((VelocityModifier)object).getSpeed())[1]});
 							object.addChar(player.getTag());
 						}
@@ -430,6 +435,7 @@ public class PhysicsEngine{
 					player.setVelocity(new double[]{player.getVelocity()[0] - ((ConveyorBelt)object).getSpeed()[0], player.getVelocity()[1]});
 				}
 				if (object instanceof FanWind) {
+					player.setFWM(false);
 					player.setVelocity(new double[]{player.getVelocity()[0], player.getVelocity()[1] + ((FanWind)object).getSpeed()[1]});
 				}
 				
