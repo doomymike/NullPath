@@ -7,6 +7,8 @@
 
 // something to close it
 
+// remember to reset stuff that happens multiple times (like gameplay stuff, item placement stuff, item selection) after a round ends
+
 import java.awt.*;
 import javax.swing.*;
 
@@ -34,15 +36,23 @@ public class GameClient implements Runnable{
 
 	// for character selection
 	private String characterSelected = "";
-	private boolean characterHasBeenSelected;
 	
 	// store all players' selections
 	private String[] characterSelection = new String[4]; //Will store the name of the user in the corresponding slot (to their character selection)
 	//Array: {Blue, Green, Red, Yellow}
-	
+
+	// for selection of items in item box
+	private String itemSelected = "";
+	private String[] itemsHeld = new String[4];
+
+	// for mouse hovering when placing items
+	private String[] itemPlacementCoordinates = new String[2];
+	private String[][] allItemPlacementCoordinates = new String[4][2];
+
 	// for running of game
 	private String characterMovement = "";
 	private SimpleQueue<String> movementInputs = new SimpleQueue<>(); //stores inputs by user
+	private SimpleQueue<String>[] gameplayInputs = new SimpleQueue[4]; //stores inputs by each player
 
     /**
      * go
@@ -112,6 +122,7 @@ public class GameClient implements Runnable{
 				if (input.ready()) { //check for an incoming message
 					String temp = input.readLine();
 					if (temp.substring(0, temp.indexOf(":::")).equals("character selection")) {
+
 						if (temp.substring(temp.indexOf(":::", temp.indexOf(":::")+1) + 3).equals("Blue")) {
 							if (characterSelection[0] == null) { //Ensure no one else selected the character
 								characterSelection[0] = temp.substring(temp.indexOf(":::") + 3,temp.indexOf(":::", temp.indexOf(":::")+1));
@@ -129,8 +140,51 @@ public class GameClient implements Runnable{
 								characterSelection[3] = temp.substring(temp.indexOf(":::") + 3,temp.indexOf(":::", temp.indexOf(":::")+1));
 							}
 						}
+
 					} else if (temp.substring(0, temp.indexOf(":::")).equals("user connected")) {
+
 						users.add(temp.substring(temp.indexOf(":::") + 3));
+
+					} else if (temp.substring(0, temp.indexOf(":::")).equals("item selected")) {
+
+						if (temp.substring(temp.indexOf(":::") + 3,temp.indexOf(":::",temp.indexOf(":::") + 1)).equals(characterSelection[0])) { //If username is the username of the player playing as blue
+							itemsHeld[0] = temp.substring(temp.indexOf(":::") + 3,temp.indexOf(":::", temp.indexOf(":::")+1));
+						} else if (temp.substring(temp.indexOf(":::") + 3,temp.indexOf(":::",temp.indexOf(":::") + 1)).equals(characterSelection[1])) { //If username is the username of the player playing as green
+							itemsHeld[1] = temp.substring(temp.indexOf(":::") + 3,temp.indexOf(":::", temp.indexOf(":::")+1));
+						} else if (temp.substring(temp.indexOf(":::") + 3,temp.indexOf(":::",temp.indexOf(":::") + 1)).equals(characterSelection[2])) { //If username is the username of the player playing as red
+							itemsHeld[2] = temp.substring(temp.indexOf(":::") + 3,temp.indexOf(":::", temp.indexOf(":::")+1));
+						} else if (temp.substring(temp.indexOf(":::") + 3,temp.indexOf(":::",temp.indexOf(":::") + 1)).equals(characterSelection[3])) { //If username is the username of the player playing as yellow
+							itemsHeld[3] = temp.substring(temp.indexOf(":::") + 3,temp.indexOf(":::", temp.indexOf(":::")+1));
+						}
+
+					} else if (temp.substring(0, temp.indexOf(":::")).equals("character movement")) {
+
+						if (temp.substring(temp.indexOf(":::") + 3,temp.indexOf(":::",temp.indexOf(":::") + 1)).equals(characterSelection[0])) { //If username is the username of the player playing as blue
+							gameplayInputs[0].offer(temp.substring(temp.lastIndexOf(":::") + 3));
+						} else if (temp.substring(temp.indexOf(":::") + 3,temp.indexOf(":::",temp.indexOf(":::") + 1)).equals(characterSelection[1])) { //If username is the username of the player playing as green
+							gameplayInputs[1].offer(temp.substring(temp.lastIndexOf(":::") + 3));
+						} else if (temp.substring(temp.indexOf(":::") + 3,temp.indexOf(":::",temp.indexOf(":::") + 1)).equals(characterSelection[2])) { //If username is the username of the player playing as red
+							gameplayInputs[2].offer(temp.substring(temp.lastIndexOf(":::") + 3));
+						} else if (temp.substring(temp.indexOf(":::") + 3,temp.indexOf(":::",temp.indexOf(":::") + 1)).equals(characterSelection[3])) { //If username is the username of the player playing as yellow
+							gameplayInputs[3].offer(temp.substring(temp.lastIndexOf(":::") + 3));
+						}
+
+					} else if (temp.substring(0, temp.indexOf(":::")).equals("item placed")) {
+
+						if (temp.substring(temp.indexOf(":::") + 3, temp.indexOf(":::",temp.indexOf(":::") + 1)).equals(characterSelection[0])) { //If username is the username of the player playing as blue
+							allItemPlacementCoordinates[0][0] = temp.substring(temp.lastIndexOf(":::") + 3, temp.lastIndexOf(","));
+							allItemPlacementCoordinates[0][1] = temp.substring(temp.lastIndexOf(","));
+						} else if (temp.substring(temp.indexOf(":::") + 3,temp.indexOf(":::",temp.indexOf(":::") + 1)).equals(characterSelection[1])) { //If username is the username of the player playing as green
+							allItemPlacementCoordinates[1][0] = temp.substring(temp.lastIndexOf(":::") + 3, temp.lastIndexOf(","));
+							allItemPlacementCoordinates[1][1] = temp.substring(temp.lastIndexOf(","));
+						} else if (temp.substring(temp.indexOf(":::") + 3,temp.indexOf(":::",temp.indexOf(":::") + 1)).equals(characterSelection[2])) { //If username is the username of the player playing as red
+							allItemPlacementCoordinates[2][0] = temp.substring(temp.lastIndexOf(":::") + 3, temp.lastIndexOf(","));
+							allItemPlacementCoordinates[2][1] = temp.substring(temp.lastIndexOf(","));
+						} else if (temp.substring(temp.indexOf(":::") + 3,temp.indexOf(":::",temp.indexOf(":::") + 1)).equals(characterSelection[3])) { //If username is the username of the player playing as yellow
+							allItemPlacementCoordinates[3][0] = temp.substring(temp.lastIndexOf(":::") + 3, temp.lastIndexOf(","));
+							allItemPlacementCoordinates[3][1] = temp.substring(temp.lastIndexOf(","));
+						}
+
 					}
 				}
 			} catch (IOException e) {
@@ -159,10 +213,6 @@ public class GameClient implements Runnable{
 	public void setCharacterSelection(String[] characterSelection) {
 		this.characterSelection = characterSelection;
 	} //End of setCharacterSelection
-	
-	public boolean hasSelected() {
-		return characterHasBeenSelected;
-	} //End of hasSelected
 
 	public String getCharacterMovement() {
 		return characterMovement;
@@ -188,6 +238,34 @@ public class GameClient implements Runnable{
 	public SimpleLinkedList<String> getUsers() {
     	return users;
 	} //End of getUsers
+
+	public String getItemSelected() {
+    	return itemSelected;
+	} //End of getItemSelected
+
+	/**
+	 * setItemSelected
+	 * Sets the item selected by the player
+	 * @param itemSelected, the name of the item selected by the player
+	 */
+	public void setItemSelected(String itemSelected) {
+    	this.itemSelected = itemSelected;
+    	System.out.println(itemSelected + " item selected");
+    	output.println("item selected" + ":::" + username + ":::" + itemSelected); //Write to server
+    	output.flush();
+	} //End of setItemSelected
+
+	public void setItemPlacementCoordinates(int x, int y) {
+		itemPlacementCoordinates[0] = Integer.toString(x);
+		itemPlacementCoordinates[1] = Integer.toString(y);
+		System.out.println("item placed");
+		output.println("item placed" + ":::" + username + ":::" + itemPlacementCoordinates[0] + "," + itemPlacementCoordinates[1]);
+		output.flush();
+	}
+
+	public String[][] getAllItemPlacementCoordinates() {
+		return allItemPlacementCoordinates;
+	}
 
 	public void close() {
     	output.println("/exit");
