@@ -1,4 +1,9 @@
-// ADD BACK BUTTON (will do)
+/**
+ * [CharacterSelectPanel.java]
+ * Panel that displays the character select screen
+ * Authors: Brian Li, James Liang, Michael Oren, Brian Zhang
+ * January 21, 2019
+ */
 
 import java.awt.*;
 //Keyboard imports
@@ -238,14 +243,24 @@ public class CharacterSelectPanel extends JPanel{
         repaint();
 
     }
-    
+
+    /**
+     * setResources
+     * Passes in reference to a resources object
+     * @param resource, the Resources object being passed into the panel
+     */
     public void setResources(Resources resource){
         this.resource = resource;
-    }
+    } //End of setResources
 
+    /**
+     * setClient
+     * Passes in reference to a client object
+     * @param client, the GameClient object being passed into the panel
+     */
     public void setClient(GameClient client) {
         this.client = client;
-    }
+    } //End of setClient
  
     public void setButtonPressed(String buttonPressed) {
         this.buttonPressed = buttonPressed;

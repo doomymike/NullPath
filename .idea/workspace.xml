@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5370bd01-8671-42d7-a834-e8a31bdbfa73" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/src/GameAreaFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameAreaFrame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/CharacterSelectPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/CharacterSelectPanel.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/bin/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -14,39 +14,40 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="GameAreaFrame.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="GameAreaFrame.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/GameAreaFrame.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret column="114" selection-start-column="114" selection-end-column="114" />
+            <state relative-caret-position="357">
+              <caret line="21" lean-forward="true" selection-start-line="21" selection-end-line="21" />
               <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#535#536#0" expanded="true" />
-                <element signature="e#570#571#0" expanded="true" />
-                <element signature="e#1755#2009#0" expanded="true" />
-                <element signature="e#2008#2009#0" expanded="true" />
+                <element signature="e#0#13418#0" expanded="true" />
+                <element signature="e#626#627#0" expanded="true" />
+                <element signature="e#661#662#0" expanded="true" />
+                <element signature="e#1846#2100#0" expanded="true" />
+                <element signature="e#2099#2100#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CharacterSelectPanel.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="CharacterSelectPanel.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/CharacterSelectPanel.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2431">
-              <caret line="143" column="39" selection-start-line="143" selection-start-column="39" selection-end-line="143" selection-end-column="39" />
+            <state relative-caret-position="4811">
+              <caret line="283" lean-forward="true" selection-start-line="283" selection-end-line="283" />
               <folding>
+                <element signature="n#!!doc" expanded="true" />
                 <element signature="imports" expanded="true" />
-                <element signature="e#1412#1573#0" expanded="true" />
-                <element signature="e#1572#1573#0" expanded="true" />
-                <element signature="e#1607#1784#0" expanded="true" />
-                <element signature="e#1783#1784#0" expanded="true" />
-                <element signature="e#8053#8054#0" expanded="true" />
-                <element signature="e#8093#8094#0" expanded="true" />
-                <element signature="e#8141#8142#0" expanded="true" />
-                <element signature="e#8177#8178#0" expanded="true" />
-                <element signature="e#8914#8915#0" expanded="true" />
-                <element signature="e#8946#8947#0" expanded="true" />
+                <element signature="e#3940#4101#0" expanded="true" />
+                <element signature="e#4100#4101#0" expanded="true" />
+                <element signature="e#4135#4312#0" expanded="true" />
+                <element signature="e#4311#4312#0" expanded="true" />
+                <element signature="e#10706#10707#0" expanded="true" />
+                <element signature="e#10746#10747#0" expanded="true" />
+                <element signature="e#10794#10795#0" expanded="true" />
+                <element signature="e#10830#10831#0" expanded="true" />
+                <element signature="e#11567#11568#0" expanded="true" />
+                <element signature="e#11599#11600#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -55,7 +56,7 @@
       <file leaf-file-name="GameClient.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/GameClient.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="176">
+            <state relative-caret-position="3298">
               <caret line="194" column="24" selection-start-line="194" selection-start-column="24" selection-end-line="194" selection-end-column="24" />
               <folding>
                 <element signature="e#0#5708#0" expanded="true" />
@@ -160,10 +161,11 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find />
+      <find>change to</find>
       <find>remove</find>
       <find>otherUsers</find>
-      <find />
+      <find>username set</find>
+      <find>currentHo</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -190,7 +192,6 @@
         <option value="$PROJECT_DIR$/src/ServerTest.java" />
         <option value="$PROJECT_DIR$/src/ServerTest2.java" />
         <option value="$PROJECT_DIR$/src/Stage.java" />
-        <option value="$PROJECT_DIR$/src/CharacterSelectPanel.java" />
         <option value="$PROJECT_DIR$/src/SimpleQueue.java" />
         <option value="$PROJECT_DIR$/src/Node.java" />
         <option value="$PROJECT_DIR$/src/BigFlex.java" />
@@ -198,6 +199,7 @@
         <option value="$PROJECT_DIR$/src/GameClient.java" />
         <option value="$PROJECT_DIR$/src/GameServer.java" />
         <option value="$PROJECT_DIR$/src/GameAreaFrame.java" />
+        <option value="$PROJECT_DIR$/src/CharacterSelectPanel.java" />
       </list>
     </option>
   </component>
@@ -766,9 +768,23 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/GameAreaFrame.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="21" lean-forward="true" selection-start-line="21" selection-end-line="21" />
+          <folding>
+            <element signature="e#0#13418#0" expanded="true" />
+            <element signature="e#626#627#0" expanded="true" />
+            <element signature="e#661#662#0" expanded="true" />
+            <element signature="e#1846#2100#0" expanded="true" />
+            <element signature="e#2099#2100#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/GameClient.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="176">
+        <state relative-caret-position="3298">
           <caret line="194" column="24" selection-start-line="194" selection-start-column="24" selection-end-line="194" selection-end-column="24" />
           <folding>
             <element signature="e#0#5708#0" expanded="true" />
@@ -791,34 +807,21 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/CharacterSelectPanel.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2431">
-          <caret line="143" column="39" selection-start-line="143" selection-start-column="39" selection-end-line="143" selection-end-column="39" />
+        <state relative-caret-position="4811">
+          <caret line="283" lean-forward="true" selection-start-line="283" selection-end-line="283" />
           <folding>
+            <element signature="n#!!doc" expanded="true" />
             <element signature="imports" expanded="true" />
-            <element signature="e#1412#1573#0" expanded="true" />
-            <element signature="e#1572#1573#0" expanded="true" />
-            <element signature="e#1607#1784#0" expanded="true" />
-            <element signature="e#1783#1784#0" expanded="true" />
-            <element signature="e#8053#8054#0" expanded="true" />
-            <element signature="e#8093#8094#0" expanded="true" />
-            <element signature="e#8141#8142#0" expanded="true" />
-            <element signature="e#8177#8178#0" expanded="true" />
-            <element signature="e#8914#8915#0" expanded="true" />
-            <element signature="e#8946#8947#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/GameAreaFrame.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="114" selection-start-column="114" selection-end-column="114" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#535#536#0" expanded="true" />
-            <element signature="e#570#571#0" expanded="true" />
-            <element signature="e#1755#2009#0" expanded="true" />
-            <element signature="e#2008#2009#0" expanded="true" />
+            <element signature="e#3940#4101#0" expanded="true" />
+            <element signature="e#4100#4101#0" expanded="true" />
+            <element signature="e#4135#4312#0" expanded="true" />
+            <element signature="e#4311#4312#0" expanded="true" />
+            <element signature="e#10706#10707#0" expanded="true" />
+            <element signature="e#10746#10747#0" expanded="true" />
+            <element signature="e#10794#10795#0" expanded="true" />
+            <element signature="e#10830#10831#0" expanded="true" />
+            <element signature="e#11567#11568#0" expanded="true" />
+            <element signature="e#11599#11600#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -840,7 +843,7 @@
       </state>
       <state key="FacetStructureConfigurable.UI">
         <settings>
-          <last-edited />
+          <last-edited>No facets are configured</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>
