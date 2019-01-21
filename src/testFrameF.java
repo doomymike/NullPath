@@ -104,8 +104,14 @@ public class testFrameF extends JPanel implements KeyListener{
     	    //Use the following for multi character integration
     	    for (int i = 0; i < characterList.size(); i++) {
     	    	for (int a = 0; a < ProjectileList.size(); a++) {
-    	    		if (newEng.checkCollision(characterList.get(i), ProjectileList.get(a), true)) {
-    	    			ProjectileList.remove(a);
+    	    		if (ProjectileList.get(a).getRadius() != 0) {
+    	    			if (newEng.checkCollision(characterList.get(i), ProjectileList.get(a), true)) {
+        	    			ProjectileList.remove(a);
+        	    		}
+    	    		} else {
+    	    			if (newEng.checkCollision(characterList.get(i), ProjectileList.get(a), false)) {
+        	    			ProjectileList.remove(a);
+        	    		}
     	    		}
     	    	}
     	    }
@@ -126,8 +132,7 @@ public class testFrameF extends JPanel implements KeyListener{
 		    			}
 		    				    			
 		    		}
-	    			//activateables
-	    		}else if(itemList.get(a) instanceof ProjectileLauncher||itemList.get(a) instanceof CharacterLauncher) { //only shoots sometimes
+	    		}else if(itemList.get(a) instanceof ProjectileLauncher||itemList.get(a) instanceof CharacterLauncher) {
 	    			g.drawImage(itemList.get(a).getImage(), itemList.get(a).getX(), itemList.get(a).getY(), itemList.get(a).getWidth(), itemList.get(a).getHeight(), this);
 		    		
 	    			
@@ -138,8 +143,8 @@ public class testFrameF extends JPanel implements KeyListener{
 		    		}
 	    		} else {
 	    			if (itemList.get(a).getRadius()!= 0){
-	    		
-	    				g.drawImage(itemList.get(a).getImage(), itemList.get(a).getX(), itemList.get(a).getY(), itemList.get(a).getRadius(), itemList.get(a).getRadius(), this);
+
+	    				g.drawImage(itemList.get(a).getImage(), itemList.get(a).getX() - itemList.get(a).getRadius(), itemList.get(a).getY() - itemList.get(a).getRadius(), 2*itemList.get(a).getRadius(), 2*itemList.get(a).getRadius(), this);
 	    			} else {
 	    				g.drawImage(itemList.get(a).getImage(), itemList.get(a).getX(), itemList.get(a).getY(), itemList.get(a).getWidth(), itemList.get(a).getHeight(), this);
 	    			}
@@ -152,7 +157,6 @@ public class testFrameF extends JPanel implements KeyListener{
 		    			}
 		    				    			
 		    		}
-	    		
 	    		}
 	    		
 	    		
@@ -176,7 +180,7 @@ public class testFrameF extends JPanel implements KeyListener{
 //	    		g.fillRect(itemList.get(a).getX(), itemList.get(a).getY(), itemList.get(a).getWidth(), itemList.get(a).getHeight());
 	    		for (int i = 0; i < characterList.size(); i++) {
 	    			if (itemList.get(a).getRadius() == 0) {
-	    				newEng.checkCollision(characterList.get(i), itemList.get(a), false);
+	    				if (newEng.checkCollision(characterList.get(i), itemList.get(a), false));
 	    			} else {
 	    				newEng.checkCollision(characterList.get(i), itemList.get(a), true);
 	    			}
@@ -275,13 +279,13 @@ public class testFrameF extends JPanel implements KeyListener{
 						characterList.get(i).setCurrentFrameIndex(15);
 					}
 	    		}else if(characterList.get(i).getMotion()[2]) { //up
-	    			  			
 					characterList.get(i).setCurrentFrameIndex(14);
 					
 	    		}else if(characterList.get(i).getMotion()[3]) { //crouch
 	    				characterList.get(i).setCurrentFrameIndex(0);
 	    			
 	    		}else { //idle
+
 	    			if(characterList.get(i).getCurrentFrameIndex()>7&&characterList.get(i).getCurrentFrameIndex()<13) {
 						characterList.get(i).setCurrentFrameIndex(characterList.get(i).getCurrentFrameIndex()+1);
 					}else {
@@ -293,7 +297,7 @@ public class testFrameF extends JPanel implements KeyListener{
 	    		newEng.move(characterList.get(i));
 	    	}
 	    		
-    		if ((characterList.get(0)).isAlive() == false) {
+    		if ((characterList.get(0)).isAlive() == false || (characterList.get(0).getFinished())) {
     			if (characterList.get(0).getMotion()[1]) {
     				if ((characterList.get(0)).getHMotion()[1]) {
     					(characterList.get(0)).setHMotion(false, 1);
@@ -365,7 +369,7 @@ public class testFrameF extends JPanel implements KeyListener{
     				}
     				(characterList.get(0)).setMotion(true, 1);
     			}
-    		} else if (c == 'w' && (characterList.get(0).isAlive() && (characterList.get(0).getFinished() == false))) {
+    		} else if (c == 'w' && (characterList.get(0)).getJump() && ((characterList.get(0)).isAlive() && (characterList.get(0).getFinished() == false))) {
     			if ((characterList.get(0)).getMotion()[2] == false) {
     				/*
     				if((characterList.get(0)).getIMotion()) {
@@ -399,7 +403,8 @@ public class testFrameF extends JPanel implements KeyListener{
     			}
     		} else if (c == 's' && (characterList.get(0).isAlive() && (characterList.get(0).getFinished() == false))) {
     			if (characterList.get(0).getMotion()[3] == false) {
-    				//characterList.
+    				characterList.get(0).setHeight(characterList.get(0).getHeight()/2 + 10);
+    				characterList.get(0).setPosition(characterList.get(0).getPosition()[0], characterList.get(0).getPosition()[1]+characterList.get(0).getHeight()/2-10);
     				characterList.get(0).setMotion(true, 3);
     			}
 				//g.drawRect(characterList.get(i).getPosition()[0], characterList.get(i).getPosition()[1] + characterList.get(i).getHeight()/2-10, characterList.get(i).getWidth(), characterList.get(i).getHeight()/2 + 10);
@@ -449,6 +454,8 @@ public class testFrameF extends JPanel implements KeyListener{
     			}
     		} else if (c == 's' && (characterList.get(0).isAlive() && (characterList.get(0).getFinished() == false))) {
     			if (characterList.get(0).getMotion()[3]) {
+    				characterList.get(0).setPosition(characterList.get(0).getPosition()[0], characterList.get(0).getPosition()[1]-(characterList.get(0).getHeight()/2-10));
+    				characterList.get(0).setHeight(2*(characterList.get(0).getHeight()-10));
     				characterList.get(0).setMotion(false, 3);
     			}
     		}
