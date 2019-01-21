@@ -58,6 +58,10 @@ public class Character {
 	}
 	
 	public void setFinished(boolean finished) {
+		if(!this.finished) {
+			currentFrameIndex = 24;
+			activeFrame = sprites[24];
+		}
 		this.finished = finished;
 	}
 	
