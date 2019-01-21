@@ -63,7 +63,7 @@ public class PlatformPanel extends JPanel implements KeyListener{
     		itemList.add(new ProjectileLauncher(600, 450,50, 50, 0, 3, "Arrow", launchCounter, "V")); // negative = upward velocity
     		launchCounter++;
     		itemList.add(new CharacterLauncher(1000, 400, 20, 60, 1, 1));
-    		itemList.add(new MovingPlatform(100, 150, 50, 150, 500, 100, new double[] {1, 0}, 1));
+    		//itemList.add(new MovingPlatform(100, 150, 50, 150, 500, 100, new double[] {1, 0}, 1));
     		itemList.add(new Spike(300, 200, 50, 50));
     		//itemList.add(new Saw (400, 200, 50));
     		initStart = System.nanoTime()/(Math.pow(10, 9));

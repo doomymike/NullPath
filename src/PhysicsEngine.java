@@ -77,7 +77,7 @@ public class PhysicsEngine{
 					oneCount += 1;
 				}
 			}
-			if (oneCount < 1) {
+			if (oneCount <= 2) {
 				return true;
 			}
 		} else {
@@ -86,7 +86,7 @@ public class PhysicsEngine{
 					oneCount += 1;
 				}
 			}
-			if (oneCount <= 1) {
+			if (oneCount <= 2) {
 				return true;
 			}
 		}
@@ -250,10 +250,12 @@ public class PhysicsEngine{
 		int yPos = player.getPosition()[1];
 				
 		if (player.getGravity()) {
-			player.setVelocity(new double[] {player.getVelocity()[0], player.getVelocity()[1]+0.06}); //Not using getGravityV to sequentially decrease dy
+			player.setVelocity(new double[] {player.getVelocity()[0], Math.min(player.getVelocity()[1]+0.06, 7)}); //Not using getGravityV to sequentially decrease dy
 		}
+		System.out.println(player.getVelocity()[1]);
 		//System.out.println(player.getVelocity()[0] + " X_vel" + player.getVelocity()[1] + " Y_vel");
 		player.setPosition((int)Math.round(xPos + player.getVelocity()[0]), (int)Math.round(yPos + player.getVelocity()[1]));
+		
 	}
 	
 	public void move(Item object) {
