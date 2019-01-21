@@ -40,7 +40,7 @@ public class ProjectileLauncher extends Item{
 		if (lastNum < (int)(System.nanoTime()/(Math.pow(10, 9)) - initStart)) {
 			lastNum = (int)(System.nanoTime()/(Math.pow(10, 9)) - initStart);
 			if (projectileType.equals("ball")) {
-				projectList.add(new Pellet (getX()+getWidth()/2, getY()+getHeight()/2, 15, new double[] {launchDx, launchDy}, true, tag));
+				projectList.add(new Pellet (getX()+getWidth()/2, getY()+getHeight()/2, 5, new double[] {launchDx, launchDy}, true, tag));
 			} else if (projectileType.equals("arrowh")) {
 				projectList.add(new Arrow (getX()+getWidth()/2, getY()+getHeight()/2, new double[] {launchDx, launchDy}, "H", tag));
 			} else if (projectileType.equals("arrowv")) {

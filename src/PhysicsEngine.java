@@ -290,10 +290,25 @@ public class PhysicsEngine{
 		int higherY = lowerY + player.getHeight();
 		if (circular) {
 			int radius = object.getRadius();
-			int lowCircX = object.getX()-radius;
-			int highCircX = object.getX()+radius;
-			int lowCircY = object.getY()-radius;
-			int highCircY = object.getY()+radius;
+			int lcX = object.getX()-radius;
+			int hcX = object.getX()+radius;
+			int lcY = object.getY()-radius;
+			int hcY = object.getY()+radius;
+			
+			if((hcY > lowerY && lcY < lowerY) || (hcY > higherY && lcY < higherY)) {
+				if ((hcX > lowerX && lcX < lowerX) || (hcX > higherX && lcX < higherX)) {
+					if (object instanceof Saw || object instanceof Projectile) {
+						System.out.println("NO");
+						System.out.println(player.getPosition()[1]);
+						System.out.println(player.getHeight());
+						System.out.println(lcY+" "+hcY+" "+lcX+" "+hcX+" "+player.getPosition()[1]+" "+(player.getPosition()[1]+player.getHeight()));
+						player.setAlive(false);
+						return true;
+					}
+				}
+			}
+			
+			/*
 			if ((highCircY > higherY && lowCircY < higherY) || (highCircY < higherY && lowCircY > lowerY) || (lowCircY < lowerY && highCircY > lowerY)) {
 				if ((highCircX > higherX && lowCircX < higherX) || (highCircX < higherX && lowCircX > lowerX) || (lowCircX < lowerX && highCircY > lowerX)) {
 					if (object instanceof Saw || object instanceof Projectile) {
@@ -302,6 +317,7 @@ public class PhysicsEngine{
 					}
 				}
 			}
+			*/
 		} else {
 			int itemLX = object.getX();
 			int itemHX = object.getX() + object.getWidth();
