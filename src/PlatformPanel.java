@@ -59,16 +59,16 @@ public class PlatformPanel extends JPanel implements KeyListener{
     		itemList.add(new StationaryPlatform(80, 250, 150, 300));
     		itemList.add(new FanWind(450, 100, 600, 50, 1, 1));
     		itemList.add(new ConveyorBelt(500, 250, 40, 200, 1, 0));
-    		//itemList.add(new ProjectileLauncher(800, 500,50, 50, -3, -6, false, "Ball", launchCounter, "L")); //LaunchCounter used so that projectiles can collide with projectileLaunchers that didnt launch itself
-    		//launchCounter++;
+    		itemList.add(new ProjectileLauncher(800, 500,50, 50, -3, -6, false, "Ball", launchCounter, "L")); //LaunchCounter used so that projectiles can collide with projectileLaunchers that didnt launch itself
+    		launchCounter++;
     		itemList.add(new ProjectileLauncher(800, 375,50, 50, 3, 0, "Arrow", launchCounter, "H")); 
     		launchCounter++;
     		itemList.add(new ProjectileLauncher(600, 450,50, 50, 0, 3, "Arrow", launchCounter, "V")); // negative = upward velocity
     		launchCounter++;
     		itemList.add(new CharacterLauncher(1000, 400, 20, 60, 1, 1));
-    		//itemList.add(new MovingPlatform(100, 150, 50, 150, 500, 100, new double[] {1, 0}, 1));
+    		itemList.add(new MovingPlatform(100, 150, 50, 150, 500, 100, new double[] {1, 0}, 1));
     		itemList.add(new Spike(300, 200, 50, 50));
-    		//itemList.add(new Saw (400, 200, 50));
+    		itemList.add(new Saw (400, 200, 50));
     		initStart = System.nanoTime()/(Math.pow(10, 9));
     		//Start timer for projectileLaunchers
     		onIA = false;
@@ -277,7 +277,15 @@ public class PlatformPanel extends JPanel implements KeyListener{
 			    			
 			    		//Specialized drawings of character and projectileLauncher (launch animations)
 			    		}else if(itemList.get(a) instanceof ProjectileLauncher||itemList.get(a) instanceof CharacterLauncher) {
-			    			g.drawImage(itemList.get(a).getImage(), itemList.get(a).getX(), itemList.get(a).getY(), itemList.get(a).getWidth(), itemList.get(a).getHeight(), this);
+			    			if (itemList.get(a) instanceof ProjectileLauncher) {
+			    				if (((ProjectileLauncher)itemList.get(a)).getDir().equals("l")) {
+			    					g.drawImage(itemList.get(a).getImage(), itemList.get(a).getX()+ itemList.get(a).getWidth(), itemList.get(a).getY(), -itemList.get(a).getWidth(), itemList.get(a).getHeight(), this);
+			    				} else {
+					    			g.drawImage(itemList.get(a).getImage(), itemList.get(a).getX(), itemList.get(a).getY(), itemList.get(a).getWidth(), itemList.get(a).getHeight(), this);
+			    				}
+			    			} else {
+				    			g.drawImage(itemList.get(a).getImage(), itemList.get(a).getX(), itemList.get(a).getY(), itemList.get(a).getWidth(), itemList.get(a).getHeight(), this);
+			    			}
 				    		
 			    			
 			    			if(!itemList.get(a).getImage().equals(itemList.get(a).getSprites().get(0))&&!itemList.get(a).getImage().equals(itemList.get(a).getSprites().get(itemList.get(a).getSprites().size()-1))) {
