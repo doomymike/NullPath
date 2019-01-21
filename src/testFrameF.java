@@ -35,7 +35,7 @@ public class testFrameF extends JPanel implements KeyListener{
     	
     	public testFrameF() throws FileNotFoundException, IOException {
     		this.setSize(new Dimension(1720, 760));
-    		characterList.add(new Character("Blue",80, 240, 60, 40, 0));
+    		characterList.add(new Character("Blue",200, 200, 60, 40, 0));
     		itemList.add(new StationaryPlatform(80, 250, 150, 300));
     		itemList.add(new FanWind(450, 100, 600, 50, 1, 1));
     		itemList.add(new ConveyorBelt(500, 250, 40, 200, 1, 0));
@@ -237,8 +237,15 @@ public class testFrameF extends JPanel implements KeyListener{
 	    		}else {
 	    			g.drawImage(characterList.get(i).getActiveFrame(), characterList.get(i).getPosition()[0]+characterList.get(i).getWidth(), characterList.get(i).getPosition()[1], -characterList.get(i).getWidth(), characterList.get(i).getHeight(), this);
 	    		}
+	    		if(!characterList.get(i).isAlive()) {
+	    			
+	    			if(characterList.get(i).getCurrentFrameIndex()>0&&characterList.get(i).getCurrentFrameIndex()<6) {
+	    				System.out.println(characterList.get(i).getCurrentFrameIndex());
+	    				characterList.get(i).setCurrentFrameIndex(characterList.get(i).getCurrentFrameIndex()+1);
+										
+					}
 	    		
-	    		if (characterList.get(i).getVelocity()[1]<0) { //jump
+	    		}else if (characterList.get(i).getVelocity()[1]<0) { //jump
 	    			characterList.get(i).setCurrentFrameIndex(14);
 	    		
 	    		}else if(characterList.get(i).getVelocity()[1]>0){ //fall
