@@ -2,14 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5370bd01-8671-42d7-a834-e8a31bdbfa73" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/Node.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Node.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/Saw.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Saw.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/SimpleLinkedList.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/SimpleLinkedList.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/Spike.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Spike.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/GameAreaFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameAreaFrame.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GameClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameClient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GameServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameServer.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/bin/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -24,14 +17,14 @@
       <file leaf-file-name="GameAreaFrame.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/GameAreaFrame.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="221">
-              <caret line="96" column="35" selection-start-line="96" selection-start-column="35" selection-end-line="96" selection-end-column="35" />
+            <state>
+              <caret column="114" selection-start-column="114" selection-end-column="114" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#535#536#0" expanded="true" />
                 <element signature="e#570#571#0" expanded="true" />
-                <element signature="e#2957#3196#0" expanded="true" />
-                <element signature="e#3195#3196#0" expanded="true" />
+                <element signature="e#1755#2009#0" expanded="true" />
+                <element signature="e#2008#2009#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -167,10 +160,10 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>change to</find>
+      <find />
       <find>remove</find>
       <find>otherUsers</find>
-      <find>username set</find>
+      <find />
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -202,9 +195,9 @@
         <option value="$PROJECT_DIR$/src/Node.java" />
         <option value="$PROJECT_DIR$/src/BigFlex.java" />
         <option value="$PROJECT_DIR$/src/Medium.java" />
-        <option value="$PROJECT_DIR$/src/GameAreaFrame.java" />
         <option value="$PROJECT_DIR$/src/GameClient.java" />
         <option value="$PROJECT_DIR$/src/GameServer.java" />
+        <option value="$PROJECT_DIR$/src/GameAreaFrame.java" />
       </list>
     </option>
   </component>
@@ -818,14 +811,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/GameAreaFrame.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="96" column="35" selection-start-line="96" selection-start-column="35" selection-end-line="96" selection-end-column="35" />
+        <state>
+          <caret column="114" selection-start-column="114" selection-end-column="114" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#535#536#0" expanded="true" />
             <element signature="e#570#571#0" expanded="true" />
-            <element signature="e#2957#3196#0" expanded="true" />
-            <element signature="e#3195#3196#0" expanded="true" />
+            <element signature="e#1755#2009#0" expanded="true" />
+            <element signature="e#2008#2009#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -847,7 +840,7 @@
       </state>
       <state key="FacetStructureConfigurable.UI">
         <settings>
-          <last-edited>No facets are configured</last-edited>
+          <last-edited />
           <splitter-proportions>
             <option name="proportions">
               <list>

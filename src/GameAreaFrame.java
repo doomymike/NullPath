@@ -1,4 +1,11 @@
-// init player objects somewhere !!!
+/**
+ * [GameAreaFrame.java]
+ * Frame that holds all of NullPath game's operations
+ * Authors: Brian Li, James Liang, Michael Oren, Brian Zhang
+ * January 21, 2019
+ */
+
+//Since everything is in constructor, to play again after finishing a game, launcher will have to remake the frame
 
 //Graphics & GUI imports
 import javax.swing.JFrame;
@@ -45,38 +52,6 @@ public class GameAreaFrame extends JFrame implements KeyListener {
     Resources resources;
 
     PhysicsEngine physicsEngine;
-
-    public void keyTyped(KeyEvent e) {
-        if (e.getKeyCode() == 27) {
-            System.out.println("Escape detected");
-            //Return to MenuPanel, from Select
-            if (panelCounter == 2) {
-                this.getContentPane().remove(characterSelectPanel); // Remove the select panel
-                mainMenuPanel = new MainMenuPanel(); // Add the mainmenu panel
-                this.getContentPane().add(mainMenuPanel);
-                System.out.println("back to main menu panel");
-                panelCounter = 1;
-                this.revalidate();
-                repaint();
-            }
-            //Return to IntroPanel, from MenuPanel
-            if (panelCounter == 1) {
-                this.getContentPane().remove(mainMenuPanel); // Remove the select panel
-                introPanel = new IntroPanel(); // Add the mainmenu panel
-                this.getContentPane().add(introPanel);
-                System.out.println("back to intro panel");
-                panelCounter = 0;
-                this.revalidate();
-                repaint();
-            }
-        }
-    }
-
-    public void keyReleased(KeyEvent e) {
-    }
-
-    public void keyPressed(KeyEvent e) {
-    }
 
     // Constructor
     public GameAreaFrame() {
@@ -241,6 +216,38 @@ public class GameAreaFrame extends JFrame implements KeyListener {
         }
 
      // End of constructor
+
+    public void keyTyped(KeyEvent e) {
+        if (e.getKeyCode() == 27) {
+            System.out.println("Escape detected");
+            //Return to MenuPanel, from Select
+            if (panelCounter == 2) {
+                this.getContentPane().remove(characterSelectPanel); // Remove the select panel
+                mainMenuPanel = new MainMenuPanel(); // Add the mainmenu panel
+                this.getContentPane().add(mainMenuPanel);
+                System.out.println("back to main menu panel");
+                panelCounter = 1;
+                this.revalidate();
+                repaint();
+            }
+            //Return to IntroPanel, from MenuPanel
+            if (panelCounter == 1) {
+                this.getContentPane().remove(mainMenuPanel); // Remove the select panel
+                introPanel = new IntroPanel(); // Add the mainmenu panel
+                this.getContentPane().add(introPanel);
+                System.out.println("back to intro panel");
+                panelCounter = 0;
+                this.revalidate();
+                repaint();
+            }
+        }
+    }
+
+    public void keyReleased(KeyEvent e) {
+    }
+
+    public void keyPressed(KeyEvent e) {
+    }
 
     //****** Inner Classes for KeyListener ****
 
