@@ -19,7 +19,7 @@ import java.util.ArrayList;
 
 import java.awt.image.*;
 
-public class GameAreaFrame extends JFrame implements KeyListener {
+public class GameAreaFrameTE extends JFrame implements KeyListener {
 
     public static void main(String[] args) {
         new GameAreaFrame();
@@ -81,7 +81,7 @@ public class GameAreaFrame extends JFrame implements KeyListener {
     }
 
     // Constructor
-    public GameAreaFrame() {
+    public GameAreaFrameTE() {
         super("NullPath");
         //mapIntegration = new MapPlacement();
         // Connect to server
