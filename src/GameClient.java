@@ -247,6 +247,10 @@ public class GameClient implements Runnable{
     	return itemsHeld;
 	}
 
+	public SimpleQueue<String>[] getGameplayInputs() {
+    	return gameplayInputs;
+	}
+
 	/**
 	 * setItemSelected
 	 * Sets the item selected by the player
