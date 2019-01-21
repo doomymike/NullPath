@@ -126,7 +126,8 @@ public class testFrameF extends JPanel implements KeyListener{
 		    			}
 		    				    			
 		    		}
-	    		}else if(itemList.get(a) instanceof ProjectileLauncher||itemList.get(a) instanceof CharacterLauncher) {
+	    			//activateables
+	    		}else if(itemList.get(a) instanceof ProjectileLauncher||itemList.get(a) instanceof CharacterLauncher) { //only shoots sometimes
 	    			g.drawImage(itemList.get(a).getImage(), itemList.get(a).getX(), itemList.get(a).getY(), itemList.get(a).getWidth(), itemList.get(a).getHeight(), this);
 		    		
 	    			
@@ -135,10 +136,13 @@ public class testFrameF extends JPanel implements KeyListener{
 		    		}else {
 		    			itemList.get(a).setImage(itemList.get(a).getSprites().get(0));
 		    		}
-	    		} else if (itemList.get(a).getRadius()!= 0){
-	    			g.drawImage(itemList.get(a).getImage(), itemList.get(a).getX(), itemList.get(a).getY(), itemList.get(a).getRadius(), itemList.get(a).getRadius(), this);
 	    		} else {
-	    			g.drawImage(itemList.get(a).getImage(), itemList.get(a).getX(), itemList.get(a).getY(), itemList.get(a).getWidth(), itemList.get(a).getHeight(), this);
+	    			if (itemList.get(a).getRadius()!= 0){
+	    		
+	    				g.drawImage(itemList.get(a).getImage(), itemList.get(a).getX(), itemList.get(a).getY(), itemList.get(a).getRadius(), itemList.get(a).getRadius(), this);
+	    			} else {
+	    				g.drawImage(itemList.get(a).getImage(), itemList.get(a).getX(), itemList.get(a).getY(), itemList.get(a).getWidth(), itemList.get(a).getHeight(), this);
+	    			}
 	    			if(itemList.get(a).getSprites()!=null) {
 		    			
 		    			if(itemList.get(a).getSprites().indexOf(itemList.get(a).getImage())== itemList.get(a).getSprites().size()-1) {
@@ -148,6 +152,7 @@ public class testFrameF extends JPanel implements KeyListener{
 		    			}
 		    				    			
 		    		}
+	    		
 	    		}
 	    		
 	    		
