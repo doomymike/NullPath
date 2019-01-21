@@ -33,20 +33,20 @@ public class testFrameFT extends JPanel implements KeyListener{
     	
     	public testFrameFT() throws FileNotFoundException, IOException {
     		this.setSize(new Dimension(1720, 760));
-    		characterList.add(new Character(80, 240, 60, 40, 0));
+    		characterList.add(new Character(200, 200, 60, 40, 0));
     		itemList.add(new StationaryPlatform(80, 250, 150, 300));
     		itemList.add(new FanWind(450, 100, 600, 50, 1, 1));
     		itemList.add(new ConveyorBelt(500, 250, 40, 200, 1, 0));
     		itemList.add(new ProjectileLauncher(800, 500,50, 50, -3, -6, false, "Ball", launchCounter)); //LaunchCounter used so that projectiles can collide with projectileLaunchers that didnt launch itself
     		launchCounter++;
-    		//itemList.add(new ProjectileLauncher(800, 375,50, 50, 3, 0, "ArrowH", launchCounter)); 
+    		itemList.add(new ProjectileLauncher(800, 375,50, 50, 3, 0, "ArrowH", launchCounter)); 
     		launchCounter++;
     		itemList.add(new ProjectileLauncher(600, 325,50, 50, 0, 3, "ArrowV", launchCounter)); // negative = upward velocity
     		launchCounter++;
     		itemList.add(new CharacterLauncher(1000, 400, 20, 60, 1, 1));
     		itemList.add(new MovingPlatform(100, 150, 50, 150, 500, 100, new double[] {1, 0}, 1));
     		itemList.add(new Spike(300, 200, 50, 50));
-    		itemList.add(new Saw (400, 200, 50));
+    		itemList.add(new Saw (400, 200, 25));
     		initStart = System.nanoTime()/(Math.pow(10, 9));
     		onIA = false;
     		onID = false;
@@ -91,8 +91,15 @@ public class testFrameFT extends JPanel implements KeyListener{
     	    //Use the following for multi character integration
     	    for (int i = 0; i < characterList.size(); i++) {
     	    	for (int a = 0; a < ProjectileList.size(); a++) {
-    	    		if (newEng.checkCollision(characterList.get(i), ProjectileList.get(a), true)) {
-    	    			ProjectileList.remove(a);
+    	    		if (ProjectileList.get(a).getRadius() != 0) {
+	    	    		if (newEng.checkCollision(characterList.get(i), ProjectileList.get(a), true)) {
+	    	    			ProjectileList.remove(a);
+	    	    		} 
+    	    		} else {
+    	    			if (newEng.checkCollision(characterList.get(i), ProjectileList.get(a), false)) {
+    	    				System.out.println("PLSSTOP");
+	    	    			ProjectileList.remove(a);
+	    	    		} 
     	    		}
     	    	}
     	    }
@@ -115,7 +122,9 @@ public class testFrameFT extends JPanel implements KeyListener{
 	    			g.setColor(Color.ORANGE);
 	    		}
 	    		if (itemList.get(a).getRadius() != 0) {
-	    			g.fillOval(itemList.get(a).getX(), itemList.get(a).getY(), itemList.get(a).getRadius(), itemList.get(a).getRadius());
+	    			g.fillOval(itemList.get(a).getX()-itemList.get(a).getRadius(), itemList.get(a).getY()-itemList.get(a).getRadius(), itemList.get(a).getRadius()*2, itemList.get(a).getRadius()*2);
+	    			//System.out.println(itemList.get(a).getX() +" "+ itemList.get(a).getY() +" "+ itemList.get(a).getRadius());
+	    			
 	    		}
 	    		g.fillRect(itemList.get(a).getX(), itemList.get(a).getY(), itemList.get(a).getWidth(), itemList.get(a).getHeight());
 	    		for (int i = 0; i < characterList.size(); i++) {
@@ -166,7 +175,7 @@ public class testFrameFT extends JPanel implements KeyListener{
     	    	newEng.move(ProjectileList.get(c));
     	    	g.setColor(Color.RED);
     	    	if (ProjectileList.get(c) instanceof Pellet) {
-    	    		g.fillOval(ProjectileList.get(c).getX(), ProjectileList.get(c).getY(), ProjectileList.get(c).getRadius(), ProjectileList.get(c).getRadius());
+    	    		g.fillOval(ProjectileList.get(c).getX()-ProjectileList.get(c).getRadius(), ProjectileList.get(c).getY()-ProjectileList.get(c).getRadius(), ProjectileList.get(c).getRadius()*2, ProjectileList.get(c).getRadius()*2);
     	    	} else if (ProjectileList.get(c) instanceof Arrow) {
     	    		g.fillRect(ProjectileList.get(c).getX(), ProjectileList.get(c).getY(), ProjectileList.get(c).getWidth(), ProjectileList.get(c).getHeight());
     	    	}
@@ -236,7 +245,6 @@ public class testFrameFT extends JPanel implements KeyListener{
     	public void keyPressed(KeyEvent e) {
     		char c = e.getKeyChar();
     		if (c == 'd' && ((characterList.get(0)).isAlive() && (characterList.get(0).getFinished() == false))) {
-    			System.out.println("BAD");
     			onID = true;
     			if ((characterList.get(0)).getMotion()[1] == false) {
     				if ((characterList.get(0)).getHoney()) {
