@@ -10,6 +10,7 @@ public class Item {
 	private int width = 0;
 	private int height = 0;
 	private int radius = 0;
+	
 	private BufferedImage image;
 	private SimpleLinkedList<BufferedImage> sprites;
 	
