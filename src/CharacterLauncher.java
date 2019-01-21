@@ -11,6 +11,9 @@ public class CharacterLauncher extends VelocityModifier{
 		// TODO Auto-generated constructor stub
 		super(x, y, height, width, direction, direction2);	
 		try {
+			for(int i=1;i<4;i++) {
+				this.addSprite(ImageIO.read(new File("resources/Spring"+i+".png")));
+			}
 			this.setImage(ImageIO.read(new File("resources/Spring1.png")));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -21,6 +24,7 @@ public class CharacterLauncher extends VelocityModifier{
 	public void launchChar(Character affectChar) {
 		double[] updatedVel = {affectChar.getVelocity()[0], affectChar.getVelocity()[1]+speed};
 		affectChar.setVelocity(updatedVel);
+		this.setImage(this.getSprites().get(1));
 	}
 	
 	public static BufferedImage getSprite() {
