@@ -252,7 +252,6 @@ public class PhysicsEngine{
 		if (player.getGravity()) {
 			player.setVelocity(new double[] {player.getVelocity()[0], Math.min(player.getVelocity()[1]+0.06, 7)}); //Not using getGravityV to sequentially decrease dy
 		}
-		System.out.println(player.getVelocity()[1]);
 		//System.out.println(player.getVelocity()[0] + " X_vel" + player.getVelocity()[1] + " Y_vel");
 		player.setPosition((int)Math.round(xPos + player.getVelocity()[0]), (int)Math.round(yPos + player.getVelocity()[1]));
 		
