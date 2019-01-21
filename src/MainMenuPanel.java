@@ -124,7 +124,6 @@ public class MainMenuPanel extends JPanel {
 
     public boolean getNext(){return next;}
     public int getSelection() {
-        System.out.println("");
         return selection;
     }
 
