@@ -17,10 +17,12 @@ public class Stage {
 
     public Stage(BufferedImage sprite) {
         this.sprite = sprite;
+        this.items = new SimpleLinkedList<Item>();
     }
     
     public Stage(String stageName) {
     	mapInit(stageName);
+        this.items = new SimpleLinkedList<Item>();
     }
 
     public SimpleLinkedList<Item> getItems() {

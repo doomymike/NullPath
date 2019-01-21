@@ -226,20 +226,25 @@ public class PhysicsEngine{
 		if (circle) {
 			contactLX = Math.min(Math.max((int)(arbItem.getX())/20, 0), 85);
 			contactRX = Math.min(Math.max((int)(arbItem.getX()+arbItem.getRadius())/20, 0), 85);
-			contactY = Math.min(Math.max((int)((arbItem.getY()+arbItem.getRadius()-20)/20), 0), 37);
-			contactHY = Math.min(Math.max((int)((arbItem.getY()-20)/20), 0), 37);
+			contactY = Math.min(Math.max((int)((arbItem.getY()+arbItem.getRadius())/20), 0), 37);
+			contactHY = Math.min(Math.max((int)((arbItem.getY())/20), 0), 37);
 		} else {
 			contactLX = Math.min(Math.max((int)(arbItem.getX())/20, 0), 85);
 			contactRX = Math.min(Math.max((int)(arbItem.getX()+arbItem.getWidth())/20, 0), 85);
-			contactY = Math.min(Math.max((int)((arbItem.getY()+arbItem.getHeight()-20)/20), 0), 37);
-			contactHY = Math.min(Math.max((int)((arbItem.getY()-20)/20), 0), 37);
+			contactY = Math.min(Math.max((int)((arbItem.getY()+arbItem.getHeight())/20), 0), 37);
+			contactHY = Math.min(Math.max((int)((arbItem.getY())/20), 0), 37);
 			String totalC = "";
 
 		}
 		
-		if (contactMap[contactY][contactLX].equals("1") || contactMap[contactY][contactLX].equals("2") || contactMap[contactY][contactRX].equals("1") || contactMap[contactY][contactRX].equals("2")) {
-			return true;
+		for (int i = 0; i < contactY-contactHY+1; i++) {
+			for (int j = 0; j < contactRX - contactLX+1; j++) {
+				if (!contactMap[Math.min(contactHY+i, 37)][Math.min(contactLX+j, 85)].equals("0")) {
+					return true;
+				}
+			}
 		}
+		
 		return false;
 		
 	}

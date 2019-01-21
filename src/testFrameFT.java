@@ -31,17 +31,22 @@ public class testFrameFT extends JPanel implements KeyListener{
     	String[][] contactMap;
     	int launchCounter = -1;
     	
-    	public testFrameFT() throws FileNotFoundException, IOException {
+    	public testFrameFT(Resources resource) throws FileNotFoundException, IOException {
+    		System.out.println(resource.getCurrentStage());
+    		System.out.println(resource.getCurrentStage().getItems());
+    		for (int i = 0; i < resource.getCurrentStage().getItems().size(); i++) {
+    			itemList.add(resource.getCurrentStage().getItems().get(i));
+    		}
     		this.setSize(new Dimension(1720, 760));
     		characterList.add(new Character(200, 200, 60, 40, 0));
     		itemList.add(new StationaryPlatform(80, 250, 150, 300));
     		itemList.add(new FanWind(450, 100, 600, 50, 1, 1));
     		itemList.add(new ConveyorBelt(500, 250, 40, 200, 1, 0));
-    		itemList.add(new ProjectileLauncher(800, 500,50, 50, -3, -6, false, "Ball", launchCounter)); //LaunchCounter used so that projectiles can collide with projectileLaunchers that didnt launch itself
-    		launchCounter++;
-    		itemList.add(new ProjectileLauncher(800, 375,50, 50, 3, 0, "ArrowH", launchCounter)); 
-    		launchCounter++;
-    		itemList.add(new ProjectileLauncher(600, 325,50, 50, 0, 3, "ArrowV", launchCounter)); // negative = upward velocity
+    		//itemList.add(new ProjectileLauncher(800, 500,50, 50, -3, -6, false, "Ball", launchCounter, "L")); //LaunchCounter used so that projectiles can collide with projectileLaunchers that didnt launch itself
+    		//launchCounter++;
+    		//itemList.add(new ProjectileLauncher(800, 375,50, 50, 3, 0, "ArrowH", launchCounter)); 
+    		//launchCounter++;
+    		itemList.add(new ProjectileLauncher(600, 325,50, 50, 0, -3, "Arrow", launchCounter, "V")); // negative = upward velocity
     		launchCounter++;
     		itemList.add(new CharacterLauncher(1000, 400, 20, 60, 1, 1));
     		itemList.add(new MovingPlatform(100, 150, 50, 150, 500, 100, new double[] {1, 0}, 1));
@@ -52,8 +57,9 @@ public class testFrameFT extends JPanel implements KeyListener{
     		onID = false;
     		newEng = new PhysicsEngine("Bad");
     		contactMap = newEng.retrieveCMap();
-    	    newEng.printMap(contactMap);
-    	    
+    	    //newEng.printMap(contactMap);
+
+    		requestFocus();
     		setFocusable(true);
     		requestFocusInWindow();
             setVisible (true);
@@ -97,7 +103,6 @@ public class testFrameFT extends JPanel implements KeyListener{
 	    	    		} 
     	    		} else {
     	    			if (newEng.checkCollision(characterList.get(i), ProjectileList.get(a), false)) {
-    	    				System.out.println("PLSSTOP");
 	    	    			ProjectileList.remove(a);
 	    	    		} 
     	    		}
@@ -244,6 +249,7 @@ public class testFrameFT extends JPanel implements KeyListener{
     	
     	public void keyPressed(KeyEvent e) {
     		char c = e.getKeyChar();
+    		System.out.println("CANCERD");
     		if (c == 'd' && ((characterList.get(0)).isAlive() && (characterList.get(0).getFinished() == false))) {
     			onID = true;
     			if ((characterList.get(0)).getMotion()[1] == false) {

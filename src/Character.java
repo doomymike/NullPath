@@ -14,6 +14,7 @@ public class Character {
 	int speed = 10;
 	private boolean affectGravity = true;
 	private int uniqueTag;
+	private String color;
 	private double preserveDx = 0;
 	private boolean onIce = false;
 	private boolean canJump = false;
@@ -29,10 +30,14 @@ public class Character {
 	private String directionFacing = "right";
 	private BufferedImage activeFrame;
 	private int currentFrameIndex;
-	private boolean finished;
+	private boolean finished = false;
 	private Item killedBy;
 	private int platMotion;
 	private boolean fanWindM;
+	
+	public String getColor() {
+		return color.toLowerCase();
+	}
 	
 	public void setFWM(boolean newFanM) {
 		fanWindM = newFanM;
@@ -116,7 +121,7 @@ public class Character {
 		
 Character(String name) throws IOException{
 		
-		
+		this.color = name;
 		
 		// currentAction = "crouch"
 		sprites[0] = ImageIO.read(new File("resources/"+name+"CrouchReference"+".png"));
@@ -155,6 +160,7 @@ Character(String name) throws IOException{
 	
 	Character(String name,int x, int y, int height, int width, int tag) throws IOException{
 		
+		this.color = name;
 		this.x = x;
 		this.y = y;
 		this.height = height;
