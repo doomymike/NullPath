@@ -117,20 +117,39 @@ public class testFrameF extends JPanel implements KeyListener{
 	    		
 	    		if (itemList.get(a) instanceof FanWind) {
 	    			g.drawImage(itemList.get(a).getImage(), itemList.get(a).getX(), itemList.get(a).getY()+ itemList.get(a).getHeight()-20, itemList.get(a).getWidth(), 20, this);
+	    			if(itemList.get(a).getSprites()!=null) {
+		    			
+		    			if(itemList.get(a).getSprites().indexOf(itemList.get(a).getImage())== itemList.get(a).getSprites().size()-1) {
+		    				itemList.get(a).setImage(itemList.get(a).getSprites().get(0));
+		    			}else {
+		    				itemList.get(a).setImage(itemList.get(a).getSprites().get(itemList.get(a).getSprites().indexOf(itemList.get(a).getImage())+1));
+		    			}
+		    				    			
+		    		}
+	    		}else if(itemList.get(a) instanceof ProjectileLauncher) {
+	    			g.drawImage(itemList.get(a).getImage(), itemList.get(a).getX(), itemList.get(a).getY(), itemList.get(a).getWidth(), itemList.get(a).getHeight(), this);
+		    		
+	    			System.out.println(itemList.get(a).getSprites().indexOf(itemList.get(a).getImage()));
+		    		System.out.println(itemList.get(a).getImage());
+	    			if(!itemList.get(a).getImage().equals(itemList.get(a).getSprites().get(0))&&!itemList.get(a).getImage().equals(itemList.get(a).getSprites().get(itemList.get(a).getSprites().size()-1))) {
+		    			itemList.get(a).setImage(itemList.get(a).getSprites().get(itemList.get(a).getSprites().indexOf(itemList.get(a).getImage())+1));
+		    		}else {
+		    			itemList.get(a).setImage(itemList.get(a).getSprites().get(0));
+		    		}
 	    		}else {
 	    			g.drawImage(itemList.get(a).getImage(), itemList.get(a).getX(), itemList.get(a).getY(), itemList.get(a).getWidth(), itemList.get(a).getHeight(), this);
+	    			if(itemList.get(a).getSprites()!=null) {
+		    			
+		    			if(itemList.get(a).getSprites().indexOf(itemList.get(a).getImage())== itemList.get(a).getSprites().size()-1) {
+		    				itemList.get(a).setImage(itemList.get(a).getSprites().get(0));
+		    			}else {
+		    				itemList.get(a).setImage(itemList.get(a).getSprites().get(itemList.get(a).getSprites().indexOf(itemList.get(a).getImage())+1));
+		    			}
+		    				    			
+		    		}
 	    		}
 	    		
-	    		if(itemList.get(a).getSprites()!=null) {
-	    			
-	    			if(itemList.get(a).getSprites().indexOf(itemList.get(a).getImage())== itemList.get(a).getSprites().size()) {
-	    				itemList.get(a).setImage(itemList.get(a).getSprites().get(0));
-	    			}else {
-	    				itemList.get(a).setImage(itemList.get(a).getSprites().get(itemList.get(a).getSprites().indexOf(itemList.get(a).getImage())+1));
-	    			}
-	    			
-	    			
-	    		}
+	    		
 	    		
 //	    		if (itemList.get(a) instanceof CharacterLauncher) {
 //	    			g.setColor(Color.BLACK);
@@ -212,8 +231,49 @@ public class testFrameF extends JPanel implements KeyListener{
     	    }
     	    
 	    	for (int i = 0; i < characterList.size(); i++) {
-	    		g.drawImage(characterList.get(i).getSprites()[8], characterList.get(i).getPosition()[0], characterList.get(i).getPosition()[1], characterList.get(i).getWidth(), characterList.get(i).getHeight(), this);
-		    	
+	    		
+	    		//Time to draw
+	    		if(characterList.get(i).getDirectionFacing().equals("right")) {
+	    			g.drawImage(characterList.get(i).getActiveFrame(), characterList.get(i).getPosition()[0], characterList.get(i).getPosition()[1], characterList.get(i).getWidth(), characterList.get(i).getHeight(), this);
+	    		}else {
+	    			g.drawImage(characterList.get(i).getActiveFrame(), characterList.get(i).getPosition()[0]+characterList.get(i).getWidth(), characterList.get(i).getPosition()[1], -characterList.get(i).getWidth(), characterList.get(i).getHeight(), this);
+	    		}
+	    		
+	    		if (characterList.get(i).getVelocity()[1]<0) { //jump
+	    			characterList.get(i).setCurrentFrameIndex(14);
+	    		
+	    		}else if(characterList.get(i).getVelocity()[1]>0){ //fall
+	    			characterList.get(i).setCurrentFrameIndex(7);
+	    			
+	    		}else if(characterList.get(i).getMotion()[1]) { //right
+	    			characterList.get(i).setDirectionFacing("right");
+	    			if(characterList.get(i).getCurrentFrameIndex()>14&&characterList.get(i).getCurrentFrameIndex()<22) {
+						characterList.get(i).setCurrentFrameIndex(characterList.get(i).getCurrentFrameIndex()+1);
+					}else {
+						characterList.get(i).setCurrentFrameIndex(15);
+					}
+	    		}else if(characterList.get(i).getMotion()[0]) { //left
+	    			characterList.get(i).setDirectionFacing("left");
+	    			if(characterList.get(i).getCurrentFrameIndex()>14&&characterList.get(i).getCurrentFrameIndex()<22) {
+						characterList.get(i).setCurrentFrameIndex(characterList.get(i).getCurrentFrameIndex()+1);
+					}else {
+						characterList.get(i).setCurrentFrameIndex(15);
+					}
+	    		}else if(characterList.get(i).getMotion()[2]) { //up
+	    			  			
+					characterList.get(i).setCurrentFrameIndex(14);
+					
+	    		}else if(characterList.get(i).getMotion()[3]) { //crouch
+	    			
+	    				characterList.get(i).setCurrentFrameIndex(0);
+	    			
+	    		}else { //idle
+	    			if(characterList.get(i).getCurrentFrameIndex()>7&&characterList.get(i).getCurrentFrameIndex()<13) {
+						characterList.get(i).setCurrentFrameIndex(characterList.get(i).getCurrentFrameIndex()+1);
+					}else {
+						characterList.get(i).setCurrentFrameIndex(8);
+					}
+	    		}
 	    		//g.setColor(Color.BLACK);
 	    		//g.fillRect(characterList.get(i).getPosition()[0], characterList.get(i).getPosition()[1], characterList.get(i).getWidth(),characterList.get(i).getHeight());
 	    		newEng.move(characterList.get(i));
@@ -327,6 +387,7 @@ public class testFrameF extends JPanel implements KeyListener{
     		if (c == 'd' && characterList.get(0).isAlive()) {
     			onID = false;
     			if (characterList.get(0).getMotion()[1]) {
+    				
     				if ((characterList.get(0)).getHMotion()[1]) {
     					(characterList.get(0)).setHMotion(false, 1);
     					(characterList.get(0)).setVelocity(new double[] {(characterList.get(0)).getVelocity()[0]-1, (characterList.get(0)).getVelocity()[1]});
