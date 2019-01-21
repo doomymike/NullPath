@@ -1,54 +1,63 @@
+
 import java.awt.*;
-import javax.swing.*;
+        import java.awt.event.KeyEvent;
+        import java.awt.event.KeyListener;
+        import javax.swing.*;
 
-public class ItemBoxPanel extends JPanel{
 
-    private ItemBox box;
-    private String itemname;
+public class IntroPanel extends JPanel implements KeyListener {
+
+    private String selection = "";
+    private boolean next = false;
+
+    //Override KeyListener Methods (proceed to next frame upon keypressed)
+    public void keyTyped(KeyEvent e) {
+        next=true;
+    }
+    public void keyReleased(KeyEvent e){
+    }
+    public void keyPressed(KeyEvent e) {
+    }
+
 
     public void paintComponent(Graphics g) {
 
-        JLabel select = new JLabel(new ImageIcon(Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("ItemBox.gif"))));
 
         // Call the super class
         super.paintComponent(g);
+
         setDoubleBuffered(true);
+        setLayout(null);
 
-        //Box
-        this.add(select);
-        select.setLocation(50,0);
-        select.setSize(700,700);
+        //Initialize Logo
+        JLabel logo = new JLabel(new ImageIcon(Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("NullPathLogo.png"))));
+        JLabel anykey = new JLabel(new ImageIcon(Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("Continue.png"))));
+        JLabel flow = new JLabel(new ImageIcon(Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("WaterFlow.gif"))));
 
-        // Repaint
+        this.add(logo);
+        logo.setLocation(65,150);
+        logo.setSize(500,240);
+
+        this.add(anykey);
+        anykey.setLocation(200,600);
+        anykey.setSize(630,42);
+
+
+        this.add(flow);
+        flow.setLocation(0,-100);
+        flow.setSize(2000,1020);
+
+        addKeyListener(this);
         repaint();
 
     }
 
-    public ItemBoxPanel(){
-        box = new ItemBox(4); //should be num players
-
-        for(int i =0;i<box.getItems().size();i++){
-            //draw the boi on the screen, draw each individual item
-                System.out.println("Item generated:"+box.getItems().get(i));
-                itemname = box.getItems().get(i);
-
-                //Image transformation
-                Image base = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("/resources/"+itemname+".png"));
-                ImageIcon test = new ImageIcon(base);
-
-                ImageIcon itemN = new ImageIcon(base.getScaledInstance(test.getIconWidth()*4,test.getIconHeight()*4,Image.SCALE_SMOOTH));
-                JLabel itemize = new JLabel(itemN);
-
-                double itemizeW = itemize.getPreferredSize().getWidth();
-                double itemizeH = itemize.getPreferredSize().getHeight();
-
-                Dimension itemizeD = new Dimension((int)(itemizeW*2), (int)(itemizeH*2));
-                itemize.setPreferredSize(itemizeD);
-                this.add(itemize);
-
-
-        }
+    public boolean getNext(){
+        System.out.println("");
+        return this.next;
     }
-
+    public String getSelection() {
+        return selection;
+    }
 
 }
