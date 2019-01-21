@@ -43,7 +43,7 @@ public class testFrameF extends JPanel implements KeyListener{
     		launchCounter++;
     		itemList.add(new ProjectileLauncher(800, 375,50, 50, 3, 0, "ArrowH", launchCounter)); 
     		launchCounter++;
-    		itemList.add(new ProjectileLauncher(600, 450,50, 50, 0, -3, "ArrowV", launchCounter)); // negative = upward velocity
+    		itemList.add(new ProjectileLauncher(600, 450,50, 50, 0, 3, "ArrowV", launchCounter)); // negative = upward velocity
     		launchCounter++;
     		itemList.add(new CharacterLauncher(1000, 400, 20, 60, 1, 1));
     		itemList.add(new MovingPlatform(100, 150, 50, 150, 500, 100, new double[] {1, 0}, 1));
@@ -85,7 +85,7 @@ public class testFrameF extends JPanel implements KeyListener{
 //	    		}
 //	    	}
     	    try {
-				g.drawImage(ImageIO.read(new File("resources/SkyFortress.png")), 20, 20, 1720, 760, this);
+				g.drawImage(ImageIO.read(new File("resources/SkyFortress.png")), 0, 0, 1720, 760, this);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -104,8 +104,14 @@ public class testFrameF extends JPanel implements KeyListener{
     	    //Use the following for multi character integration
     	    for (int i = 0; i < characterList.size(); i++) {
     	    	for (int a = 0; a < ProjectileList.size(); a++) {
-    	    		if (newEng.checkCollision(characterList.get(i), ProjectileList.get(a), true)) {
-    	    			ProjectileList.remove(a);
+    	    		if (ProjectileList.get(a).getRadius() != 0) {
+	    	    		if (newEng.checkCollision(characterList.get(i), ProjectileList.get(a), true)) {
+	    	    			ProjectileList.remove(a);
+	    	    		} 
+    	    		} else {
+    	    			if (newEng.checkCollision(characterList.get(i), ProjectileList.get(a), false)) {
+	    	    			ProjectileList.remove(a);
+	    	    		} 
     	    		}
     	    	}
     	    }
@@ -190,13 +196,18 @@ public class testFrameF extends JPanel implements KeyListener{
 	    		for (int i = 0; i < ProjectileList.size(); i++) {
 	    			if (ProjectileList.get(i-reduceC).getRadius() != 0) {
 	    				projCollide = newEng.checkCollision(itemList.get(a), ProjectileList.get(i-reduceC), false, true);
-	    			} else {
+	    				if (projCollide && ((projectileCollide(itemList.get(a), ProjectileList.get(i-reduceC))) && !(itemList.get(a) instanceof FanWind)) || newEng.checkCMCollision(ProjectileList.get(i-reduceC), true)){
+		    				ProjectileList.remove(i-reduceC);
+		    				reduceC++;
+		    			}
+	    			} else { //Differentiate between circle and non-circle contactMap collisions (POST INTEGRATION CHANGE)
 	    				projCollide = newEng.checkCollision(itemList.get(a), ProjectileList.get(i-reduceC), false, false);
+	    				if (projCollide && ((projectileCollide(itemList.get(a), ProjectileList.get(i-reduceC))) && !(itemList.get(a) instanceof FanWind)) || newEng.checkCMCollision(ProjectileList.get(i-reduceC), false)){
+		    				ProjectileList.remove(i-reduceC);
+		    				reduceC++;
+		    			}
 	    			}
-	    			if (projCollide && ((projectileCollide(itemList.get(a), ProjectileList.get(i-reduceC))) && !(itemList.get(a) instanceof FanWind)) || newEng.checkCMCollision(ProjectileList.get(i-reduceC), true)){
-	    				ProjectileList.remove(i-reduceC);
-	    				reduceC++;
-	    			}
+	    			
 	    		}
 	    		
 	    		a++;
@@ -237,16 +248,16 @@ public class testFrameF extends JPanel implements KeyListener{
 	    		}else {
 	    			g.drawImage(characterList.get(i).getActiveFrame(), characterList.get(i).getPosition()[0]+characterList.get(i).getWidth(), characterList.get(i).getPosition()[1], -characterList.get(i).getWidth(), characterList.get(i).getHeight(), this);
 	    		}
+	    		
 	    		if(!characterList.get(i).isAlive()) {
-	    			
+
 	    			if(characterList.get(i).getCurrentFrameIndex()>0&&characterList.get(i).getCurrentFrameIndex()<6) {
 	    				System.out.println(characterList.get(i).getCurrentFrameIndex());
 	    				characterList.get(i).setCurrentFrameIndex(characterList.get(i).getCurrentFrameIndex()+1);
-										
+
+					} else if (characterList.get(i).getVelocity()[1]<0) { //jump
+						characterList.get(i).setCurrentFrameIndex(14);
 					}
-	    		
-	    		}else if (characterList.get(i).getVelocity()[1]<0) { //jump
-	    			characterList.get(i).setCurrentFrameIndex(14);
 	    		
 	    		}else if(characterList.get(i).getVelocity()[1]>0){ //fall
 	    			characterList.get(i).setCurrentFrameIndex(7);
