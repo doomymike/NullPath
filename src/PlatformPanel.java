@@ -29,6 +29,8 @@ public class PlatformPanel extends JPanel implements KeyListener{
     	ArrayList <Projectile> ProjectileList = new ArrayList<Projectile>();
 		
     	PhysicsEngine newEng = null;
+
+    	private GameClient client;
     	
     	double initStart;
     	int lastNum;
@@ -352,6 +354,10 @@ public class PlatformPanel extends JPanel implements KeyListener{
 	    	
     	    repaint();
     	}
+
+    	public void setClient(GameClient client) {
+    		this.client = client;
+		}
     	
     	public boolean projectileCollide(Item launch, Projectile obj) {
     		if (launch instanceof ProjectileLauncher) {
