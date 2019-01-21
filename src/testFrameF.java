@@ -253,12 +253,19 @@ public class testFrameF extends JPanel implements KeyListener{
 	    		}else {
 	    			g.drawImage(characterList.get(i).getActiveFrame(), characterList.get(i).getPosition()[0]+characterList.get(i).getWidth(), characterList.get(i).getPosition()[1], -characterList.get(i).getWidth(), characterList.get(i).getHeight(), this);
 	    		}
-	    		if(!characterList.get(i).isAlive()) {
+	    		if(!characterList.get(i).isAlive()) {//dead
 
 	    			if(characterList.get(i).getCurrentFrameIndex()>0&&characterList.get(i).getCurrentFrameIndex()<6) {
-	    				System.out.println(characterList.get(i).getCurrentFrameIndex());
 	    				characterList.get(i).setCurrentFrameIndex(characterList.get(i).getCurrentFrameIndex()+1);
 	    			}
+	    			
+	    		}else if(characterList.get(i).getFinished()) {
+	    			if(characterList.get(i).getCurrentFrameIndex()>23&&characterList.get(i).getCurrentFrameIndex()<31) {
+	    				characterList.get(i).setCurrentFrameIndex(characterList.get(i).getCurrentFrameIndex()+1);
+	    			}else {
+	    				characterList.get(i).setCurrentFrameIndex(24);
+	    			}
+	    			
 				} else if (characterList.get(i).getVelocity()[1]<0) { //jump
 					characterList.get(i).setCurrentFrameIndex(14);
 	    		}else if(characterList.get(i).getVelocity()[1]>0){ //fall
