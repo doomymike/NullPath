@@ -11,12 +11,13 @@ public class ProjectileLauncher extends Item{
 	private double initStart;
 	private double lastNum;
 	private int tag;
+	private String direction;
 	
 	public int getTag() {
 		return tag;
 	}
 	
-	public ProjectileLauncher(int x, int y, int height, int width, double launchDx, double launchDy, String projectileType, int tag) {
+	public ProjectileLauncher(int x, int y, int height, int width, double launchDx, double launchDy, String projectileType, int tag, String direction) {
 		super(x, y, height, width, true);
 		this.projectileType = projectileType.toLowerCase();
 		this.launchDx = launchDx;
@@ -24,6 +25,7 @@ public class ProjectileLauncher extends Item{
 		initStart = System.nanoTime()/(Math.pow(10, 9));
 		lastNum = (int)(System.nanoTime()/(Math.pow(10, 9)) - initStart);
 		this.tag = tag;
+		this.direction = direction;
 		
 		try {
 			if(this.projectileType.equals("pellet")) { //cannon
@@ -42,7 +44,7 @@ public class ProjectileLauncher extends Item{
 		}
 	}
 	
-	public ProjectileLauncher(int x, int y, int height, int width, double launchDx, double launchDy, boolean affectGravity, String projectileType, int tag) {
+	public ProjectileLauncher(int x, int y, int height, int width, double launchDx, double launchDy, boolean affectGravity, String projectileType, int tag, String direction) {
 		super(x, y, height, width, affectGravity);
 		this.projectileType = projectileType.toLowerCase();
 		this.launchDx = launchDx;
@@ -50,6 +52,7 @@ public class ProjectileLauncher extends Item{
 		initStart = System.nanoTime()/(Math.pow(10, 9));
 		lastNum = (int)(System.nanoTime()/(Math.pow(10, 9)) - initStart);
 		this.tag = tag;
+		this.direction = direction;
 		
 		try {
 			if(this.projectileType.equals("ball")) { //cannon
@@ -78,10 +81,8 @@ public class ProjectileLauncher extends Item{
 			this.setImage(this.getSprites().get(1));
 			if (projectileType.equals("ball")) {
 				projectList.add(new Pellet (getX()+getWidth()/2, getY()+getHeight()/2, 15, new double[] {launchDx, launchDy}, true, tag));
-			} else if (projectileType.equals("arrowh")) {
-				projectList.add(new Arrow (getX()+getWidth()/2, getY()+getHeight()/2, new double[] {launchDx, launchDy}, "H", tag));
-			} else if (projectileType.equals("arrowv")) {
-				projectList.add(new Arrow (getX()+getWidth()/2, getY()+getHeight()/2, new double[] {launchDx, launchDy}, "V", tag));
+			} else if (projectileType.equals("arrow")) {
+				projectList.add(new Arrow (getX()+getWidth()/2, getY()+getHeight()/2, new double[] {launchDx, launchDy}, tag, direction));
 			}
 		}
 	}

@@ -9,15 +9,16 @@ public class Arrow extends Projectile{
 	static int height = 15;
 	private String dir;
 	
-	public Arrow(int x, int y, double[] speed, String orientation, int tag) {
+	public Arrow(int x, int y, double[] speed, int tag, String dir) {
 		super(x, y, height, width, speed, false, tag);
+		this.dir = dir;
 		try {
 			this.setImage(ImageIO.read(new File("resources/Arrow.png")));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		if (orientation.equals("V")) {
+		if (dir.equals("V")) {
 			setHeight(width);
 			setWidth(height);
 		}
