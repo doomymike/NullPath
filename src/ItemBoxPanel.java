@@ -47,7 +47,7 @@ public class ItemBoxPanel extends JPanel{
                 itemname = box.getItems().get(i);
 
                 //Image transformation
-                Image base = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("/resources/"+Ritemname+".png"));
+                Image base = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("/resources/"+itemname+".png"));
                 ImageIcon test = new ImageIcon(base);
 
                 ImageIcon itemN = new ImageIcon(base.getScaledInstance(test.getIconWidth()*4,test.getIconHeight()*4,Image.SCALE_SMOOTH));
