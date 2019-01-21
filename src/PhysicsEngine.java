@@ -17,7 +17,6 @@ public class PhysicsEngine{
 		while ((line = br.readLine()) != null) {
 			lineCount += 1;
 			for (int i = 0; i < line.length(); i++) {
-				System.out.println(line.substring(i,  i+1));
 				if (line.substring(i, i+1).equals("1")){
 					contactMap[lineCount][i] = "1";
 				} else if (line.substring(i,  i+1).equals("2")){
@@ -57,12 +56,28 @@ public class PhysicsEngine{
 	
 	public boolean detectTop(int contactLX, int contactRX, int contactY, boolean win) {
 		int oneCount = 0;
-		if (contactY <= 3) {
+		if (contactY <= 1) {
 			return true;
 		}
 		
+		int zeroC = 0;
+		for (int j = 0; j < 2; j++) {
+			if (contactMap[Math.min(contactY+j, 37)][contactLX].equals("0") && contactMap[Math.min(contactY+j, 37)][contactRX].equals("0")) {
+				zeroC++;
+			}
+		}
+		
+		if (zeroC == 2) {
+			return false;
+		}
+		
 		if (win) {
-			if (contactMap[contactY-1][contactLX].equals("0") && contactMap[contactY-1][contactLX].equals("0")){
+			for (int i = 1; i < 4; i++) {
+				if (contactMap[contactY-i][contactLX].equals("2") || contactMap[contactY-i][contactRX].equals("2")) {
+					oneCount += 1;
+				}
+			}
+			if (oneCount < 1) {
 				return true;
 			}
 		} else {
@@ -71,7 +86,7 @@ public class PhysicsEngine{
 					oneCount += 1;
 				}
 			}
-			if (oneCount <= 2) {
+			if (oneCount <= 1) {
 				return true;
 			}
 		}
@@ -105,13 +120,13 @@ public class PhysicsEngine{
 					if (contactMap[contactY][contactLX+counter].equals("2")) {
 						counter++;
 					} else {
-						return 20*(contactRX+counter);
+						return 20*(contactLX+counter);
 					}
 				} else {
 					if (contactMap[contactY][contactLX+counter].equals("1")) {
 						counter++;
 					} else {
-						return 20*(contactRX+counter);
+						return 20*(contactLX+counter);
 					}
 				}
 			}
@@ -121,13 +136,13 @@ public class PhysicsEngine{
 					if (contactMap[contactY][contactRX+counter].equals("2")) {
 						counter--;
 					} else {
-						return 20*(contactLX+counter+2);
+						return 20*(contactLX+counter+1);
 					}
 				} else {
 					if (contactMap[contactY][contactRX+counter].equals("1")) {
 						counter--;
 					} else {
-						return 20*(contactLX+counter+2);
+						return 20*(contactLX+counter+1);
 					}
 				}
 			}
@@ -152,11 +167,11 @@ public class PhysicsEngine{
 		int realLX = (int)(testPlayer.getPosition()[0]);
 		int contactRX = Math.min(Math.max((int)(testPlayer.getPosition()[0]+testPlayer.getWidth())/20, 0), 85);
 		int realRX = (int)(testPlayer.getPosition()[0]+testPlayer.getWidth());
-		int contactY = Math.min(Math.max((int)((testPlayer.getPosition()[1]+testPlayer.getHeight()-20)/20), 0), 37);
-		int contactHY = Math.min(Math.max((int)((testPlayer.getPosition()[1]-20)/20), 0), 37);
+		int contactY = Math.min(Math.max((int)((testPlayer.getPosition()[1]+testPlayer.getHeight())/20), 0), 37);
+		int contactHY = Math.min(Math.max((int)((testPlayer.getPosition()[1])/20), 0), 37);
 		boolean inCol = false; //Checks for collision with 1 or 2
 		
-		if ((contactMap[contactY][contactLX].equals("1") || contactMap[contactY][contactRX].equals("1")) && (detectTop(contactLX, contactRX, contactY, false) == false)) {
+		if (gridEquals(contactY, contactHY, contactLX, contactRX, "1") && (detectTop(contactLX, contactRX, contactY, false) == false)) {
 			if (checkHEdge(contactLX, contactRX, contactY).equals("R") && testPlayer.getVelocity()[0] < 0) {
 				testPlayer.setPosition(endPoint(contactLX, contactRX, contactY, "R", false), testPlayer.getPosition()[1]);
 			} else if (checkHEdge(contactLX, contactRX, contactY).equals("L") && testPlayer.getVelocity()[0] > 0) {
@@ -165,8 +180,8 @@ public class PhysicsEngine{
 			return;
 		}
 		
-		if ((gridEquals(contactY, contactHY, contactLX, contactRX, "2")) && (detectTop(contactLX, contactRX, contactY, true) == false)){
-			System.out.println("HINT");
+		if (gridEquals(contactY, contactHY, contactLX, contactRX, "2") && (detectTop(contactLX, contactRX, contactY, true) == false)){
+			System.out.println("E1");
 			if (checkHEdge(contactLX, contactRX, contactY).equals("R") && testPlayer.getVelocity()[0] < 0) {
 				testPlayer.setPosition(endPoint(contactLX, contactRX, contactY, "R", true), testPlayer.getPosition()[1]);
 			} else if (checkHEdge(contactLX, contactRX, contactY).equals("L") && testPlayer.getVelocity()[0] > 0) {
@@ -219,6 +234,8 @@ public class PhysicsEngine{
 			contactRX = Math.min(Math.max((int)(arbItem.getX()+arbItem.getWidth())/20, 0), 85);
 			contactY = Math.min(Math.max((int)((arbItem.getY()+arbItem.getHeight()-20)/20), 0), 37);
 			contactHY = Math.min(Math.max((int)((arbItem.getY()-20)/20), 0), 37);
+			String totalC = "";
+
 		}
 		
 		if (contactMap[contactY][contactLX].equals("1") || contactMap[contactY][contactLX].equals("2") || contactMap[contactY][contactRX].equals("1") || contactMap[contactY][contactRX].equals("2")) {
