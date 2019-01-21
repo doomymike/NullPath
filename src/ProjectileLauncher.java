@@ -1,4 +1,8 @@
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+
+import javax.imageio.ImageIO;
 
 public class ProjectileLauncher extends Item{
 	private String projectileType;
@@ -20,6 +24,22 @@ public class ProjectileLauncher extends Item{
 		initStart = System.nanoTime()/(Math.pow(10, 9));
 		lastNum = (int)(System.nanoTime()/(Math.pow(10, 9)) - initStart);
 		this.tag = tag;
+		
+		try {
+			if(this.projectileType.equals("pellet")) { //cannon
+				for(int i=1;i<9;i++) {
+					this.addSprite(ImageIO.read(new File("resources/Cannon"+i+".png")));
+				}
+			}else { //bow
+				for(int i=1;i<10;i++) {
+					this.addSprite(ImageIO.read(new File("resources/Bow"+i+".png")));
+				}
+			}
+			this.setImage(this.getSprites().get(0));
+		}catch(IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public ProjectileLauncher(int x, int y, int height, int width, double launchDx, double launchDy, boolean affectGravity, String projectileType, int tag) {
@@ -30,6 +50,22 @@ public class ProjectileLauncher extends Item{
 		initStart = System.nanoTime()/(Math.pow(10, 9));
 		lastNum = (int)(System.nanoTime()/(Math.pow(10, 9)) - initStart);
 		this.tag = tag;
+		
+		try {
+			if(this.projectileType.equals("ball")) { //cannon
+				for(int i=1;i<9;i++) {
+					this.addSprite(ImageIO.read(new File("resources/Cannon"+i+".png")));
+				}
+			}else { //bow
+				for(int i=1;i<10;i++) {
+					this.addSprite(ImageIO.read(new File("resources/Bow"+i+".png")));
+				}
+			}
+			this.setImage(this.getSprites().get(0));
+		}catch(IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public int getConvSec() {
@@ -39,8 +75,9 @@ public class ProjectileLauncher extends Item{
 	public void launchProjectile(ArrayList<Projectile> projectList) { //Appends to a projectList called in main to draw the ball
 		if (lastNum < (int)(System.nanoTime()/(Math.pow(10, 9)) - initStart)) {
 			lastNum = (int)(System.nanoTime()/(Math.pow(10, 9)) - initStart);
+			this.setImage(this.getSprites().get(1));
 			if (projectileType.equals("ball")) {
-				projectList.add(new Pellet (getX()+getWidth()/2, getY()+getHeight()/2, 5, new double[] {launchDx, launchDy}, true, tag));
+				projectList.add(new Pellet (getX()+getWidth()/2, getY()+getHeight()/2, 15, new double[] {launchDx, launchDy}, true, tag));
 			} else if (projectileType.equals("arrowh")) {
 				projectList.add(new Arrow (getX()+getWidth()/2, getY()+getHeight()/2, new double[] {launchDx, launchDy}, "H", tag));
 			} else if (projectileType.equals("arrowv")) {
