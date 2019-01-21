@@ -22,7 +22,7 @@ public class CharacterLauncher extends VelocityModifier{
 	}
 
 	public void launchChar(Character affectChar) {
-		double[] updatedVel = {affectChar.getVelocity()[0], affectChar.getVelocity()[1]+speed};
+		double[] updatedVel = {affectChar.getVelocity()[0], speed};
 		affectChar.setVelocity(updatedVel);
 		this.setImage(this.getSprites().get(1));
 	}
