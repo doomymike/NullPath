@@ -37,6 +37,10 @@ public class Character {
 		platMotion = motion;
 	}
 	
+	public void setHeight(int newHeight) {
+		height = newHeight;
+	}
+	
 	public int getPMotion() {
 		return platMotion;
 	}
