@@ -153,11 +153,11 @@ public class GameAreaFrameTE extends JFrame implements KeyListener {
         //Deprecated method - to be replaced by stage
 
         // Add key listener
-        //GameKeyListener keyListener = new GameKeyListener();
-        //this.addKeyListener(keyListener);
+        GameKeyListener keyListener = new GameKeyListener();
+        this.addKeyListener(keyListener);
 
         // Focus the frame
-
+        this.setFocusable(true);
 
         // Initialize physics object
         // try {
