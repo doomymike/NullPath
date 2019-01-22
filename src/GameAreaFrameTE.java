@@ -38,7 +38,7 @@ public class GameAreaFrameTE extends JFrame implements KeyListener {
     private ClientLogin login = null;
     private MapPlacement mapIntegration = null;
     private testFrameFT gameB = null;
-    private itemMove itemM = null;
+    private ItemMovePanel itemM = null;
 
     GameClient client = new GameClient();
 
@@ -116,7 +116,7 @@ public class GameAreaFrameTE extends JFrame implements KeyListener {
 
 
         
-        itemM = new itemMove(resources, physicsEngine);
+        itemM = new ItemMovePanel(resources, physicsEngine, client);
         itemM.setFocusable(true);
         this.getContentPane().add(itemM);
 
