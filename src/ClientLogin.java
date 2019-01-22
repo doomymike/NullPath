@@ -1,4 +1,9 @@
+/*[ClientLogin.java]
+    JFrame from retrieving client information and making connection to server
+    Authors: Brian Li, Brian Zhang 
+*/
 
+//Import bases
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -26,6 +31,7 @@ public class ClientLogin extends JFrame implements ActionListener{
 
     Resources resources;
 
+    //Base constructor
     ClientLogin(GameClient client, Resources resources){
         super("nullpath login");
 
@@ -84,6 +90,7 @@ public class ClientLogin extends JFrame implements ActionListener{
     }
 
 
+    //Override actionPerformed
     public void actionPerformed(ActionEvent e) {
         Object button = e.getSource();
 
@@ -132,23 +139,4 @@ public class ClientLogin extends JFrame implements ActionListener{
         }
 
     }
-
-    /* Don't need these? (either used only in this class or also stored in client)
-    public String[] getUsers() {
-        return users;
-    }
-
-    public String getThisUser() {
-        return thisUser;
-    }
-
-    public String getServer() {
-        return server;
-    }
-
-    public String getPortNumber() {
-        return portNumber;
-    }
-    */
-
 }
