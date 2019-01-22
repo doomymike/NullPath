@@ -30,6 +30,7 @@ public class Saw extends ContactDamage{
 		}
 		
 	}
+	//Method for retrieving radius
 	public static int getR() {
 		return radius;
 	}
