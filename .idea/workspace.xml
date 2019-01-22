@@ -2,18 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5370bd01-8671-42d7-a834-e8a31bdbfa73" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/bin/CharacterSelectTest.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/DisappearingPlatform.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/Pellet.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/Saw.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/Spike.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/tempItem.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/BigFlex.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Medium.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/PlatformPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PlatformPanel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ServerTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ServerTest2.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/testFrameF.java" beforeDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/bin/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -28,8 +17,8 @@
       <file leaf-file-name="PlatformPanel.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/PlatformPanel.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
-              <caret line="15" column="24" selection-start-line="15" selection-start-column="24" selection-end-line="15" selection-end-column="24" />
+            <state relative-caret-position="307">
+              <caret line="83" column="12" selection-start-line="83" selection-start-column="12" selection-end-line="83" selection-end-column="12" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -369,13 +358,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/PhysicsEngine.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="867">
-          <caret line="55" column="9" lean-forward="true" selection-start-line="55" selection-start-column="9" selection-end-line="55" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/GamePanelTest.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="510">
@@ -681,10 +663,17 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/PhysicsEngine.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="850">
+          <caret line="55" column="4" lean-forward="true" selection-start-line="55" selection-start-column="4" selection-end-line="55" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/PlatformPanel.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="15" column="24" selection-start-line="15" selection-start-column="24" selection-end-line="15" selection-end-column="24" />
+        <state relative-caret-position="307">
+          <caret line="83" column="12" selection-start-line="83" selection-start-column="12" selection-end-line="83" selection-end-column="12" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

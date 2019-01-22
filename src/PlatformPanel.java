@@ -80,12 +80,8 @@ public class PlatformPanel extends JPanel implements KeyListener{
     		//Start timer for projectileLaunchers
     		onIA = false;
     		onID = false;
-    		try {
-				newEng = new PhysicsEngine("PS");
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+
+			newEng = new PhysicsEngine("PS");
     		
     		//Load in the contactMap (retrieved by physics engine)
     		contactMap = newEng.retrieveCMap();
