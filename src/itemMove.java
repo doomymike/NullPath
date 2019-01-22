@@ -32,14 +32,16 @@ public class itemMove extends JPanel implements KeyListener, MouseListener{
 	boolean done;
 	private int influencePlayer;
 	private boolean[] placed = new boolean[4];
+	private GameClient client;
 	
-	public itemMove(Resources usedResource, PhysicsEngine newEng) { //Add constructor for client later
+	public itemMove(Resources usedResource, PhysicsEngine newEng,GameClient client) { //Add constructor for client later
 		// TODO Auto-generated constructor stub
 		this.setSize(new Dimension(1720, 760));
 		this.cMap = newEng.retrieveCMap();
 		this.influencePlayer = 0;
 		this.physEng = newEng;
 		this.cStage = usedResource.getCurrentStage();
+		this.client =client;
 		
 		for (int i = 0; i < placed.length; i++) {
 			this.placed[i] = false;
@@ -155,7 +157,6 @@ public class itemMove extends JPanel implements KeyListener, MouseListener{
 		int reduceC = 0;
 		if (!(currentItem instanceof Bomb) && (totalCol(currentItem)) && this.physEng.checkCMCollision(currentItem, false) == false){
 			System.out.println("I");
-			GameClient client = new GameClient();
 			client.setItemPlacementCoordinates(xPos, yPos); //added this 
 			if(!placed[0]) { //should be i
 				itemList.add(currentItem);
