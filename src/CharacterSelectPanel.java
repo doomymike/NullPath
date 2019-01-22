@@ -242,7 +242,7 @@ public class CharacterSelectPanel extends JPanel{
         // Repaint
         repaint();
 
-    }
+    } //End of paintComponent
 
     /**
      * setResources
@@ -281,9 +281,9 @@ public class CharacterSelectPanel extends JPanel{
             selection = possibleSelections[currentHover]; // User uses enter key to select option from menu
         }
     }
-
+    
     public String getSelection() {
         return selection;
     }
 
-}
+} //End of class
