@@ -1,26 +1,21 @@
-import java.io.File;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.imageio.ImageIO;
-
 /* [Platform.java]
  * Class containing platform info
  * Author: James, Brian L, Michael, Brian Z
  * Date: 01/21/19
- * 
  */
 
-//import java.awt.Rectangle;
+//java imports
+import java.io.File;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+import javax.imageio.ImageIO;
 
-public class Platform extends Item{
+public class Platform extends Item {
 	
-	private boolean hasHoney = false;
-	private boolean hasIce = false;
+	private boolean hasHoney = false; //Honey modifier
+	private boolean hasIce = false; //Ice modifier
 	private HashMap<Integer, Double> lastVel = new HashMap<Integer, Double>();
-	
-	//Rectangle loc;
 	
 	
 	public void addVelEntry(int uniqueTag, double dx) {
@@ -73,52 +68,40 @@ public class Platform extends Item{
 		}
 	}
 	
-	/**g
+	/**
 	 * getHoney
-	 * 
-	 * Returns if honey property exist
-	 * 
-	 * @return
+	 * Returns if honey property exists
+	 * @return boolean hasHoney, whether there is honey on the platform
 	 */
-	
 	public boolean getHoney() {
 		return hasHoney;
-	}
+	} //End of getHoney
 	
 	/**
 	 * getIce
-	 * 
 	 * Returns if ice property exists
-	 * 
-	 * @return
+	 * @return boolean hasIce, whether there is ice on the platform
 	 */
-	
 	public boolean getIce() {
 		return hasIce;
-	}
+	} //End of getIce
 	
 	/**
 	 * setHoney
-	 * 
 	 * Sets honey hazard for surface
-	 * 
-	 * @param newSurface
+	 * @param newSurface, whether there is to be honey or not
 	 */
-	
 	public void setHoney(boolean newSurface) {
 		hasHoney = newSurface;
-	}
+	} //End of setHoney
 	
 	/**
 	 * setIce
-	 * 
 	 * Sets ice property for ice
-	 * 
-	 * @param newSurface
+	 * @param newSurface, whether there is to be ice or not
 	 */
-	
 	public void setIce(boolean newSurface) {
 		hasIce = newSurface;
-	}
+	} //End of setIce
 	
-}
+} //End of class
