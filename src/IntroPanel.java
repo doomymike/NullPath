@@ -5,15 +5,15 @@
     Date: 01/22/19
  */
 
-
+//Basic imports
 import java.awt.*;
-        import java.awt.event.KeyEvent;
-        import java.awt.event.KeyListener;
-        import javax.swing.*;
-
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import javax.swing.*;
 
 public class IntroPanel extends JPanel implements KeyListener {
 
+    //Base variables
     private String selection = "";
     private boolean next = false;
 
@@ -26,13 +26,13 @@ public class IntroPanel extends JPanel implements KeyListener {
     public void keyPressed(KeyEvent e) {
     }
 
-
+    //Override paintComponent
     public void paintComponent(Graphics g) {
-
 
         // Call the super class
         super.paintComponent(g);
 
+        //Neutralize canvas
         setDoubleBuffered(true);
         setLayout(null);
 
@@ -41,6 +41,7 @@ public class IntroPanel extends JPanel implements KeyListener {
         JLabel anykey = new JLabel(new ImageIcon(Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("/resources/Continue.png"))));
         JLabel flow = new JLabel(new ImageIcon(Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("/resources/WaterFlow.gif"))));
 
+        //Add components 
         this.add(logo);
         logo.setLocation(65,150);
         logo.setSize(500,240);
@@ -48,7 +49,6 @@ public class IntroPanel extends JPanel implements KeyListener {
         this.add(anykey);
         anykey.setLocation(200,600);
         anykey.setSize(630,42);
-
 
         this.add(flow);
         flow.setLocation(0,-100);
@@ -61,10 +61,11 @@ public class IntroPanel extends JPanel implements KeyListener {
 
     }
 
+    //Method for retrieving a proceed to next
     public boolean getNext(){
-        System.out.println("");
         return this.next;
     }
+    //Method for retrieving a specific selectionc1
     public String getSelection() {
         return selection;
     }
