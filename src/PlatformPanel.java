@@ -48,24 +48,19 @@ public class PlatformPanel extends JPanel implements KeyListener{
     	public PlatformPanel(Resources usedResource, GameClient newClient) {
     		this.resource = usedResource;
     		this.setSize(new Dimension(1720, 760));
-    		try {
-				characterList.add(new Character("Blue",200, 200, 60, 40, 0));
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+
     		
     		//Add collection of initial items
-    		itemList.add(new StationaryPlatform(80, 250, 150, 300));
+    		itemList.add(new StationaryPlatform(80, 250));
     		itemList.add(new FanWind(450, 100, 600, 50, 1, 1));
-    		itemList.add(new ConveyorBelt(500, 250, 40, 200, 1, 0));
-    		itemList.add(new ProjectileLauncher(800, 500,50, 50, -3, -6, false, "Ball", launchCounter, "L")); //LaunchCounter used so that projectiles can collide with projectileLaunchers that didnt launch itself
+    		itemList.add(new ConveyorBelt(500, 250, 1, 0));
+    		itemList.add(new ProjectileLauncher(800, 500, -3, -6, false, "Ball", launchCounter, "L")); //LaunchCounter used so that projectiles can collide with projectileLaunchers that didnt launch itself
     		launchCounter++;
-    		itemList.add(new ProjectileLauncher(800, 375,50, 50, 3, 0, "Arrow", launchCounter, "H")); 
+    		itemList.add(new ProjectileLauncher(800, 375, 3, 0, "Arrow", launchCounter, "H")); 
     		launchCounter++;
-    		itemList.add(new ProjectileLauncher(600, 450,50, 50, 0, 3, "Arrow", launchCounter, "V")); // negative = upward velocity
+    		itemList.add(new ProjectileLauncher(600, 450, 0, 3, "Arrow", launchCounter, "V")); // negative = upward velocity
     		launchCounter++;
-    		itemList.add(new CharacterLauncher(1000, 400, 20, 60, 1, 1));
+    		itemList.add(new CharacterLauncher(1000, 400, 1, 1));
     		itemList.add(new MovingPlatform(100, 150, 50, 150, 500, 100, new double[] {1, 0}, 1));
     		itemList.add(new Spike(300, 200, 50, 50));
     		itemList.add(new Saw (400, 200, 50));

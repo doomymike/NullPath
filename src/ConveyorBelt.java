@@ -8,8 +8,18 @@ public class ConveyorBelt extends VelocityModifier{
 	private static double speed = 1;
 	private double dx;
 	private double dy;
+	private static int height = 45;
+	private static int width = 130;
 	
-	public ConveyorBelt(int x, int y, int height, int width, int direction, int direction2) {
+	public static int getH() {
+		return height;
+	}
+	
+	public static int getW() {
+		return width;
+	}
+	
+	public ConveyorBelt(int x, int y, int direction, int direction2) {
 		//Direction 2 indicates lateral or diagonal
 		//Direction indicates positive or negative
 		super(x, y, height, width, direction, direction2);

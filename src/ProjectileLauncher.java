@@ -13,11 +13,22 @@ public class ProjectileLauncher extends Item{
 	private int tag;
 	private String direction;
 	
+	private static int height = 50;
+	private static int width = 50;
+
+	public static int getH() {
+		return height;
+	}
+	
+	public static int getW() {
+		return width;
+	}
+	
 	public int getTag() {
 		return tag;
 	}
 	
-	public ProjectileLauncher(int x, int y, int height, int width, double launchDx, double launchDy, String projectileType, int tag, String direction) {
+	public ProjectileLauncher(int x, int y, double launchDx, double launchDy, String projectileType, int tag, String direction) {
 		super(x, y, height, width, true);
 		this.projectileType = projectileType.toLowerCase();
 		this.launchDx = launchDx;
@@ -44,7 +55,11 @@ public class ProjectileLauncher extends Item{
 		}
 	}
 	
-	public ProjectileLauncher(int x, int y, int height, int width, double launchDx, double launchDy, boolean affectGravity, String projectileType, int tag, String direction) {
+	public String getDir() {
+		return direction;
+	}
+	
+	public ProjectileLauncher(int x, int y, double launchDx, double launchDy, boolean affectGravity, String projectileType, int tag, String direction) {
 		super(x, y, height, width, affectGravity);
 		this.projectileType = projectileType.toLowerCase();
 		this.launchDx = launchDx;

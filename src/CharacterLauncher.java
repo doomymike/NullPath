@@ -7,7 +7,18 @@ import javax.imageio.ImageIO;
 public class CharacterLauncher extends VelocityModifier{
 
 	static int speed = -6;
-	public CharacterLauncher(int x, int y, int height, int width, int direction, int direction2) {
+	private static int height = 20;
+	private static int width = 60;
+	
+	public static int getH() {
+		return height;
+	}
+	
+	public static int getW() {
+		return width;
+	}
+	
+	public CharacterLauncher(int x, int y, int direction, int direction2) {
 		// TODO Auto-generated constructor stub
 		super(x, y, height, width, direction, direction2);	
 		try {
@@ -20,7 +31,7 @@ public class CharacterLauncher extends VelocityModifier{
 			e.printStackTrace();
 		}
 	}
-
+	
 	public void launchChar(Character affectChar) {
 		double[] updatedVel = {affectChar.getVelocity()[0], speed};
 		affectChar.setVelocity(updatedVel);
