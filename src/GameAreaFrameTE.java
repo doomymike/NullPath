@@ -90,12 +90,7 @@ public class GameAreaFrameTE extends JFrame implements KeyListener {
         //mapIntegration = new MapPlacement();
         // Connect to server
         //new GameClient().go();
-        try {
-            physicsEngine = new PhysicsEngine("contact");
-        } catch (IOException e1) {
-            // TODO Auto-generated catch block
-            e1.printStackTrace();
-        }
+        physicsEngine = new PhysicsEngine("contact");
 
         // Initialize resources object (with characters + stage)
         resources = new Resources();
@@ -381,8 +376,8 @@ public class GameAreaFrameTE extends JFrame implements KeyListener {
 
             //Allow players to place objects via item
             if (panelCounter == 7 && platformPanel == null) {
-                this.getContentPane().remove(itemMovePanel);
-                itemMovePanel = null;
+                this.getContentPane().remove(itemM);
+                itemM = null;
                 platformPanel = new PlatformPanel(resources, client);
                 this.getContentPane().add(platformPanel);
                 panelCounter = 4; //4 IS GAME PANEL
