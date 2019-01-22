@@ -5,13 +5,9 @@
  * January 21, 2019
  */
 
-// something to close it
-
-// remember to reset stuff that happens multiple times (like gameplay stuff, item placement stuff, item selection) after a round ends
-
+//java imports
 import java.awt.*;
 import javax.swing.*;
-
 import java.awt.event.*;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -25,11 +21,7 @@ public class GameClient implements Runnable{
     BufferedReader input; //reader for network stream
     PrintWriter output;  //printwriter for network output
     boolean running; //thread status via boolean
-    private String username;
-    JButton sendButton;
-	JTextField typeField;
-	JFrame window;
-	JPanel southPanel;
+    private String username; //username of client
 
 	// for username setting (and setting of usernames of all people connected)
 	private SimpleLinkedList<String> users = new SimpleLinkedList<>();
@@ -59,10 +51,12 @@ public class GameClient implements Runnable{
     /**
      * go
      * This method connects to server and checks for messages
+     * @param IP, String representing IP address of server
+     * @param portNum, int for port number of server
      */
     public void go(String IP, int portNum){
 
-        // Make connection ------------------------------------------------------
+        // Make connection
         System.out.println("Attempting to make a connection..");
 
         try {
@@ -170,59 +164,119 @@ public class GameClient implements Runnable{
 		}
 	} //End of run
     
+    /**
+     * getCharacterSelected
+     * Returns name of character selected by client
+     * @return String characterSelected, name of character selected
+     */
     public String getCharacterSelected() {
     	return characterSelected;
     } //End of getCharacterSelected
 
+	/**
+	 * setCharacterSelected
+	 * Sets name of character selected by client, outputs to server
+	 * @param characterSelected, String name of character chosen
+	 */
     public void setCharacterSelected(String characterSelected) {
     	this.characterSelected = characterSelected;
     	output.println("character selection" + ":::" + username + ":::" + characterSelected); // write to server
     } //End of setCharacterSelected
 
+	/**
+	 * getCharacterSelection
+	 * Returns characters selected by players
+	 * @return String[] of names of players that selected the corresponding character
+	 */
 	public String[] getCharacterSelection() {
 		return characterSelection;
 	} //End of getCharacterSelection
 
+	/**
+	 * setCharacterSelection
+	 * Sets characters selected by players
+	 * @param characterSelection, String[] of player names for corresponding characters
+	 */
 	public void setCharacterSelection(String[] characterSelection) {
 		this.characterSelection = characterSelection;
 	} //End of setCharacterSelection
 
+	/**
+	 * getCharacterMovement
+	 * Returns movement command of character
+	 * @return String characterMovement, movement command
+	 */
 	public String getCharacterMovement() {
 		return characterMovement;
 	} //End of getCharacterMovement
 
+	/**
+	 * setCharacterMovement
+	 * Sets the movement command done by the player, outputs to server
+	 * @param characterMovement, String of movement input
+	 */
 	public void setCharacterMovement(String characterMovement) {
 		this.characterMovement = characterMovement;
 		output.println("character movement" + ":::" + username + ":::" + characterMovement); //write to server
 		output.flush();
 	} //End of setCharacterMovement
 
+	/**
+	 * setUsername
+	 * Sets the username of the player, outputs to server
+	 * @param username, String of username to be set
+	 */
 	public void setUsername(String username) {
-    	this.username = username;
-    	System.out.println(username + " username set");
-    	output.println("user connected" + ":::" + username); // write to server
+    		this.username = username;
+    		System.out.println(username + " username set");
+    		output.println("user connected" + ":::" + username); // write to server
 		output.flush();
 	} //End of setUsername
 
+	/**
+	 * getUsername
+	 * Returns name of player
+	 * @return String username
+	 */
 	public String getUsername() {
-    	return username;
+    		return username;
 	} //End of getUsername
 
+	/**
+	 * getUsers
+	 * Returns list of users connected to server
+	 * @return SimpleLinkedList<String> users of usernames
+	 */
 	public SimpleLinkedList<String> getUsers() {
-    	return users;
+    		return users;
 	} //End of getUsers
 
+	/**
+	 * getItemSelected
+	 * Returns name of item selected by player
+	 * @return String itemSelected, type of item selected
+	 */
 	public String getItemSelected() {
-    	return itemSelected;
+    		return itemSelected;
 	} //End of getItemSelected
 
+	/**
+	 * getItemsHeld
+	 * Returns items held by players
+	 * @return String[] itemsHeld, items held by players
+	 */
 	public String[] getItemsHeld() {
-    	return itemsHeld;
-	}
+    		return itemsHeld;
+	} //End of getItemsHeld
 
+	/**
+	 * getGameplayInputs
+	 * Returns gameplay inputs queued up by players
+	 * @return SimpleQueue<String>[] of inputs for each player
+	 */
 	public SimpleQueue<String>[] getGameplayInputs() {
-    	return gameplayInputs;
-	}
+    		return gameplayInputs;
+	} //End of getGameplayInputs
 
 	/**
 	 * setItemSelected
@@ -230,29 +284,44 @@ public class GameClient implements Runnable{
 	 * @param itemSelected, the name of the item selected by the player
 	 */
 	public void setItemSelected(String itemSelected) {
-    	this.itemSelected = itemSelected;
-    	System.out.println(itemSelected + " item selected");
-    	output.println("item selected" + ":::" + username + ":::" + itemSelected); //Write to server
-    	output.flush();
+    		this.itemSelected = itemSelected;
+    		System.out.println(itemSelected + " item selected");
+    		output.println("item selected" + ":::" + username + ":::" + itemSelected); //Write to server
+    		output.flush();
 	} //End of setItemSelected
 
-	public void setItemPlacementCoordinates(int x, int y, String bomb) {
+	/**
+	 * setItemPlacementCoordinates
+	 * @param x, int for x coordinate
+	 * @param y, int for y coordinate
+	 * @param item, String for item type
+	 */
+	public void setItemPlacementCoordinates(int x, int y, String item) {
 		itemPlacementCoordinates[0] = Integer.toString(x);
 		itemPlacementCoordinates[1] = Integer.toString(y);
 		System.out.println("item placed");
-		output.println("item placed" + ":::" + username + ":::" + itemPlacementCoordinates[0] + "," + itemPlacementCoordinates[1] + "::::" + bomb);
+		output.println("item placed" + ":::" + username + ":::" + itemPlacementCoordinates[0] + "," + itemPlacementCoordinates[1] + "::::" + item);
 		output.flush();
-	}
+	} //End of setItemPlacementCoordinates
 
+	/**
+	 * getAllItemPlacementCoordinates
+	 * Returns coordinates and items placed for players
+	 * @return String[][] allItemPlacementCoordinates, for coordinates/types of items placed
+	 */
 	public String[][] getAllItemPlacementCoordinates() {
 		return allItemPlacementCoordinates;
-	}
+	} //End of getAllItemPlacementCoordinates
 
+	/**
+	 * close
+	 * Closes the client, disconnects from server
+	 */
 	public void close() {
-    	output.println("/exit");
-    	output.flush();
-    	running = false;
-	}
+    		output.println("/exit");
+    		output.flush();
+    		running = false;
+	} //End of close
 	
 	/**
 	 * clearGameValues
@@ -266,5 +335,6 @@ public class GameClient implements Runnable{
 		characterMovement = "";
 		movementInputs = new SimpleQueue<>();
 		gameplayInputs = new SimpleQueue[4]; 
-	}
-}
+	} //End of clearGameValues
+	
+} //End of class
