@@ -1,0 +1,154 @@
+import javax.swing.JFrame;
+
+//Keyboard imports
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+
+public class GameAreaFrame extends JFrame implements KeyListener{
+
+    public static void main(String[] args) {
+        new GameAreaFrame();
+    }
+
+    private String buttonPressed = "";
+    private int panelCounter = 0;
+    // Intro - c0, Main menu - 1, Game - 2, Instructions - 3, CharacterSelect - 4
+    private boolean panelChange = true;
+    private IntroPanel introPanel = null;
+    private MainMenuPanel mainMenuPanel = null;
+    private InstructionsPanel instructionsPanel = null;
+    private CharacterSelectPanel characterSelectPanel = null;
+    private ItemBoxPanel itemBoxPanel = null;
+
+    private ClientLogin clientLogin;
+    private boolean firstLogin = true;
+
+    //Override KeyListener Methods (proceed to next frame upon keypressed)
+    public void keyTyped(KeyEvent e) {
+        if (e.getKeyCode() == 27){
+            System.out.println("Escape detected");
+            //Return to MenuPanel, from Select
+            if(panelCounter == 2){
+                this.getContentPane().remove(characterSelectPanel); // Remove the select panel
+                mainMenuPanel = new MainMenuPanel(); // Add the mainmenu panel
+                this.getContentPane().add(mainMenuPanel);
+                System.out.println("back to main menu panel");
+                panelCounter = 1;
+                this.revalidate();
+                repaint();
+            }
+            //Return to IntroPanel, from MenuPanel
+            if(panelCounter == 1){
+                this.getContentPane().remove(mainMenuPanel); // Remove the select panel
+                introPanel = new IntroPanel(); // Add the mainmenu panel
+                this.getContentPane().add(introPanel);
+                System.out.println("back to intro panel");
+                panelCounter = 0;
+                this.revalidate();
+                repaint();
+            }
+        }
+    }
+    public void keyReleased(KeyEvent e){
+    }
+    public void keyPressed(KeyEvent e) {
+    }
+
+    // Constructor
+    public GameAreaFrame() {
+        super("NullPath");
+        //mapIntegration = new MapPlacement();
+        // Connect to server
+        //new GameClient().go();
+
+        // Set screen size
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setSize(1000, 750); //Filler values
+        this.setResizable(false);
+
+        // Set up the intro panel if start
+        if ((panelCounter == 0) && panelChange) {
+            introPanel = new IntroPanel();
+            introPanel.addKeyListener(introPanel);
+            introPanel.setFocusable(true);
+
+            this.getContentPane().add(introPanel);
+            panelChange = false;
+        }
+
+        //this.add(mapIntegration);
+        //Deprecated method - to be replaced by stage
+
+        // Focus the frame
+        this.requestFocusInWindow();
+
+        // Make the frame visible
+        this.setVisible(true);
+
+
+        while(panelCounter==0) {
+            if ((panelCounter == 0) && !panelChange) {
+                if (introPanel.getNext()) {
+                    this.getContentPane().remove(introPanel); // Remove the intro panel
+                    mainMenuPanel = new MainMenuPanel(); // Add the main menu panel
+                    this.getContentPane().add(mainMenuPanel);
+                    System.out.println("change to main menu panel");
+                    panelCounter = 1;
+                    this.revalidate();
+                    repaint();
+                }
+            }
+
+        }
+        while(panelCounter == 1){
+            //Check start game pressed
+            if((panelCounter == 1)&&(mainMenuPanel.getSelection()==0)){
+                if(firstLogin == true) {
+                    clientLogin = new ClientLogin();
+                    firstLogin = false;
+                }
+                if(clientLogin.getNext()) {
+                    this.getContentPane().remove(mainMenuPanel); // Remove the intro panel
+                    characterSelectPanel = new CharacterSelectPanel(); // Add the select panel
+                    this.getContentPane().add(characterSelectPanel);
+                    System.out.println("change to character select panel");
+                    panelCounter = 4;
+                    this.revalidate();
+                    repaint();
+                }
+            }
+            //Check instructions pressed
+            if((panelCounter == 1)&&(mainMenuPanel.getSelection()==1)){
+                this.getContentPane().remove(mainMenuPanel); // Remove the intro panel
+                instructionsPanel = new InstructionsPanel(); // Add the select panel
+                this.getContentPane().add(instructionsPanel);
+                System.out.println("change to instructions panel");
+                panelCounter = 3;
+                this.revalidate();
+                repaint();
+            }
+            //Check quit game pressed
+            if((panelCounter == 1)&&(mainMenuPanel.getSelection()==2)){
+                System.out.println("Program Ended");
+                this.dispose();
+                System.exit(0);
+            }
+        }
+
+        while(panelCounter == 4){
+            if(characterSelectPanel.getSelectCount() == 4){
+                this.getContentPane().remove(characterSelectPanel); // Remove the intro panel
+                itemBoxPanel = new ItemBoxPanel(); // Add the select panel
+                this.getContentPane().add(itemBoxPanel);
+                System.out.println("change to game panel");
+                panelCounter = 2;
+                this.revalidate();
+                repaint();
+            }
+        }
+
+
+        //End of inner class
+
+    }
+}
