@@ -1,3 +1,10 @@
+/*  [Pellet.java]
+    Projectile movement for launchers and damage dealing.
+    Author: Brian Zhang
+    ICS4UE
+    Date: 01/22/19
+ */
+
 import java.io.File;
 import java.io.IOException;
 
