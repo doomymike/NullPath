@@ -42,8 +42,15 @@ public class ItemMovePanel extends JPanel implements KeyListener, MouseListener{
 	private boolean[] placed = new boolean[4]; //Stores which players have placed items already - corresponds with loc
 	private Resources resources = null;
 	
-	public ItemMovePanel(Resources usedResource, PhysicsEngine newEng,GameClient client) { //Add constructor for client later
-		// TODO Auto-generated constructor stub
+	/**
+	 * ItemMovePanel
+	 * Constructor to make an item move panel
+	 * @param usedResource, Resources object for game
+	 * @param newEng, Physics engine object for game
+	 * @param client, GameClient object for game
+	 */
+	public ItemMovePanel(Resources usedResource, PhysicsEngine newEng, GameClient client) {
+		
 		this.setSize(new Dimension(1720, 760));
 		this.cMap = newEng.retrieveCMap();
 		this.physEng = newEng;
@@ -61,23 +68,7 @@ public class ItemMovePanel extends JPanel implements KeyListener, MouseListener{
 		}else {
 			loc = 3;
 		}
-
-		/*
-		for (int i = 0; i < 4; i++) {
-			String itemName = newClient.getItemsHeld()[i];	
-			for (int j = 0; j < 4; j++) {
-				if (usedResource.getPlayers().get(j).getName().equals("Blue") && i ==0) {
-					this.influencePlayer = j;
-				} else if (usedResource.getPlayers().get(j).getName().equals("Green") && i ==1) {
-					this.influencePlayer = j;
-				} else if (usedResource.getPlayers().get(j).getName().equals("Red") && i ==2) {
-					this.influencePlayer = j;
-				} else if (usedResource.getPlayers().get(j).getName().equals("Yellow") && i ==3) {
-					this.influencePlayer = j;
-				}
-			}
-		}
-		*/		
+	
 		xPos = 0;
 		yPos = 0;
 		objC = 0;
@@ -91,6 +82,11 @@ public class ItemMovePanel extends JPanel implements KeyListener, MouseListener{
 		addMouseListener(this);
 	}
 	
+	/**
+	 * paintComponent
+	 * Runs to paint panel
+	 * @param g, Graphics object
+	 */
 	public void paintComponent(Graphics g) {
 		
 		super.paintComponent(g);
@@ -126,7 +122,7 @@ public class ItemMovePanel extends JPanel implements KeyListener, MouseListener{
 					int tempX = Integer.parseInt(client.getAllItemPlacementCoordinates()[i][0]);
 					int tempY = Integer.parseInt(client.getAllItemPlacementCoordinates()[i][1]);
 
-					//MAKE TEMP ITEM - using "bomb" or "not bomb"
+					//MAKE TEMP ITEM - using item name
 					Item currentItem = null;
 					String currentItemName = client.getAllItemPlacementCoordinates()[i][2];
 
@@ -160,7 +156,6 @@ public class ItemMovePanel extends JPanel implements KeyListener, MouseListener{
 					} else { //Do bomb stuff
 						int reduceC = 0;
 						for (int j = 0; j < itemList.size(); j++) {
-							//WARNING - will not work if non-bomb item is circular
 							if (PhysicsEngine.checkCollision(currentItem, itemList.get(i - reduceC), true, false)) {
 								System.out.println("BAD123");
 								itemList.remove(i - reduceC);
@@ -255,6 +250,7 @@ public class ItemMovePanel extends JPanel implements KeyListener, MouseListener{
 				currentItem = new CharacterLauncher(xPos, yPos,0,0);
 			}
 
+			//Send command to client to send to server
 			if (!(currentItem instanceof Bomb) && (totalCol(currentItem)) && this.physEng.checkCMCollision(currentItem, false) == false) { //If not bomb placed and the item is put in a valid place
 				System.out.println("I"); //Test print
 				client.setItemPlacementCoordinates(xPos, yPos, currentItemName); //Input x and y coordinates of item placed to server
@@ -285,8 +281,12 @@ public class ItemMovePanel extends JPanel implements KeyListener, MouseListener{
 		return true;
 	}
 	
+	/**
+	 * checkDone
+	 * Returns whether all players are done placing items or not
+	 * @return boolean, true if all players have placed an item, otherwise false
+	 */
 	public boolean checkDone() {
-		
 		for (int i = 0; i < placed.length; i++) {
 			if (placed[i] == false) {
 				return false;
@@ -294,7 +294,7 @@ public class ItemMovePanel extends JPanel implements KeyListener, MouseListener{
 		}
 		setFocusable(false);
 		return true;
-	}
+	} //End of checkDone
 	
 	public void setDone(boolean newS) {
 		for (int i = 0; i < placed.length; i++) {
