@@ -266,7 +266,7 @@ public class PlatformPanel extends JPanel implements KeyListener{
 		    	    	}
 		    	    }
 		    	    
-				if(endGame(characterList)) {
+				if(endGame()) {
 		    	    		end();
 		    	    	}
 				
@@ -366,7 +366,7 @@ public class PlatformPanel extends JPanel implements KeyListener{
 			    		a++;
 			    		
 			    	}
-			    	if(endGame(characterList)) {
+			    	if(endGame()) {
 		    	    		end();
 		    	   	 }
 			    	//while loop is used in case items may need to be removed
@@ -507,14 +507,14 @@ public class PlatformPanel extends JPanel implements KeyListener{
     		return true;
     	}
     	
-	public boolean endGame(ArrayList<Character> characters) {
-    		for(int j=0;j<characters.size();j++) {
-    	    	if(characters.get(j).isAlive()&&!characters.get(j).getFinished()) {
-    	    		return false;
-    	    	}
-    	    }
-    		return true;
-    	}
+	public boolean endGame() {
+		for(int j=0;j<resource.getCharacters().size();j++) {
+			if(resource.getCharacters().get(j).isAlive()&&!resource.getCharacters().get(j).getFinished()) {
+				return false;
+			}
+		}
+		return true;
+	}
     	
     	public void end(){
     		if(resource.getPlayers().get(0).getCharacter().getFinished()&&resource.getPlayers().get(1).getCharacter().getFinished()&&resource.getPlayers().get(2).getCharacter().getFinished()&&resource.getPlayers().get(3).getCharacter().getFinished()){
