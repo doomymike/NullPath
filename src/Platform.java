@@ -5,6 +5,13 @@ import java.util.Map;
 
 import javax.imageio.ImageIO;
 
+/* [Platform.java]
+ * Class containing platform info
+ * Author: James, Brian L, Michael, Brian Z
+ * Date: 01/21/19
+ * 
+ */
+
 //import java.awt.Rectangle;
 
 public class Platform extends Item{
@@ -14,6 +21,7 @@ public class Platform extends Item{
 	private HashMap<Integer, Double> lastVel = new HashMap<Integer, Double>();
 	
 	//Rectangle loc;
+	
 	
 	public void addVelEntry(int uniqueTag, double dx) {
 		lastVel.put(uniqueTag, dx);
@@ -65,17 +73,49 @@ public class Platform extends Item{
 		}
 	}
 	
+	/**g
+	 * getHoney
+	 * 
+	 * Returns if honey property exist
+	 * 
+	 * @return
+	 */
+	
 	public boolean getHoney() {
 		return hasHoney;
 	}
+	
+	/**
+	 * getIce
+	 * 
+	 * Returns if ice property exists
+	 * 
+	 * @return
+	 */
 	
 	public boolean getIce() {
 		return hasIce;
 	}
 	
+	/**
+	 * setHoney
+	 * 
+	 * Sets honey hazard for surface
+	 * 
+	 * @param newSurface
+	 */
+	
 	public void setHoney(boolean newSurface) {
 		hasHoney = newSurface;
 	}
+	
+	/**
+	 * setIce
+	 * 
+	 * Sets ice property for ice
+	 * 
+	 * @param newSurface
+	 */
 	
 	public void setIce(boolean newSurface) {
 		hasIce = newSurface;
