@@ -1,3 +1,10 @@
+/*  [InstructionsPanel.java]
+    Basic options panel giving instructions and copyright for the game. 
+    Author: Brian Zhang
+    ICS4UE
+    Date: 01/22/19
+ */
+
 import java.awt.*;
 import javax.swing.*;
 
