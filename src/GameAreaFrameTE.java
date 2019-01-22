@@ -113,13 +113,6 @@ public class GameAreaFrameTE extends JFrame implements KeyListener {
             panelChange = false;
         }
 
-
-        
-        itemM = new ItemMovePanel(resources, physicsEngine, client);
-        itemM.setFocusable(true);
-        this.getContentPane().add(itemM);
-
-
         this.requestFocusInWindow();
 
         // Make the frame visible
