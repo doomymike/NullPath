@@ -15,16 +15,40 @@ public class Platform extends Item {
 	
 	private boolean hasHoney = false; //Honey modifier
 	private boolean hasIce = false; //Ice modifier
-	private HashMap<Integer, Double> lastVel = new HashMap<Integer, Double>();
+	private HashMap<Integer, Double> lastVel = new HashMap<Integer, Double>(); //Holds hashmap of associated player's last velocities
 	
+	/**
+	* addVelEntry
+	*
+	* Adds lastVelocity for a player
+	*
+	*@param uniqueTag
+	*@param dx
+	*/
 	
 	public void addVelEntry(int uniqueTag, double dx) {
 		lastVel.put(uniqueTag, dx);
 	}
 	
+	/**
+	* addVelEntry
+	*
+	* Removes lastVelocity for a player
+	*
+	*@param uniqueTag
+	*/
+	
 	public void removeVelEntry(int uniqueTag) {
 		lastVel.remove(uniqueTag);
 	}
+	
+	/**
+	* getEntry
+	*
+	* Retrieves last velocity for a player
+	*
+	*@param uniqueTag
+	*/
 	
 	public double getEntry(int uniqueTag) {
 		for (Map.Entry<Integer, Double> entry: lastVel.entrySet()) {
@@ -34,6 +58,13 @@ public class Platform extends Item {
 		}
 		return -1;
 	}
+	
+	/**
+	* Platform
+	*
+	* Platform constructor
+	*
+	*/
 	
 	Platform(int x, int y) {
 		super(x, y);
@@ -47,19 +78,16 @@ public class Platform extends Item {
 	
 	}
 	
+	/**
+	* Platform
+	*
+	* Platform constructor
+	*
+	*/
+	
 	Platform(int x,int y, int height, int width){
 		super(x,y,height,width);
 		
-		try {
-			this.setImage(ImageIO.read(new File("resources/PlatformGirder.png")));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	
-	Platform(int x,int y, int height, int width, double[] vel){
-		super(x,y,height,width, vel);
 		try {
 			this.setImage(ImageIO.read(new File("resources/PlatformGirder.png")));
 		} catch (IOException e) {
