@@ -24,7 +24,7 @@ import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 import java.util.ArrayList;
 
-public class itemMove extends JPanel implements KeyListener, MouseListener{
+public class ItemMovePanel extends JPanel implements KeyListener, MouseListener{
 
 	ArrayList<Item> itemList = new ArrayList<Item>();
 	Item currentItem;
@@ -42,7 +42,7 @@ public class itemMove extends JPanel implements KeyListener, MouseListener{
 	private boolean[] placed = new boolean[4]; //Stores which players have placed items already - corresponds with loc
 	private Resources resources = null;
 	
-	public itemMove(Resources usedResource, PhysicsEngine newEng,GameClient client) { //Add constructor for client later
+	public ItemMovePanel(Resources usedResource, PhysicsEngine newEng,GameClient client) { //Add constructor for client later
 		// TODO Auto-generated constructor stub
 		this.setSize(new Dimension(1720, 760));
 		this.cMap = newEng.retrieveCMap();
