@@ -78,6 +78,10 @@ public class GameClient implements Runnable{
 
     } //End of go()
 
+	/**
+	 * run
+	 * Runs the client in thread, loops to check for input from server
+	 */
 	public void run() {
 
 		// Checks for incoming commands
@@ -178,7 +182,7 @@ public class GameClient implements Runnable{
 	 * Sets name of character selected by client, outputs to server
 	 * @param characterSelected, String name of character chosen
 	 */
-    public void setCharacterSelected(String characterSelected) {
+    public synchronized void setCharacterSelected(String characterSelected) {
     	this.characterSelected = characterSelected;
     	output.println("character selection" + ":::" + username + ":::" + characterSelected); // write to server
     } //End of setCharacterSelected
