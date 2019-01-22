@@ -355,24 +355,26 @@ public class GameAreaFrameTE extends JFrame implements KeyListener {
                 repaint();
             }
             //Check if round is over, then switch back to itemBoxPanel
-            if (platformPanel != null && platformPanel.endGame()) {
-                //Check if anybody won
-                for(int i = 0; i < 4; i++) {
-                    if (resources.getPlayers().get(i).getScore() >= 30) {
-                        gameEnd = true;
+            if (panelCounter == 4) {
+                if (platformPanel.endGame()) {
+                    //Check if anybody won
+                    for (int i = 0; i < 4; i++) {
+                        if (resources.getPlayers().get(i).getScore() >= 30) {
+                            gameEnd = true;
+                        }
                     }
+                    //Call Client Clear
+                    client.clearGameValues();
+
+                    this.getContentPane().remove(platformPanel);
+                    platformPanel = null;
+                    itemBoxPanel = new ItemBoxPanel();
+                    this.getContentPane().add(itemBoxPanel);
+                    panelCounter = 5; //5 IS ITEM BOX PANEL
+                    this.revalidate();
+                    repaint();
+
                 }
-                //Call Client Clear
-                client.clearGameValues();
-
-                this.getContentPane().remove(platformPanel);
-                platformPanel = null;
-                itemBoxPanel = new ItemBoxPanel();
-                this.getContentPane().add(itemBoxPanel);
-                panelCounter = 5; //5 IS ITEM BOX PANEL
-                this.revalidate();
-                repaint();
-
             }
         }
     }
