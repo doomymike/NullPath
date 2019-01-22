@@ -1,9 +1,11 @@
 import java.awt.*;
 import javax.swing.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public class MainMenuPanel extends JPanel {
+public class MainMenuPanel extends JPanel implements KeyListener {
 
     private int selection = -1;
     private boolean next = false;
@@ -11,6 +13,15 @@ public class MainMenuPanel extends JPanel {
     //Mouse Position
     private int xPos = 0;
     private int yPos = 0;
+
+    //Override KeyListener Methods (proceed to next frame upon keypressed)
+    public void keyTyped(KeyEvent e) {
+        System.out.println("big boi");
+    }
+    public void keyReleased(KeyEvent e){
+    }
+    public void keyPressed(KeyEvent e) {
+    }
 
     public void paintComponent(Graphics g) {
 
@@ -34,28 +45,28 @@ public class MainMenuPanel extends JPanel {
         this.setLayout(null);
 
         //Setup all buttons for options
-        JButton buttonOne = new JButton(new ImageIcon(Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("/resources/Start.png"))));
-        JButton buttonTwo = new JButton(new ImageIcon(Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("/resources/Options.png"))));
-        JButton buttonThree = new JButton(new ImageIcon(Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("/resources/Quit.png"))));
+        JButton buttonOne = new JButton(new ImageIcon(Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("Start.png"))));
+        JButton buttonTwo = new JButton(new ImageIcon(Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("Options.png"))));
+        JButton buttonThree = new JButton(new ImageIcon(Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("Quit.png"))));
 
-        JLabel flow = new JLabel(new ImageIcon(Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("/resources/WaterFlow.gif"))));
+        JLabel flow = new JLabel(new ImageIcon(Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("WaterFlow.gif"))));
 
         // Draw start button (rectangles right now)
         this.add(buttonOne);
-        buttonOne.setLocation(0,150);
-        buttonOne.setSize(1000,64);
+        buttonOne.setLocation(-100,150);
+        buttonOne.setSize(1720,64);
         buttonOne.setContentAreaFilled(false);
         buttonOne.setBorder(null);
 
         buttonOne.addMouseListener(new MouseAdapter(){
             public void mouseEntered(java.awt.event.MouseEvent evt){
-                buttonOne.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("/resources/StartHover.png"))));
+                buttonOne.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("StartHover.png"))));
             }
             public void mouseExited(java.awt.event.MouseEvent evt){
-                buttonOne.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("/resources/Start.png"))));
+                buttonOne.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("Start.png"))));
             }
             public void mousePressed(java.awt.event.MouseEvent evt){
-                buttonOne.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("/resources/StartPress.png"))));
+                buttonOne.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("StartPress.png"))));
                 selection = 0;
                 next = true;
                 System.out.println("Startpressed");
@@ -67,22 +78,23 @@ public class MainMenuPanel extends JPanel {
 
         // Draw options button (rectangles right now)
         this.add(buttonTwo);
-        buttonTwo.setLocation(0,300);
-        buttonTwo.setSize(1000,64);
+        buttonTwo.setLocation(-100,300);
+        buttonTwo.setSize(1720,64);
         buttonTwo.setContentAreaFilled(false);
         buttonTwo.setBorder(null);
 
         buttonTwo.addMouseListener(new MouseAdapter(){
             public void mouseEntered(java.awt.event.MouseEvent evt){
-                buttonTwo.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("/resources/OptionsHover.png"))));
+                buttonTwo.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("OptionsHover.png"))));
             }
             public void mouseExited(java.awt.event.MouseEvent evt){
-                buttonTwo.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("/resources/Options.png"))));
+                buttonTwo.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("Options.png"))));
             }
             public void mousePressed(java.awt.event.MouseEvent evt){
-                buttonTwo.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("/resources/OptionsPress.png"))));
+                buttonTwo.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("OptionsPress.png"))));
                 selection = 1;
                 next = true;
+                System.out.println("Options pressed");
             }
             public void mouseClicked(java.awt.event.MouseEvent evt){
 
@@ -91,20 +103,20 @@ public class MainMenuPanel extends JPanel {
 
         // Draw quit button (rectangles right now)
         this.add(buttonThree);
-        buttonThree.setLocation(0,450);
-        buttonThree.setSize(1000,64);
+        buttonThree.setLocation(-100,450);
+        buttonThree.setSize(1720,64);
         buttonThree.setContentAreaFilled(false);
         buttonThree.setBorder(null);
 
         buttonThree.addMouseListener(new MouseAdapter(){
             public void mouseEntered(java.awt.event.MouseEvent evt){
-                buttonThree.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("/resources/QuitHover.png"))));
+                buttonThree.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("QuitHover.png"))));
             }
             public void mouseExited(java.awt.event.MouseEvent evt){
-                buttonThree.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("/resources/Quit.png"))));
+                buttonThree.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("Quit.png"))));
             }
             public void mousePressed(java.awt.event.MouseEvent evt){
-                buttonThree.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("/resources/QuitPress.png"))));
+                buttonThree.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("QuitPress.png"))));
                 selection = 2;
                 next = true;
             }
@@ -122,7 +134,8 @@ public class MainMenuPanel extends JPanel {
         setVisible(true);
     }
 
-    public boolean getNext(){return next;}
+    public boolean getNext(){
+        return next;}
     public int getSelection() {
         return selection;
     }
