@@ -1,3 +1,10 @@
+/*  [MainMenuPanel.java]
+    Base panel with buttons for options, quitting, and starting game.
+    Author: Brian Zhang
+    ICS4UE
+    Date: 01/22/19
+ */
+
 import java.awt.*;
 import javax.swing.*;
 import java.awt.event.KeyEvent;
