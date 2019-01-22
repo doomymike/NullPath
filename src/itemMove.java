@@ -158,10 +158,20 @@ public class itemMove extends JPanel implements KeyListener, MouseListener{
 		if (!(currentItem instanceof Bomb) && (totalCol(currentItem)) && this.physEng.checkCMCollision(currentItem, false) == false){
 			System.out.println("I");
 			client.setItemPlacementCoordinates(xPos, yPos); //added this 
-			if(!placed[0]) { //should be i
+			int loc;
+			if(client.getCharacterSelected().equals("Blue")){
+				loc = 0;
+			}else if(client.getCharacterSelected().equals("Green")) {
+				loc = 1;
+			}else if(client.getCharacterSelected().equals("Red")) {
+				loc = 2;
+			}else {
+				loc = 3;
+			}
+			if(!placed[loc]) { 
 				itemList.add(currentItem);
 				this.cStage.addItem(currentItem);
-				placed[0] = true;
+				placed[loc] = true;
 			}
 			
 		} else if (currentItem instanceof Bomb) {
