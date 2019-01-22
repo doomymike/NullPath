@@ -4,6 +4,7 @@ public class StartGame{
 		GameAreaFrameTE game = new GameAreaFrameTE();
 		while(true) {
 			game.gameLoop();
+			game.roundLoop();
 		}
 	}
 
