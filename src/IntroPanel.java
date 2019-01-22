@@ -49,6 +49,8 @@ public class IntroPanel extends JPanel implements KeyListener {
 
         addKeyListener(this);
         repaint();
+            
+        this.requestFocusInWindow();
 
     }
 
