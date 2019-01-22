@@ -11,6 +11,10 @@ import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 import java.util.ArrayList;
 
+import javax.swing.JLabel;
+import javax.swing.ImageIcon;
+import java.awt.Toolkit;
+
 /*
  * PlatformPanel
  * 
