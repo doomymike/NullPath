@@ -330,7 +330,6 @@ public class PhysicsEngine{
 			if (inMapTag(testPlayer.getTag())) {
 				tagMap.remove(Integer.valueOf(testPlayer.getTag()));
 				testPlayer.resetGravity();
-				System.out.println("E1");
 			}
 			return;
 		}
@@ -418,11 +417,11 @@ public class PhysicsEngine{
 		
 		if (object instanceof MovingPlatform) {
 			xPos = object.getX();
-			if ((((MovingPlatform)object).getDirection()) == 1) {
+			if ((((MovingPlatform)object).getDirection()) == 0) {
 				if (((MovingPlatform)object).getEndPos()[0] <= xPos || ((MovingPlatform)object).getStartPos()[0] >= xPos) {
 					object.setDx(-object.getVel()[0]);
 				}
-			} else if (((MovingPlatform)object).getDirection() == 0) {
+			} else if (((MovingPlatform)object).getDirection() == 1) {
 				if (((MovingPlatform)object).getEndPos()[0] >= xPos || ((MovingPlatform)object).getEndPos()[0] <= xPos) {
 					object.setDy(-object.getVel()[1]);
 				}
@@ -486,9 +485,10 @@ public class PhysicsEngine{
 			}
 			if ((itemLX <= lowerX && itemHX >= higherX) || (itemLX >= lowerX && itemLX <= higherX) || (itemLX <= lowerX && itemHX >= lowerX)) {
 				if (object instanceof Platform || object instanceof CharacterLauncher || object instanceof ConveyorBelt) {
-					if (lowerY < itemHY && higherY > itemHY) {
+					if (lowerY - itemHY <= 0 && lowerY - itemHY >= -5) {
 
 						if (player.getFWM() == false) {
+							System.out.println("BAD");
 							player.setVelocity(new double[] {player.getVelocity()[0], player.getVelocity()[1]+5});
 						}
 						player.setPosition(player.getPosition()[0], itemHY);
