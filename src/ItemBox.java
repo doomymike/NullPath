@@ -1,5 +1,11 @@
-// Items stored as string (for their names) - spelled exactly same as class names
 
+/**
+ * [ItemBox.java]
+ * ItemBox object for NullPath
+ * @author Brian Li, James Liang, Michael Oren, Brian Zhang
+ * January 22, 2019
+ */
+// Items stored as string (for their names) - spelled exactly same as class names
 import java.util.Random;
 
 public class ItemBox {
@@ -10,6 +16,11 @@ public class ItemBox {
 		this.items = items;
 	}
 	
+	/**
+	 * ItemBox
+	 * constructor, creates itembox from num players
+	 * @param numPlayers
+	 */
 	public ItemBox(int numPlayers) {
 		
 		Random randomNum = new Random();
@@ -41,6 +52,12 @@ public class ItemBox {
 		}
 	}
 
+	/**
+	 * foundInBox
+	 * returns whether or not an item is in the box
+	 * @param item
+	 * @return boolean
+	 */
 	private boolean foundInBox(String item) {
 		for (int i = 0; i < items.size(); i++) {
 			if (item.equals(items.get(i))) {
@@ -50,19 +67,39 @@ public class ItemBox {
 		return false;
 	}
 	
+	/**
+	 * removeItem
+	 * removes item
+	 * @param itemRemoved
+	 * @return String itemRemoved
+	 */
 	public String removeItem(String itemRemoved) {
 		items.remove(itemRemoved);
 		return itemRemoved;
 	}
 	
+	/**
+	 * addItem
+	 * adds item
+	 * @param itemAdded
+	 */
 	public void addItem(String itemAdded) {
 		items.add(itemAdded);
 	}
 	
+	/**
+	 * emptyBox
+	 * empties box
+	 */
 	public void emptyBox() {
 		items.clear();
 	}
 	
+	/**
+	 * getItems
+	 * returns items in box
+	 * @return SimpleLinkedList<String> items
+	 */
 	public SimpleLinkedList<String> getItems(){
 		return items;
 	}
