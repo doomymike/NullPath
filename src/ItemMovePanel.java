@@ -51,13 +51,6 @@ public class ItemMovePanel extends JPanel implements KeyListener, MouseListener{
 		this.client =client;
 		this.resources = usedResource;
 
-		//Don't need this?
-		for (int i = 0; i < 4; i++) {
-			if (resources.getPlayers().get(i).getName().equals(client.getUsername())) {
-				influencePlayer = i; //Use for setPlacer when item is placed
-			}
-		}
-
 		//Determine index corresponding to character that player chose (used for client)
 		if(client.getCharacterSelected().equals("Blue")){
 			loc = 0;
