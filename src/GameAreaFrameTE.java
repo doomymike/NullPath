@@ -355,7 +355,7 @@ public class GameAreaFrameTE extends JFrame implements KeyListener {
                 repaint();
             }
             //Check if round is over, then switch back to itemBoxPanel
-            if (platformPanel.endGame()) {
+            if (platformPanel != null && platformPanel.endGame()) {
                 //Check if anybody won
                 for(int i = 0; i < 4; i++) {
                     if (resources.getPlayers().get(i).getScore() >= 30) {
