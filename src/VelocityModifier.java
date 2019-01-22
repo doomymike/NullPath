@@ -21,6 +21,7 @@ public class VelocityModifier extends Item{
 
 	/**
 	 * VelocityModifier
+	 * Constructor that makes a VelocityModifier object with given parameters
 	 * @param x, int representing the x coordinate
 	 * @param y, int representing the y coordinate
 	 * @param height, int representing the height of item
