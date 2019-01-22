@@ -5,7 +5,10 @@ import javax.imageio.ImageIO;
 
 public class Pellet extends Projectile{
 	
-	public Pellet(int x, int y, int radius, double[] speed, boolean affectGravity, int tag) {
+	private static int radius=10;
+	
+	
+	public Pellet(int x, int y, double[] speed, boolean affectGravity, int tag) {
 		super(x, y, radius, speed, affectGravity, tag);
 		try {
 			this.setImage(ImageIO.read(new File("resources/Cannonball.png")));
@@ -14,5 +17,8 @@ public class Pellet extends Projectile{
 			e.printStackTrace();
 		}
 	}
-
+	public static int getR() {
+		return radius;
+	}
+	
 }
