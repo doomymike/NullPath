@@ -5,14 +5,17 @@
     Date: 01/22/19
  */
 
+//Base imports
 import java.awt.*;
 import javax.swing.*;
 
 public class InstructionsPanel extends JPanel {
 
+    //Base Variables
     private String buttonPressed = "";
     private String selection = "";
 
+    //Override paintComponent
     public void paintComponent(Graphics g) {
 
         JLabel flow = new JLabel(new ImageIcon(Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("/resources/WaterFlow.gif"))));
@@ -41,6 +44,7 @@ public class InstructionsPanel extends JPanel {
 
     }
 
+    //Method for retrieval selection
     public String getSelection() {
         return selection;
     }
