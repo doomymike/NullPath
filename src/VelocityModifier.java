@@ -1,7 +1,7 @@
 /**
  * [VelocityModifier.java]
  * Object that modifies the velocity of a character in NullPath game
- * Authors: Brian Li, James Liang, Michael Oren, Brian Zhang
+ * @author Brian Li, James Liang, Michael Oren, Brian Zhang
  * January 22, 2019
  */
 
