@@ -1,6 +1,11 @@
-// init player objects somewhere !!!
+/**
+ * [GameAreaFrameTE.java]
+ * Main frame for NullPath game that holds game flow
+ * @author Brian Li, James Liang, Michael Oren, Brian Zhang
+ * January 22, 2019
+ */
 
-//Graphics & GUI imports
+//java imports
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import java.awt.Toolkit;
@@ -8,22 +13,13 @@ import java.awt.Graphics;
 import java.awt.Color;
 import java.awt.Rectangle;
 import java.io.IOException;
-
-//Keyboard imports
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-
-//Util
 import java.io.IOException;
 import java.util.ArrayList;
-
 import java.awt.image.*;
 
 public class GameAreaFrameTE extends JFrame implements KeyListener {
-
-    public static void main(String[] args) {
-        new GameAreaFrame();
-    }
 
     private String buttonPressed = "";
     private int panelCounter = 0;
@@ -52,6 +48,12 @@ public class GameAreaFrameTE extends JFrame implements KeyListener {
 
     PhysicsEngine physicsEngine;
 
+    /**
+     * keyTyped
+     * Performs action if corresponding key is entered
+     * @param e, KeyEvent for key typed
+     */
+    @Override
     public void keyTyped(KeyEvent e) {
         if (e.getKeyCode() == 27) {
             System.out.println("Escape detected");
@@ -76,39 +78,45 @@ public class GameAreaFrameTE extends JFrame implements KeyListener {
                 repaint();
             }
         }
-    }
+    } //End of keyTyped
 
+    /**
+     * keyReleased
+     * Performs action if corresponding key is released
+     * @param e, KeyEvent for key released
+     */
+    @Override
     public void keyReleased(KeyEvent e) {
-    }
+    } //End of keyReleased
 
+    /**
+     * keyPressed
+     * Performs action if corresponding key is pressed
+     * @param e, KeyEvent for key pressed
+     */
+    @Override
     public void keyPressed(KeyEvent e) {
-    }
+    } //End of keyPressed
 
     // Constructor
     public GameAreaFrameTE() {
         super("NullPath");
-        //mapIntegration = new MapPlacement();
-        // Connect to server
-        //new GameClient().go();
         physicsEngine = new PhysicsEngine("contact");
 
-        // Initialize resources object (with characters + stage)
+        // Initialize resources object (with stage)
         resources = new Resources();
         resources.setCurrentStage(resources.getStages().get(0));
 
         // Set screen size
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-        this.setSize(1720, 760); //Filler values
+        this.setSize(1720, 760);
         this.setResizable(false);
 
         // Set up the intro panel if start
-
         if ((panelCounter == 0) && panelChange) {
             introPanel = new IntroPanel();
             introPanel.addKeyListener(introPanel);
             introPanel.setFocusable(true);
-
             this.getContentPane().add(introPanel);
             panelChange = false;
         }
@@ -118,9 +126,6 @@ public class GameAreaFrameTE extends JFrame implements KeyListener {
         // Make the frame visible
         this.setVisible(true);
 
-        //this.add(mapIntegration);
-        //Deprecated method - to be replaced by stage
-
         // Add key listener
         GameKeyListener keyListener = new GameKeyListener();
         this.addKeyListener(keyListener);
@@ -128,17 +133,8 @@ public class GameAreaFrameTE extends JFrame implements KeyListener {
         // Focus the frame
         this.setFocusable(true);
 
-        // Initialize physics object
-        // try {
-        //physicsEngine = new PhysicsEngine(resources.getStages().get(0).getCollisionMap());
-        //} catch (IOException e) {
-        //e.printStackTrace();
-        //}
-
-    }
-
-    // End of constructor
-
+    } //End of constructor
+    
     //****** Inner Classes for KeyListener ****
 
     class GameKeyListener implements KeyListener{
@@ -231,9 +227,12 @@ public class GameAreaFrameTE extends JFrame implements KeyListener {
 
     } //End of inner class
 
-    //START OF LOOP METHOD
+    /**
+     * gameLoop
+     * Loop for non-gameplay aspects, includes character select
+     */
     public void gameLoop(){
-
+        
         //Switch to Main Menu from Intro
         if ((panelCounter == 0) && !panelChange) {
             if (introPanel.getNext()) {
@@ -324,13 +323,16 @@ public class GameAreaFrameTE extends JFrame implements KeyListener {
 
         }
 
-    }
+    } //End of gameLoop
     
     
-    //Round Loop method
+    /**
+     * roundLoop
+     * Circulating loop (for gameply - item box, placement, platforming)
+     */
     public void roundLoop(){
-        //Every round consists of a: itemBoxPanel, platformPanel, scorePanel??
-
+        //Every round consists of a: itemBoxPanel, platformPanel, scorePanel
+        
         //Check if no one has won yet
         while(!gameEnd) {
             //Start by removing the itemBoxPanel, after checking if platformPanel doesn't exist yet
@@ -379,4 +381,4 @@ public class GameAreaFrameTE extends JFrame implements KeyListener {
         }
     }
 
-}
+} //End of class
