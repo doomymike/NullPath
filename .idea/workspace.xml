@@ -2,7 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5370bd01-8671-42d7-a834-e8a31bdbfa73" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/src/GameAreaFrameTE.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameAreaFrameTE.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/ClientLogin.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/ContactDamage.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Platform.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Player.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Projectile.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Resources.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/ServerTest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/ServerTest2.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/StationaryPlatform.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/VelocityModifier.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ClientLogin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ClientLogin.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/bin/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -31,11 +42,38 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="GameAreaFrameTE.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="GameAreaFrameTE.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/GameAreaFrameTE.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-2844">
+            <state relative-caret-position="-2895">
               <caret line="40" column="25" selection-start-line="40" selection-start-column="25" selection-end-line="40" selection-end-column="25" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Medium.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Medium.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="170">
+              <caret line="39" column="21" selection-start-line="39" selection-start-column="21" selection-end-line="39" selection-end-column="21" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="PlatformPanel.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/PlatformPanel.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="612">
+              <caret line="47" column="56" lean-forward="true" selection-start-line="47" selection-start-column="56" selection-end-line="47" selection-end-column="56" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ClientLogin.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/ClientLogin.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1972">
+              <caret line="119" column="41" lean-forward="true" selection-start-line="119" selection-start-column="41" selection-end-line="119" selection-end-column="41" />
             </state>
           </provider>
         </entry>
@@ -134,6 +172,7 @@
       <find>otherUsers</find>
       <find>username set</find>
       <find>currentHo</find>
+      <find>itemMove</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -155,7 +194,6 @@
         <option value="$PROJECT_DIR$/src/GamePanel.java" />
         <option value="$PROJECT_DIR$/src/Character.java" />
         <option value="$PROJECT_DIR$/src/Resources.java" />
-        <option value="$PROJECT_DIR$/src/ClientLogin.java" />
         <option value="$PROJECT_DIR$/src/ServerTest.java" />
         <option value="$PROJECT_DIR$/src/ServerTest2.java" />
         <option value="$PROJECT_DIR$/src/Stage.java" />
@@ -167,11 +205,12 @@
         <option value="$PROJECT_DIR$/src/CharacterSelectPanel.java" />
         <option value="$PROJECT_DIR$/src/ItemBox.java" />
         <option value="$PROJECT_DIR$/src/ItemBoxPanel.java" />
-        <option value="$PROJECT_DIR$/src/PlatformPanel.java" />
         <option value="$PROJECT_DIR$/src/GameClient.java" />
         <option value="$PROJECT_DIR$/src/itemMove.java" />
         <option value="$PROJECT_DIR$/src/GameAreaFrame.java" />
         <option value="$PROJECT_DIR$/src/GameAreaFrameTE.java" />
+        <option value="$PROJECT_DIR$/src/PlatformPanel.java" />
+        <option value="$PROJECT_DIR$/src/ClientLogin.java" />
       </list>
     </option>
   </component>
@@ -591,13 +630,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/ClientLogin.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="137" column="82" selection-start-line="137" selection-start-column="82" selection-end-line="137" selection-end-column="82" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Arrow.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="34">
@@ -645,13 +677,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Medium.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="111" column="44" lean-forward="true" selection-start-line="111" selection-start-column="44" selection-end-line="111" selection-end-column="44" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/CharacterSelectPanel.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-102">
@@ -670,13 +695,6 @@
           <folding>
             <element signature="e#0#6186#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/PlatformPanel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="280" column="74" selection-start-line="280" selection-start-column="74" selection-end-line="280" selection-end-column="74" />
         </state>
       </provider>
     </entry>
@@ -776,8 +794,29 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/GameAreaFrameTE.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2844">
+        <state relative-caret-position="-2895">
           <caret line="40" column="25" selection-start-line="40" selection-start-column="25" selection-end-line="40" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Medium.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="39" column="21" selection-start-line="39" selection-start-column="21" selection-end-line="39" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/PlatformPanel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="612">
+          <caret line="47" column="56" lean-forward="true" selection-start-line="47" selection-start-column="56" selection-end-line="47" selection-end-column="56" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ClientLogin.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1972">
+          <caret line="119" column="41" lean-forward="true" selection-start-line="119" selection-start-column="41" selection-end-line="119" selection-end-column="41" />
         </state>
       </provider>
     </entry>

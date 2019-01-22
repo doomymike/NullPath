@@ -101,7 +101,6 @@ public class ClientLogin extends JFrame implements ActionListener{
             if(portNumber.length() == 0) {
                 return;
             }
-            /* I think port number should work as a string? not sure though
             int port = 0;
             try {
                 port = Integer.parseInt(portNumber);
@@ -109,12 +108,11 @@ public class ClientLogin extends JFrame implements ActionListener{
             catch(Exception en) {
                 return;
             }
-            */
 
             //Server Connected Check
 
             //Start client (connect to server) (<< ADD PORT NUMBER AND IP STUFF - will be passed into go() method)
-            client.go();
+            client.go(server, port);
             Thread t = new Thread(client);
             t.start();
 
