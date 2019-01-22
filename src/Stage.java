@@ -1,20 +1,32 @@
+/**
+ * [Stage.java]
+ * Stage object for NullPath game
+ * @author Brian Li, James Liang, Michael Oren, Brian Zhang
+ * January 22, 2019
+ */
+
+//java imports
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.Scanner;
-
 import javax.imageio.ImageIO;
 
 public class Stage {
 
-    private BufferedImage sprite;
-    private SimpleLinkedList<Item> items;
-    private SimpleLinkedList<Character> characters;
-    private ItemBox itemBox;
+    private BufferedImage sprite; //image for stage
+    private SimpleLinkedList<Item> items; //List of items held in stage
+    private SimpleLinkedList<Character> characters; //List of characters held in stage
+    private ItemBox itemBox; //Item box held in stage
     
-    private String[][] skyFortressMapCollision = new String[38][86];
-	private BufferedImage skyFortressImage;
+    private String[][] skyFortressMapCollision = new String[38][86]; //Stores collision map for the stage
+	private BufferedImage skyFortressImage; //Picture for the stage
 
+    /**
+     * Stage
+     * Constructor that makes a stage object with an image as a parameter
+     * @param sprite
+     */
     public Stage(BufferedImage sprite) {
         this.sprite = sprite;
         this.items = new SimpleLinkedList<Item>();
