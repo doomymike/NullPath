@@ -1,3 +1,10 @@
+/*[FanWind.java]
+Method for handling fanwind physics and propelling players upwards
+Authors: James Liang
+Date: January 22, 2019
+*/
+
+//Import base
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -6,6 +13,7 @@ import javax.imageio.ImageIO;
 
 public class FanWind extends VelocityModifier{
 
+	//Base variables
 	private static double speed = 2.5;
 	private double dx;
 	private double dy;
@@ -20,6 +28,7 @@ public class FanWind extends VelocityModifier{
 		return width;
 	}
 	
+	//Base constructor
 	public FanWind(int x, int y, int direction, int direction2) {
 		//Direction 2 indicates lateral or not
 		//Direction indicates positive or negative
@@ -60,6 +69,7 @@ public class FanWind extends VelocityModifier{
 		
 	}
 	
+	//Method for retreving speed values
 	public double[] getSpeed() {
 		return new double[] {dx, dy};
 	}
