@@ -95,7 +95,7 @@ public class ProjectileLauncher extends Item{
 			lastNum = (int)(System.nanoTime()/(Math.pow(10, 9)) - initStart);
 			this.setImage(this.getSprites().get(1));
 			if (projectileType.equals("ball")) {
-				projectList.add(new Pellet (getX()+getWidth()/2, getY()+getHeight()/2, 15, new double[] {launchDx, launchDy}, true, tag));
+				projectList.add(new Pellet (getX()+getWidth()/2, getY()+getHeight()/2, new double[] {launchDx, launchDy}, true, tag));
 			} else if (projectileType.equals("arrow")) {
 				projectList.add(new Arrow (getX()+getWidth()/2, getY()+getHeight()/2, new double[] {launchDx, launchDy}, tag, direction));
 			}
