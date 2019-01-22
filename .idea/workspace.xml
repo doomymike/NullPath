@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5370bd01-8671-42d7-a834-e8a31bdbfa73" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PlatformPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PlatformPanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ItemMovePanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ItemMovePanel.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/bin/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -62,20 +61,20 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="PlatformPanel.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="PlatformPanel.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/PlatformPanel.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-340">
+            <state relative-caret-position="782">
               <caret line="57" lean-forward="true" selection-start-line="57" selection-end-line="57" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ItemMovePanel.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="ItemMovePanel.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/ItemMovePanel.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1649">
-              <caret line="249" column="50" lean-forward="true" selection-start-line="249" selection-start-column="50" selection-end-line="249" selection-end-column="50" />
+            <state relative-caret-position="340">
+              <caret line="151" column="68" selection-start-line="151" selection-start-column="68" selection-end-line="151" selection-end-column="68" />
             </state>
           </provider>
         </entry>
@@ -134,9 +133,9 @@
         <option value="$PROJECT_DIR$/src/GameAreaFrameTE.java" />
         <option value="$PROJECT_DIR$/src/ClientLogin.java" />
         <option value="$PROJECT_DIR$/src/ItemBox.java" />
-        <option value="$PROJECT_DIR$/src/ItemMovePanel.java" />
         <option value="$PROJECT_DIR$/src/GameClient.java" />
         <option value="$PROJECT_DIR$/src/PlatformPanel.java" />
+        <option value="$PROJECT_DIR$/src/ItemMovePanel.java" />
       </list>
     </option>
   </component>
@@ -690,13 +689,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/ItemMovePanel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1649">
-          <caret line="249" column="50" lean-forward="true" selection-start-line="249" selection-start-column="50" selection-end-line="249" selection-end-column="50" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/GameClient.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="136">
@@ -709,8 +701,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/PlatformPanel.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-340">
+        <state relative-caret-position="782">
           <caret line="57" lean-forward="true" selection-start-line="57" selection-end-line="57" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ItemMovePanel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="151" column="68" selection-start-line="151" selection-start-column="68" selection-end-line="151" selection-end-column="68" />
         </state>
       </provider>
     </entry>

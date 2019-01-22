@@ -137,7 +137,7 @@ public class ItemMovePanel extends JPanel implements KeyListener, MouseListener{
 						currentItem = new Bomb(tempX, tempY);
 						currentItem.setPlacer(tempPlayer);
 					} else if (currentItemName.equals("Platform")) {
-						currentItem = new Platform(tempX, tempY); //Width and height!!!!
+						currentItem = new StationaryPlatform(tempX, tempY);
 						currentItem.setPlacer(tempPlayer);
 					} else if (currentItemName.equals("Saw")) {
 						currentItem = new Saw(tempX, tempY);
@@ -149,7 +149,7 @@ public class ItemMovePanel extends JPanel implements KeyListener, MouseListener{
 						currentItem = new ConveyorBelt(tempX, tempY, 0,0);
 						currentItem.setPlacer(tempPlayer);
 					} else if (currentItemName.equals("Fan")) {
-						//currentItem = new FanWind() FANNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN
+						currentItem = new FanWind(tempX, tempY, 0, 0);
 						currentItem.setPlacer(tempPlayer);
 					} else if (currentItemName.equals("CharacterLauncher")) {
 						currentItem = new CharacterLauncher(tempX, tempY,0,0);
@@ -245,7 +245,7 @@ public class ItemMovePanel extends JPanel implements KeyListener, MouseListener{
 			if (currentItemName.equals("Bomb")) {
 				currentItem = new Bomb(xPos, yPos);
 			} else if (currentItemName.equals("Platform")) {
-				currentItem = new Platform(xPos, yPos); //Width and height!!!!
+				currentItem = new StationaryPlatform(xPos, yPos);
 			} else if (currentItemName.equals("Saw")) {
 				currentItem = new Saw(xPos, yPos);
 			} else if (currentItemName.equals("Spike")) {
@@ -253,7 +253,7 @@ public class ItemMovePanel extends JPanel implements KeyListener, MouseListener{
 			} else if (currentItemName.equals("Conveyor Belt")) {
 				currentItem = new ConveyorBelt(xPos, yPos, 0,0);
 			} else if (currentItemName.equals("Fan")) {
-				//currentItem = new FanWind() FANNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN
+				currentItem = new FanWind(xPos, yPos, 0, 0);
 			} else if (currentItemName.equals("CharacterLauncher")) {
 				currentItem = new CharacterLauncher(xPos, yPos,0,0);
 			}
