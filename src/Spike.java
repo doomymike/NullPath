@@ -12,8 +12,11 @@ import javax.imageio.ImageIO;
 public class Spike extends ContactDamage{
 
 	//constructors
-		
-	Spike(int x, int y, int height, int width){
+	
+	private static int height = 30;
+	private static int width = 30;
+	
+	Spike(int x, int y){
 		super(x,y,height,width,0);
 		try {
 			this.setImage(ImageIO.read(new File("resources/SpikeBall.png")));
@@ -21,6 +24,14 @@ public class Spike extends ContactDamage{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	public static int getH() {
+		return height;
+	}
+	
+	public static int getW() {
+		return width;
 	}
 	
 }
