@@ -124,7 +124,7 @@ public class GameAreaFrameTE extends JFrame implements KeyListener {
 
         // Make the frame visible
         this.setVisible(true);
-        
+
         //this.add(mapIntegration);
         //Deprecated method - to be replaced by stage
 

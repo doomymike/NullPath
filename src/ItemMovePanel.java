@@ -112,8 +112,12 @@ public class ItemMovePanel extends JPanel implements KeyListener, MouseListener{
 			if (!placed[i]) { //Read from client if not already registered a player's item placement
 				Player tempPlayer = null;
 				for (int j = 0; j < 4; j++) {
-					if (resources.getPlayers().get(j).getName().equals(client.getCharacterSelection()[i])) { //Find player object that placed item
-						tempPlayer = resources.getPlayers().get(j);
+					if ((resources != null) && (client != null)) {
+						if ((resources.getPlayers() != null) && (client.getCharacterSelection() != null)) {
+							if (resources.getPlayers().get(j).getName().equals(client.getCharacterSelection()[i])) { //Find player object that placed item
+								tempPlayer = resources.getPlayers().get(j);
+							}
+						}
 					}
 				}
 				if (client.getAllItemPlacementCoordinates()[i][0] != null) { //If the corresponding player actually placed something
