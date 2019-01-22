@@ -46,10 +46,18 @@ public class PlatformPanel extends JPanel implements KeyListener{
     	 */
     	
     	public PlatformPanel(Resources usedResource, GameClient newClient) {
+
+    	    //Store references to resources and client objects
     		this.resource = usedResource;
+    		this.client = newClient;
+
+    		//Initialize characterList (same order as corresponding players in players.get(i))
+            for (int i = 0; i < 4; i++) {
+                characterList.add(resource.getPlayers().get(i).getCharacter());
+            }
+
     		this.setSize(new Dimension(1720, 760));
 
-    		
     		//Add collection of initial items
     		itemList.add(new StationaryPlatform(80, 250));
     		itemList.add(new FanWind(450, 100, 1, 1));
@@ -114,7 +122,11 @@ public class PlatformPanel extends JPanel implements KeyListener{
     	public void paintComponent(Graphics g) {
     		  	
 	    		for (int i = 0; i < 4; i++) {
-	    			
+
+	    		    //1. Find corresponding player (index to get corresponding player in resource.getPayers())
+                    //2. Check that corresponding player is alive and has not completed course
+                    //3. Input movement command
+
 	    			int influencePlayer = 0;
 	    			String recentInput = client.getGameplayInputs()[i].poll();
 	    			for (int j = 0; j < 4; j++) {
@@ -479,9 +491,11 @@ public class PlatformPanel extends JPanel implements KeyListener{
 		    			//g.drawRect(characterList.get(influencePlayer).getPosition()[0], characterList.get(influencePlayer).getPosition()[1], characterList.get(influencePlayer).getWidth(), characterList.get(influencePlayer).getHeight());
 		    			
 		    		}
-		    	
-	    	    repaint();
+
     		}
+
+            repaint();
+
     	}
     	
     	public boolean projectileCollide(Item launch, Projectile obj) {
