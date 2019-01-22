@@ -7,16 +7,25 @@ import java.awt.image.BufferedImage;
  */
 public class StationaryPlatform extends Platform{
 	
-	//constructors
-	StationaryPlatform(int x, int y) {
-		super(x, y);
-	}
+	static int height = 40;
+	static int width = 130;
 	
-	StationaryPlatform(int x, int y, int height, int length) {
-		super(x, y,height,length);
+	//constructors
+	
+	StationaryPlatform(int x, int y) {
+		super(x, y,height,width);
 	}
 	
 	public static BufferedImage getSprite(){
 		return getSprite();
 	}
+	
+	public static int getH() {
+		return height;
+	}
+	
+	public static int getW() {
+		return width;
+	}
+	
 }
