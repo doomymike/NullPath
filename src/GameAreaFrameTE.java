@@ -40,6 +40,10 @@ public class GameAreaFrameTE extends JFrame implements KeyListener {
     private testFrameFT gameB = null;
     private ItemMovePanel itemM = null;
 
+    private ItemBoxPanel itemBoxPanel = null;
+    private PlatformPanel platformPanel = null;
+    private boolean gameEnd= false;
+    
     GameClient client = new GameClient();
 
     private Player player = null; // Player that is running the game
@@ -355,6 +359,57 @@ public class GameAreaFrameTE extends JFrame implements KeyListener {
 
         }
 
+    }
+    
+    
+    //Round Loop method
+    public void roundLoop(){
+        //Every round consists of a: itemBoxPanel, platformPanel, scorePanel??
+
+        //Check if no one has won yet
+        while(!gameEnd) {
+            //Start by removing the itemBoxPanel, after checking if platformPanel doesn't exist yet
+            if (panelCounter == 5 && itemM == null) {
+                this.getContentPane().remove(itemBoxPanel);
+                itemBoxPanel = null;
+                itemM = new ItemMovePanel(resources, physicsEngine, client);
+                this.getContentPane().add(itemM);
+                panelCounter = 7; //7 IS PLACE PANEL
+                this.revalidate();
+                repaint();
+            }
+
+            //Allow players to place objects via item
+            if (panelCounter == 7 && platformPanel == null) {
+                this.getContentPane().remove(itemMovePanel);
+                itemMovePanel = null;
+                platformPanel = new PlatformPanel(resources, client);
+                this.getContentPane().add(platformPanel);
+                panelCounter = 4; //4 IS GAME PANEL
+                this.revalidate();
+                repaint();
+            }
+            //Check if round is over, then switch back to itemBoxPanel
+            if (platformPanel.endGame()) {
+                //Check if anybody won
+                for(int i = 0; i < 4; i++) {
+                    if (resources.getPlayers().get(i).getScore() >= 30) {
+                        gameEnd = true;
+                    }
+                }
+                //Call Client Clear
+                client.clearGameValues();
+
+                this.getContentPane().remove(platformPanel);
+                platformPanel = null;
+                itemBoxPanel = new ItemBoxPanel();
+                this.getContentPane().add(itemBoxPanel);
+                panelCounter = 5; //5 IS ITEM BOX PANEL
+                this.revalidate();
+                repaint();
+
+            }
+        }
     }
 
 }
