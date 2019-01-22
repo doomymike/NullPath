@@ -11,7 +11,9 @@ Deviation(s) from the UML (James):
 Notes: 
 - Bomb has no explode method (checked for when stage places the item)
 
-DO DEATH ANIMATION
+DO COMMENTS (done pretty much everything except frames/panels & the big boi)
+
+
 
 Game Flow:
 Loading Screen > 
