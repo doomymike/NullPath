@@ -7,8 +7,8 @@ import java.awt.image.BufferedImage;
  */
 public class StationaryPlatform extends Platform{
 	
-	static int height = 40;
-	static int width = 130;
+	private static int height = 40;
+	private static int width = 130;
 	
 	//constructors
 	
