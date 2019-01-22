@@ -422,8 +422,8 @@ public class PhysicsEngine{
 					object.setDx(-object.getVel()[0]);
 				}
 			} else if (((MovingPlatform)object).getDirection() == 1) {
-				if (((MovingPlatform)object).getEndPos()[0] >= xPos || ((MovingPlatform)object).getEndPos()[0] <= xPos) {
-					object.setDy(-object.getVel()[1]);
+				if (((MovingPlatform)object).getEndPos()[0] >= xPos || ((MovingPlatform)object).getStartPos()[0] <= xPos) {
+					object.setDx(-object.getVel()[0]);
 				}
 			}
 		}

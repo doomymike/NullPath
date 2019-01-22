@@ -49,7 +49,7 @@ public class testFrameFT extends JPanel implements KeyListener{
     		itemList.add(new ProjectileLauncher(600, 325, 0, -3, "Arrow", launchCounter, "V")); // negative = upward velocity
     		launchCounter++;
     		itemList.add(new CharacterLauncher(1000, 400, 1, 1));
-    		itemList.add(new MovingPlatform(100, 150, 300, 150, new double[] {1, 0}, 0));
+    		itemList.add(new MovingPlatform(300, 150, 100, 150, new double[] {-1, 0}, 1));
     		itemList.add(new Spike(300, 200));
     		itemList.add(new Saw (400, 200));
     		initStart = System.nanoTime()/(Math.pow(10, 9));
