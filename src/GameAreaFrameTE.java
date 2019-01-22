@@ -124,30 +124,7 @@ public class GameAreaFrameTE extends JFrame implements KeyListener {
 
         // Make the frame visible
         this.setVisible(true);
-
-        boolean bad = true;
-
         
-        while (bad) {
-            System.out.print("");
-            if (itemM.checkDone()) {
-                this.getContentPane().remove(itemM);
-                try {
-                    gameB = new testFrameFT(resources);
-                } catch (IOException e1) {
-                    // TODO Auto-generated catch block
-                    e1.printStackTrace();
-                }
-                itemM.setDone(false);
-                gameB.setFocusable(true);
-                gameB.requestFocus();
-                this.getContentPane().add(gameB);
-                this.revalidate();
-                this.repaint();
-            }
-        }
-        
-
         //this.add(mapIntegration);
         //Deprecated method - to be replaced by stage
 

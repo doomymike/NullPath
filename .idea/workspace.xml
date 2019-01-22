@@ -2,10 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5370bd01-8671-42d7-a834-e8a31bdbfa73" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GameAreaFrameTEST.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ItemMovePanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ItemMovePanel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/StartGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/StartGame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GameAreaFrameTE.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameAreaFrameTE.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/bin/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -17,11 +14,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="GameAreaFrameTE.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="GameAreaFrameTE.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/GameAreaFrameTE.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="430">
-              <caret line="378" column="50" selection-start-line="378" selection-start-column="50" selection-end-line="378" selection-end-column="50" />
+            <state relative-caret-position="204">
+              <caret line="126" column="8" selection-start-line="126" selection-start-column="8" selection-end-line="126" selection-end-column="8" />
             </state>
           </provider>
         </entry>
@@ -35,11 +32,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ItemMovePanel.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="ItemMovePanel.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/ItemMovePanel.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="323">
-              <caret line="51" column="38" selection-start-line="51" selection-start-column="38" selection-end-line="51" selection-end-column="38" />
+            <state relative-caret-position="175">
+              <caret line="114" selection-start-line="114" selection-end-line="114" />
             </state>
           </provider>
         </entry>
@@ -115,9 +112,9 @@
         <option value="$PROJECT_DIR$/src/Spike.java" />
         <option value="$PROJECT_DIR$/src/Stage.java" />
         <option value="$PROJECT_DIR$/src/PlatformPanel.java" />
-        <option value="$PROJECT_DIR$/src/GameAreaFrameTE.java" />
         <option value="$PROJECT_DIR$/src/StartGame.java" />
         <option value="$PROJECT_DIR$/src/ItemMovePanel.java" />
+        <option value="$PROJECT_DIR$/src/GameAreaFrameTE.java" />
       </list>
     </option>
   </component>
@@ -373,13 +370,6 @@
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://C:/Program Files/Java/jdk-11.0.1/lib/src.zip!/java.desktop/javax/swing/JComponent.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="311">
-          <caret line="1084" column="22" lean-forward="true" selection-start-line="1084" selection-start-column="22" selection-end-line="1084" selection-end-column="22" />
         </state>
       </provider>
     </entry>
@@ -676,16 +666,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/GameAreaFrame.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="28" selection-start-line="28" selection-end-line="28" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/GameAreaFrameTEST.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="323">
@@ -696,10 +676,27 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/GameAreaFrameTE.java">
+    <entry file="jar://C:/Program Files/Java/jdk-11.0.1/lib/src.zip!/java.desktop/javax/swing/JComponent.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="430">
-          <caret line="378" column="50" selection-start-line="378" selection-start-column="50" selection-end-line="378" selection-end-column="50" />
+        <state relative-caret-position="311">
+          <caret line="1073" selection-start-line="1073" selection-end-line="1073" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ItemMovePanel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="175">
+          <caret line="114" selection-start-line="114" selection-end-line="114" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/GameAreaFrame.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="28" selection-start-line="28" selection-end-line="28" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -710,10 +707,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/ItemMovePanel.java">
+    <entry file="file://$PROJECT_DIR$/src/GameAreaFrameTE.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="51" column="38" selection-start-line="51" selection-start-column="38" selection-end-line="51" selection-end-column="38" />
+        <state relative-caret-position="204">
+          <caret line="126" column="8" selection-start-line="126" selection-start-column="8" selection-end-line="126" selection-end-column="8" />
         </state>
       </provider>
     </entry>
