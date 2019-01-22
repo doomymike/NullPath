@@ -5,6 +5,7 @@
     Date: 01/22/19
  */
 
+//Base imports
 import java.awt.*;
 import javax.swing.*;
 import java.awt.event.KeyEvent;
@@ -14,6 +15,7 @@ import java.awt.event.MouseEvent;
 
 public class MainMenuPanel extends JPanel implements KeyListener {
 
+    //Base imports
     private int selection = -1;
     private boolean next = false;
 
@@ -30,6 +32,7 @@ public class MainMenuPanel extends JPanel implements KeyListener {
     public void keyPressed(KeyEvent e) {
     }
 
+    //Override paintComponent
     public void paintComponent(Graphics g) {
 
         // Call the super class
@@ -65,6 +68,7 @@ public class MainMenuPanel extends JPanel implements KeyListener {
         buttonOne.setContentAreaFilled(false);
         buttonOne.setBorder(null);
 
+       //Override component listener
         buttonOne.addMouseListener(new MouseAdapter(){
             public void mouseEntered(java.awt.event.MouseEvent evt){
                 buttonOne.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("StartHover.png"))));
@@ -90,6 +94,7 @@ public class MainMenuPanel extends JPanel implements KeyListener {
         buttonTwo.setContentAreaFilled(false);
         buttonTwo.setBorder(null);
 
+               //Override component listener
         buttonTwo.addMouseListener(new MouseAdapter(){
             public void mouseEntered(java.awt.event.MouseEvent evt){
                 buttonTwo.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("OptionsHover.png"))));
@@ -114,7 +119,8 @@ public class MainMenuPanel extends JPanel implements KeyListener {
         buttonThree.setSize(1720,64);
         buttonThree.setContentAreaFilled(false);
         buttonThree.setBorder(null);
-
+        
+       //Override component listener
         buttonThree.addMouseListener(new MouseAdapter(){
             public void mouseEntered(java.awt.event.MouseEvent evt){
                 buttonThree.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("QuitHover.png"))));
@@ -141,8 +147,10 @@ public class MainMenuPanel extends JPanel implements KeyListener {
         setVisible(true);
     }
 
+    //Method for next retrieval
     public boolean getNext(){
         return next;}
+    //Method for selection retrieval
     public int getSelection() {
         return selection;
     }
