@@ -47,7 +47,9 @@ public class GameClient implements Runnable{
 
 	// for mouse hovering when placing items
 	private String[] itemPlacementCoordinates = new String[2];
-	private String[][] allItemPlacementCoordinates = new String[4][2];
+	private String[][] allItemPlacementCoordinates = new String[4][3];
+		//First column stores x value, second column stores y value, third column stores name of item
+		//Four colons used between y value and the string in communication
 
 	// for running of game
 	private String characterMovement = "";
@@ -172,16 +174,20 @@ public class GameClient implements Runnable{
 
 						if (temp.substring(temp.indexOf(":::") + 3, temp.indexOf(":::",temp.indexOf(":::") + 1)).equals(characterSelection[0])) { //If username is the username of the player playing as blue
 							allItemPlacementCoordinates[0][0] = temp.substring(temp.lastIndexOf(":::") + 3, temp.lastIndexOf(","));
-							allItemPlacementCoordinates[0][1] = temp.substring(temp.lastIndexOf(","));
+							allItemPlacementCoordinates[0][1] = temp.substring(temp.lastIndexOf(","),temp.indexOf("::::"));
+							allItemPlacementCoordinates[0][2] = temp.substring(temp.indexOf("::::") + 4);
 						} else if (temp.substring(temp.indexOf(":::") + 3,temp.indexOf(":::",temp.indexOf(":::") + 1)).equals(characterSelection[1])) { //If username is the username of the player playing as green
 							allItemPlacementCoordinates[1][0] = temp.substring(temp.lastIndexOf(":::") + 3, temp.lastIndexOf(","));
-							allItemPlacementCoordinates[1][1] = temp.substring(temp.lastIndexOf(","));
+							allItemPlacementCoordinates[1][1] = temp.substring(temp.lastIndexOf(","),temp.indexOf("::::"));
+							allItemPlacementCoordinates[1][2] = temp.substring(temp.indexOf("::::") + 4);
 						} else if (temp.substring(temp.indexOf(":::") + 3,temp.indexOf(":::",temp.indexOf(":::") + 1)).equals(characterSelection[2])) { //If username is the username of the player playing as red
 							allItemPlacementCoordinates[2][0] = temp.substring(temp.lastIndexOf(":::") + 3, temp.lastIndexOf(","));
-							allItemPlacementCoordinates[2][1] = temp.substring(temp.lastIndexOf(","));
+							allItemPlacementCoordinates[2][1] = temp.substring(temp.lastIndexOf(","),temp.indexOf("::::"));
+							allItemPlacementCoordinates[2][2] = temp.substring(temp.indexOf("::::") + 4);
 						} else if (temp.substring(temp.indexOf(":::") + 3,temp.indexOf(":::",temp.indexOf(":::") + 1)).equals(characterSelection[3])) { //If username is the username of the player playing as yellow
 							allItemPlacementCoordinates[3][0] = temp.substring(temp.lastIndexOf(":::") + 3, temp.lastIndexOf(","));
-							allItemPlacementCoordinates[3][1] = temp.substring(temp.lastIndexOf(","));
+							allItemPlacementCoordinates[3][1] = temp.substring(temp.lastIndexOf(","),temp.indexOf("::::"));
+							allItemPlacementCoordinates[3][2] = temp.substring(temp.indexOf("::::") + 4);
 						}
 
 					}
@@ -262,11 +268,11 @@ public class GameClient implements Runnable{
     	output.flush();
 	} //End of setItemSelected
 
-	public void setItemPlacementCoordinates(int x, int y) {
+	public void setItemPlacementCoordinates(int x, int y, String bomb) {
 		itemPlacementCoordinates[0] = Integer.toString(x);
 		itemPlacementCoordinates[1] = Integer.toString(y);
 		System.out.println("item placed");
-		output.println("item placed" + ":::" + username + ":::" + itemPlacementCoordinates[0] + "," + itemPlacementCoordinates[1]);
+		output.println("item placed" + ":::" + username + ":::" + itemPlacementCoordinates[0] + "," + itemPlacementCoordinates[1] + "::::" + bomb);
 		output.flush();
 	}
 

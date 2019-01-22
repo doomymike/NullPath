@@ -30,22 +30,38 @@ public class itemMove extends JPanel implements KeyListener, MouseListener{
 	PhysicsEngine physEng;
 	Stage cStage;
 	boolean done;
-	private int influencePlayer;
-	private boolean[] placed = new boolean[4];
+	private int influencePlayer; //Stores index of player in resources.getPlayers()
 	private GameClient client;
+	private int loc; //Stores index corresponding to character that player chose (used for client)
+	private boolean[] placed = new boolean[4]; //Stores which players have placed items already - corresponds with loc
+	private Resources resources = null;
 	
 	public itemMove(Resources usedResource, PhysicsEngine newEng,GameClient client) { //Add constructor for client later
 		// TODO Auto-generated constructor stub
 		this.setSize(new Dimension(1720, 760));
 		this.cMap = newEng.retrieveCMap();
-		this.influencePlayer = 0;
 		this.physEng = newEng;
 		this.cStage = usedResource.getCurrentStage();
 		this.client =client;
-		
-		for (int i = 0; i < placed.length; i++) {
-			this.placed[i] = false;
+		this.resources = usedResource;
+
+		for (int i = 0; i < 4; i++) {
+			if (resources.getPlayers().get(i).getName().equals(client.getUsername())) {
+				influencePlayer = i;
+			}
 		}
+
+		//Determine index corresponding to character that player chose (used for client)
+		if(client.getCharacterSelected().equals("Blue")){
+			loc = 0;
+		}else if(client.getCharacterSelected().equals("Green")) {
+			loc = 1;
+		}else if(client.getCharacterSelected().equals("Red")) {
+			loc = 2;
+		}else {
+			loc = 3;
+		}
+
 		/*
 		for (int i = 0; i < 4; i++) {
 			String itemName = newClient.getItemsHeld()[i];	
@@ -79,7 +95,7 @@ public class itemMove extends JPanel implements KeyListener, MouseListener{
 		
 		super.paintComponent(g);
 	    setDoubleBuffered(true);
-		
+
 	    try {
 			g.drawImage(ImageIO.read(new File("resources/SkyFortress.png")), 0, 0, 1720, 760, this);
 		} catch (IOException e) {
@@ -90,7 +106,49 @@ public class itemMove extends JPanel implements KeyListener, MouseListener{
 		for (int i = 0; i < itemList.size(); i++) {
 			g.fillRect(itemList.get(i).getX(), itemList.get(i).getY(), itemList.get(i).getWidth(), itemList.get(i).getHeight());
 		}
-		
+
+		//Check for any player input with client (and draw/do action if applicable)
+		for (int i = 0; i < 4; i++) {
+			if (!placed[i]) { //Read from client if not already registered a player's item placement
+				if (client.getAllItemPlacementCoordinates()[i][0] != null) { //If the corresponding player actually placed something
+
+					//Read x, y coordinates of item placed by player from client
+					int tempX = Integer.parseInt(client.getAllItemPlacementCoordinates()[i][0]);
+					int tempY = Integer.parseInt(client.getAllItemPlacementCoordinates()[i][1]);
+
+					//MAKE TEMP ITEM - using "bomb" or "not bomb"
+					Item currentItem = null;
+					String currentItemName = client.getAllItemPlacementCoordinates()[i][2];
+
+					if (currentItemName.equals("Bomb")) {
+						currentItem = new Bomb(tempX, tempY);
+					} else if (currentItemName.equals("Platform")) {
+
+					}
+
+					//Place on map if item
+					if (currentItemName.equals("Bomb")) {
+						itemList.add(currentItem);
+						this.cStage.addItem(currentItem);
+					} else { //Do bomb stuff
+						int reduceC = 0;
+						for (int j = 0; j < itemList.size(); j++) {
+							//WARNING - will not work if non-bomb item is circular
+							if (PhysicsEngine.checkCollision(currentItem, itemList.get(i - reduceC), true, false)) {
+								System.out.println("BAD123");
+								itemList.remove(i - reduceC);
+								this.cStage.removeItem(currentItem);
+								reduceC++;
+							}
+						}
+					}
+
+					//Mark as player having placed an item
+					placed[i] = true;
+
+				}
+			}
+		}
 		
 		PointerInfo a = MouseInfo.getPointerInfo();
 		Point b = a.getLocation();
@@ -143,47 +201,31 @@ public class itemMove extends JPanel implements KeyListener, MouseListener{
 	}
 	
 	public void mousePressed(MouseEvent arg0) {
-		
-		Point newP = arg0.getPoint();
-		xPos = (int) newP.getX();
-		yPos = (int) newP.getY();
-		
-		Item currentItem = new FanWind(xPos, yPos, 200, 50, 1, 1);
-		
-		if (bombMark) {
-			currentItem = new Bomb(xPos, yPos);
-		}
-		//put for loop somewhere
-		int reduceC = 0;
-		if (!(currentItem instanceof Bomb) && (totalCol(currentItem)) && this.physEng.checkCMCollision(currentItem, false) == false){
-			System.out.println("I");
-			client.setItemPlacementCoordinates(xPos, yPos); //added this 
-			int loc;
-			if(client.getCharacterSelected().equals("Blue")){
-				loc = 0;
-			}else if(client.getCharacterSelected().equals("Green")) {
-				loc = 1;
-			}else if(client.getCharacterSelected().equals("Red")) {
-				loc = 2;
-			}else {
-				loc = 3;
+
+		if (!placed[loc]) { //Only can do something on this panel if they have not yet placed their item
+
+			Point newP = arg0.getPoint();
+			xPos = (int) newP.getX();
+			yPos = (int) newP.getY();
+
+			//Set these two below - for collision check / passing into server
+			Item currentItem = null;
+			String currentItemName = "";
+
+			//Set currentItem with proper dimensions
+			if (client.getItemSelected().equals("Bomb")) {
+
+			} else if (client.getItemSelected().equals("Platform")) {
+
 			}
-			if(!placed[loc]) { 
-				itemList.add(currentItem);
-				this.cStage.addItem(currentItem);
-				placed[loc] = true;
+
+			if (!(currentItem instanceof Bomb) && (totalCol(currentItem)) && this.physEng.checkCMCollision(currentItem, false) == false) { //If not bomb placed and the item is put in a valid place
+				System.out.println("I"); //Test print
+				client.setItemPlacementCoordinates(xPos, yPos, currentItemName); //Input x and y coordinates of item placed to server
+			} else if (currentItem instanceof Bomb) {
+				client.setItemPlacementCoordinates(xPos, yPos, currentItemName); //Input x and y coordinates of item placed to server
 			}
-			
-		} else if (currentItem instanceof Bomb) {
-			System.out.println("BAD");
-			for (int i = 0; i < itemList.size(); i++) {
-				if (PhysicsEngine.checkCollision(currentItem, itemList.get(i-reduceC), true, false)) {
-					System.out.println("BAD123");
-					itemList.remove(i-reduceC);
-					this.cStage.removeItem(currentItem);
-					reduceC++;
-				}
-			}
+
 		}
 		
 	}
