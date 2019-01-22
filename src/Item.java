@@ -1,7 +1,16 @@
+**
+ * [Item.java]
+ * Base object, holds all reference variables for an operatable object
+ * Authors: Brian Li, James Liang, Michael Oren, Brian Zhang
+ * January 21, 2019
+ */
+
+//Base imports
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 public class Item {
+	//Base variables
 	private int x,y;
 	private double dx,dy;
 	private boolean affectGravity = true;
@@ -14,22 +23,25 @@ public class Item {
 	private BufferedImage image;
 	private SimpleLinkedList<BufferedImage> sprites;
 	
+	//Method for printing char size
 	public void printCharLen() {
 		System.out.println(charIntersect.size());
 	}
 	
+	//Method for checking gravity acceptance
 	public boolean getGravity() {
 		return affectGravity;
 	}
 	
+	//Method for adding another reference object
 	public void addChar(int uniqueTag) {
 		charIntersect.add(uniqueTag);
 	}
-	
+	//Method for removing another reference object
 	public void removeChar(int uniqueTag) {
 		charIntersect.remove(uniqueTag);
 	}
-	
+	//Method for checking reference object in object
 	public boolean checkChar(int uniqueTag) {
 		for (int i = 0; i < charIntersect.size(); i++) {
 			if (charIntersect.get(i) == uniqueTag) {
@@ -39,6 +51,7 @@ public class Item {
 		return false;
 	}
 	
+	//Dimensional return methods
 	public int getX(){
 		return x;
 	}
@@ -62,7 +75,8 @@ public class Item {
 	public int getWidth() {
 		return width;
 	}
-	
+
+	//Dimensional set methods
 	public void setX(int x){
 		this.x = x;
 	}
@@ -147,26 +161,28 @@ public class Item {
 		this.y = y;
 	}
 
+	//Method for retrieving player
 	public Player getPlacer() {
 		return placer;
 	}
-
+	//Method for setting player
 	public void setPlacer(Player placer) {
 		this.placer = placer;
 	}
-	
+	//Method for getting a base image
 	public BufferedImage getImage() {
 		return image;
 	}
-
+	//Method for setting a base image
 	public void setImage(BufferedImage image) {
 		this.image = image;
 	}
-
+	//Method for returning suitable sprites
 	public SimpleLinkedList<BufferedImage> getSprites() {
 		return sprites;
 	}
 
+	//Method for adding suitable sprite
 	public void addSprite(BufferedImage sprite) {
 		if(this.sprites==null) {
 			this.sprites = new SimpleLinkedList<BufferedImage>();
