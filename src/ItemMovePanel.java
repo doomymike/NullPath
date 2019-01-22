@@ -51,6 +51,7 @@ public class ItemMovePanel extends JPanel implements KeyListener, MouseListener{
 		this.client =client;
 		this.resources = usedResource;
 
+		//Don't need this?
 		for (int i = 0; i < 4; i++) {
 			if (resources.getPlayers().get(i).getName().equals(client.getUsername())) {
 				influencePlayer = i; //Use for setPlacer when item is placed
@@ -116,6 +117,12 @@ public class ItemMovePanel extends JPanel implements KeyListener, MouseListener{
 		//Check for any player input with client (and draw/do action if applicable)
 		for (int i = 0; i < 4; i++) {
 			if (!placed[i]) { //Read from client if not already registered a player's item placement
+				Player tempPlayer = null;
+				for (int j = 0; j < 4; j++) {
+					if (resources.getPlayers().get(j).getName().equals(client.getCharacterSelection()[i])) { //Find player object that placed item
+						tempPlayer = resources.getPlayers().get(j);
+					}
+				}
 				if (client.getAllItemPlacementCoordinates()[i][0] != null) { //If the corresponding player actually placed something
 
 					//Read x, y coordinates of item placed by player from client
@@ -128,8 +135,25 @@ public class ItemMovePanel extends JPanel implements KeyListener, MouseListener{
 
 					if (currentItemName.equals("Bomb")) {
 						currentItem = new Bomb(tempX, tempY);
+						currentItem.setPlacer(tempPlayer);
 					} else if (currentItemName.equals("Platform")) {
-
+						currentItem = new Platform(tempX, tempY); //Width and height!!!!
+						currentItem.setPlacer(tempPlayer);
+					} else if (currentItemName.equals("Saw")) {
+						currentItem = new Saw(tempX, tempY);
+						currentItem.setPlacer(tempPlayer);
+					} else if (currentItemName.equals("Spike")) {
+						currentItem = new Spike(tempX, tempY);
+						currentItem.setPlacer(tempPlayer);
+					} else if (currentItemName.equals("Conveyor Belt")) {
+						currentItem = new ConveyorBelt(tempX, tempY, 0,0);
+						currentItem.setPlacer(tempPlayer);
+					} else if (currentItemName.equals("Fan")) {
+						//currentItem = new FanWind() FANNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN
+						currentItem.setPlacer(tempPlayer);
+					} else if (currentItemName.equals("CharacterLauncher")) {
+						currentItem = new CharacterLauncher(tempX, tempY,0,0);
+						currentItem.setPlacer(tempPlayer);
 					}
 
 					//Place on map if item
@@ -215,13 +239,23 @@ public class ItemMovePanel extends JPanel implements KeyListener, MouseListener{
 
 			//Set these two below - for collision check / passing into server
 			Item currentItem = null;
-			String currentItemName = "";
+			String currentItemName = client.getItemSelected();
 
-			//Set currentItem with proper dimensions
-			if (client.getItemSelected().equals("Bomb")) {
-
-			} else if (client.getItemSelected().equals("Platform")) {
-
+			//Set currentItem for collision detection
+			if (currentItemName.equals("Bomb")) {
+				currentItem = new Bomb(xPos, yPos);
+			} else if (currentItemName.equals("Platform")) {
+				currentItem = new Platform(xPos, yPos); //Width and height!!!!
+			} else if (currentItemName.equals("Saw")) {
+				currentItem = new Saw(xPos, yPos);
+			} else if (currentItemName.equals("Spike")) {
+				currentItem = new Spike(xPos, yPos);
+			} else if (currentItemName.equals("Conveyor Belt")) {
+				currentItem = new ConveyorBelt(xPos, yPos, 0,0);
+			} else if (currentItemName.equals("Fan")) {
+				//currentItem = new FanWind() FANNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN
+			} else if (currentItemName.equals("CharacterLauncher")) {
+				currentItem = new CharacterLauncher(xPos, yPos,0,0);
 			}
 
 			if (!(currentItem instanceof Bomb) && (totalCol(currentItem)) && this.physEng.checkCMCollision(currentItem, false) == false) { //If not bomb placed and the item is put in a valid place

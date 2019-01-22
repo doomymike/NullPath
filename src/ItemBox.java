@@ -28,7 +28,7 @@ public class ItemBox {
 				} else if (randInt == 1) {
 					tempItem = "CharacterLauncher";
 				} else if (randInt == 2) {
-					tempItem = "Fan";
+					tempItem = "FanWind";
 				} else if (randInt == 3) {
 					tempItem = "Platform";
 				} else if (randInt == 4) {
