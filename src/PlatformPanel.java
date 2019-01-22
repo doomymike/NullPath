@@ -242,6 +242,28 @@ public class PlatformPanel extends JPanel implements KeyListener{
 		    	    super.paintComponent(g);
 		    	    setDoubleBuffered(true);
 		    	    
+				//Draw Score
+			JLabel blueScore = new JLabel(new ImageIcon(Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource(resource.getPlayers().get(0).getScore()+"Logo.png"))));
+			JLabel greenScore = new JLabel(new ImageIcon(Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource(resource.getPlayers().get(1).getScore()+"Logo.png"))));
+			JLabel redScore = new JLabel(new ImageIcon(Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource(resource.getPlayers().get(2).getScore()+"Logo.png"))));
+			JLabel yellowScore = new JLabel(new ImageIcon(Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource(resource.getPlayers().get(3).getScore()+"Logo.png"))));
+
+			this.add(blueScore);
+			blueScore.setLocation(0,600);
+			blueScore.setSize(780,36);
+
+			this.add(greenScore);
+			greenScore.setLocation(0,680);
+			greenScore.setSize(780,36);
+
+			this.add(redScore);
+			redScore.setLocation(1000,600);
+			redScore.setSize(780,36);
+
+			this.add(yellowScore);
+			yellowScore.setLocation(1000,680);
+			yellowScore.setSize(780,36);
+				
 		    	    try {
 						g.drawImage(ImageIO.read(new File("resources/SkyFortress.png")), 0, 0, 1720, 760, this);
 					} catch (IOException e) {
