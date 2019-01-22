@@ -1,3 +1,10 @@
+/*[ItemBoxPanel.java]
+   Panel for displaying randomized items for the user to select from
+   Authors: Brian Li, Brian Zhang
+   Date: January 22, 2019 
+*/
+
+//Base imports
 import java.awt.*;
 import javax.swing.*;
 import java.awt.event.MouseAdapter;
@@ -5,6 +12,7 @@ import java.awt.event.MouseEvent;
 
 public class ItemBoxPanel extends JPanel{
 
+    //Base variables
     private ItemBox box;
     private String itemname;
 
@@ -19,6 +27,7 @@ public class ItemBoxPanel extends JPanel{
 
     private JButton[] items = new JButton[6];
 
+    //Override paint component
     public void paintComponent(Graphics g) {
 
         //Check for client selection
