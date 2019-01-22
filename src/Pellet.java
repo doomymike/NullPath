@@ -5,6 +5,7 @@
     Date: 01/22/19
  */
 
+//Import bases
 import java.io.File;
 import java.io.IOException;
 
@@ -14,7 +15,7 @@ public class Pellet extends Projectile{
 	
 	private static int radius=10;
 	
-	
+	//Base constructor
 	public Pellet(int x, int y, double[] speed, boolean affectGravity, int tag) {
 		super(x, y, radius, speed, affectGravity, tag);
 		try {
@@ -24,6 +25,7 @@ public class Pellet extends Projectile{
 			e.printStackTrace();
 		}
 	}
+	//Method for returning radius
 	public static int getR() {
 		return radius;
 	}
