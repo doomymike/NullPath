@@ -1,6 +1,6 @@
 /*  [Pellet.java]
     Projectile movement for launchers and damage dealing.
-    Author: Brian Zhang
+    Author: Brian Zhang, James Liang, Michael Oren
     ICS4UE
     Date: 01/22/19
  */
