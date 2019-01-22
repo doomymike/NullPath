@@ -5,6 +5,7 @@
     Date: 01/22/19
  */
 
+//Base imports
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -12,6 +13,7 @@ import java.util.ArrayList;
 import javax.imageio.ImageIO;
 
 public class ProjectileLauncher extends Item{
+	//Base variables
 	private String projectileType;
 	private double launchDx;
 	private double launchDy;
@@ -35,6 +37,7 @@ public class ProjectileLauncher extends Item{
 		return tag;
 	}
 	
+	//Base constructor
 	public ProjectileLauncher(int x, int y, double launchDx, double launchDy, String projectileType, int tag, String direction) {
 		super(x, y, height, width, true);
 		this.projectileType = projectileType.toLowerCase();
@@ -93,10 +96,11 @@ public class ProjectileLauncher extends Item{
 		}
 	}
 	
+	//Method for retrieving conversion time
 	public int getConvSec() {
 		return (int)(System.nanoTime()/(Math.pow(10, 9)) - initStart);
 	}
-	
+	//Method for generating a projectice launch
 	public void launchProjectile(ArrayList<Projectile> projectList) { //Appends to a projectList called in main to draw the ball
 		if (lastNum < (int)(System.nanoTime()/(Math.pow(10, 9)) - initStart)) {
 			lastNum = (int)(System.nanoTime()/(Math.pow(10, 9)) - initStart);
