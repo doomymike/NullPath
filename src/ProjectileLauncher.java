@@ -97,7 +97,7 @@ public class ProjectileLauncher extends Item{
 			if (projectileType.equals("ball")) {
 				projectList.add(new Pellet (getX()+getWidth()/2, getY()+getHeight()/2, new double[] {launchDx, launchDy}, true, tag));
 			} else if (projectileType.equals("arrow")) {
-				projectList.add(new Arrow (getX()+getWidth()/2, getY()+getHeight()/2, new double[] {launchDx, launchDy}, tag, direction));
+				projectList.add(new Arrow (getX()+getWidth()/2, getY()+getHeight()/2, new double[] {launchDx, launchDy}, direction, tag));
 			}
 		}
 	}
