@@ -31,7 +31,7 @@ public class itemMove extends JPanel implements KeyListener, MouseListener{
 	Stage cStage;
 	boolean done;
 	private int influencePlayer;
-	private boolean[] placed = new boolean[1];
+	private boolean[] placed = new boolean[4];
 	
 	public itemMove(Resources usedResource, PhysicsEngine newEng) { //Add constructor for client later
 		// TODO Auto-generated constructor stub
@@ -151,12 +151,18 @@ public class itemMove extends JPanel implements KeyListener, MouseListener{
 		if (bombMark) {
 			currentItem = new Bomb(xPos, yPos);
 		}
+		//put for loop somewhere
 		int reduceC = 0;
 		if (!(currentItem instanceof Bomb) && (totalCol(currentItem)) && this.physEng.checkCMCollision(currentItem, false) == false){
 			System.out.println("I");
-			itemList.add(currentItem);
-			this.cStage.addItem(currentItem);
-			placed[0] = true;
+			GameClient client = new GameClient();
+			client.setItemPlacementCoordinates(xPos, yPos); //added this 
+			if(!placed[0]) { //should be i
+				itemList.add(currentItem);
+				this.cStage.addItem(currentItem);
+				placed[0] = true;
+			}
+			
 		} else if (currentItem instanceof Bomb) {
 			System.out.println("BAD");
 			for (int i = 0; i < itemList.size(); i++) {
