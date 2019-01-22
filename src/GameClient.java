@@ -82,35 +82,6 @@ public class GameClient implements Runnable{
 
         System.out.println("Connection made.");
 
-        // ------------------------------------------------------------------------
-
-		/*
-        window = new JFrame("Chat Client");
-	    southPanel = new JPanel();
-	    southPanel.setLayout(new GridLayout(2,0));
-    
-	    sendButton = new JButton("SEND");
-	    
-	    sendButton.addActionListener(new buttonListener());
-	    
-	    JLabel errorLabel = new JLabel("");
-	    
-	    typeField = new JTextField(10);
-	    
-	    southPanel.add(typeField);
-	    southPanel.add(sendButton);
-	    southPanel.add(errorLabel);
-        //Window listener needed in frame - make sure to tell client that player is exiting (so things can be closed)
-        //tells server if exiting program
-        window.addWindowListener(new java.awt.event.WindowAdapter() {
-            @Override
-            public void windowClosing(java.awt.event.WindowEvent windowEvent) {
-                output.println("/exit");
-                output.flush();
-            }
-        });
-        */
-
     } //End of go()
 
 	public void run() {
@@ -193,11 +164,8 @@ public class GameClient implements Runnable{
 					}
 				}
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-
-			// can look for other inputs by panels here
 
 		}
 	} //End of run
@@ -299,20 +267,4 @@ public class GameClient implements Runnable{
 		movementInputs = new SimpleQueue<>();
 		gameplayInputs = new SimpleQueue[4]; 
 	}
-
-	/*
-	class buttonListener implements ActionListener{
-		  
-		  //performs action when button is clicked
-		  @Override
-		  public void actionPerformed(ActionEvent e) {
-			// TODO Auto-generated method stub
-			
-					username = typeField.getText();
-					output.println(username);
-					output.flush();
-					window.dispose();
-			}
-	}
-	*/
 }
