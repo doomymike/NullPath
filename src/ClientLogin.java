@@ -1,6 +1,7 @@
 /*[ClientLogin.java]
     JFrame from retrieving client information and making connection to server
     Authors: Brian Li, Brian Zhang 
+    Date: January 22, 2019
 */
 
 //Import bases
