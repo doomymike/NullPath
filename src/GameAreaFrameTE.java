@@ -379,6 +379,6 @@ public class GameAreaFrameTE extends JFrame implements KeyListener {
                 }
             }
         }
-    }
+    } //End of roundLoop
 
 } //End of class
