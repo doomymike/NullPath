@@ -1,3 +1,10 @@
+/*  [ProjectileLauncher.java]
+    Object able to launch damaging projectiles through game.
+    Author: James Liang, Michael Oren
+    ICS4UE
+    Date: 01/22/19
+ */
+
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
