@@ -8,32 +8,74 @@ public class PhysicsEngine{
 	String [][] contactMap = null;
 	static ArrayList<Integer> tagMap = new ArrayList<Integer>();	
 	
-	PhysicsEngine(String read) throws FileNotFoundException, IOException{
+	/**
+	 * PhysicsEngine
+	 * 
+	 * Constructor for physics engine. String input used for overloadding the constructor.
+	 * 
+	 * @param read
+	 */
+	
+	PhysicsEngine(String read){
 		contactMap = new String[38][86];
-		BufferedReader br = new BufferedReader(new FileReader(file));
+		BufferedReader br = null;
+		try {
+			br = new BufferedReader(new FileReader(file));
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		this.contactMap = contactMap;
 		String line;
 		int lineCount = -1;
-		while ((line = br.readLine()) != null) {
-			lineCount += 1;
-			for (int i = 0; i < line.length(); i++) {
-				if (line.substring(i, i+1).equals("1")){
-					contactMap[lineCount][i] = "1";
-				} else if (line.substring(i,  i+1).equals("2")){
-					contactMap[lineCount][i] = "2";
-				} else if ((line.substring(i, i+1)).equals("0")) {
-					contactMap[lineCount][i] = "0";
+		try {
+			while ((line = br.readLine()) != null) {
+				lineCount += 1;
+				for (int i = 0; i < line.length(); i++) {
+					if (line.substring(i, i+1).equals("1")){
+						contactMap[lineCount][i] = "1";
+					} else if (line.substring(i,  i+1).equals("2")){
+						contactMap[lineCount][i] = "2";
+					} else if ((line.substring(i, i+1)).equals("0")) {
+						contactMap[lineCount][i] = "0";
+					}
 				}
 			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
+	
+	/**
+	 * PhysicsEngine
+	 * 
+	 * Blank Constructor
+	 * 
+	 */
 	
 	PhysicsEngine(){
 	}
 	
+	/**
+	 * retrieveCMap
+	 * 
+	 * Retrieves the contactMap from phyicsEngine
+	 * 
+	 * @return
+	 */
+	
 	public String[][] retrieveCMap(){
 		return contactMap;
 	}
+	
+	/**
+	 * printMap
+	 * 
+	 * Helper method used for troubleshooting
+	 * 
+	 * @param contactMap
+	 */
 	
 	public void printMap(String[][] contactMap) {
 		for (int i = 0; i < contactMap.length; i++) {
@@ -44,8 +86,17 @@ public class PhysicsEngine{
 			System.out.println(line);
 		}
 	}
+
+	/*
+	 * inMapTag
+	 * 
+	 * Used for collision between contactMap and character tags. Ensures that unique characters will collide once, useful for things such as resetting gravity and position
+	 * 
+	 * @param uniqueTag
+	 * @return
+	 */
 	
-	public static boolean inMapTag(int uniqueTag) {
+	private static boolean inMapTag(int uniqueTag) {
 		for (int i = 0; i < tagMap.size(); i++) {
 			if (tagMap.get(i) == uniqueTag) {
 				return true;
@@ -54,11 +105,34 @@ public class PhysicsEngine{
 		return false;
 	}
 	
-	public boolean detectTop(int contactLX, int contactRX, int contactY, boolean win) {
+	/*
+	 * detectTop 
+	 * 
+	 * Method used for detecting whether or not the given contact tiles are near the top edge of the contactMap.
+	 * Useful for smooth collision of player with the cotnactMap.
+	 * 
+	 * @param contactLX - Should be reduced from character position into contactMap terms (/20)
+	 * @param contactRX
+	 * @param contactY
+	 * @param win
+	 * @return
+	 */
+	
+	
+	private boolean detectTop(int contactLX, int contactRX, int contactY, boolean win) {
 		int oneCount = 0;
 		if (contactY <= 1) {
 			return true;
 		}
+		
+		/*
+		 * 
+		 * Logic:
+		 * 
+		 * First phase: Check if the player is standing on an actual platform. Checks to see if lower tiles are zeros. Will return false if tiles 1 and 2 below are zero (expanded to 2, as 1 can result in glitchy behaviour)
+		 * Second phase: Check if the top x tiles are non-zero tiles. Will result in false if the number of tiles (of which are non-zero) exceeds a certain threshold
+		 * 
+		 */
 		
 		int zeroC = 0;
 		for (int j = 0; j < 2; j++) {
@@ -82,7 +156,7 @@ public class PhysicsEngine{
 			}
 		} else {
 			for (int i = 1; i < 4; i++) {
-				if (contactMap[contactY-i][contactLX].equals("1") || contactMap[contactY-i][contactRX].equals("1") || contactMap[contactY-i][contactLX].equals("2") || contactMap[contactY-i][contactRX].equals("2")) {
+				if (!contactMap[contactY-i][contactLX].equals("0") || !contactMap[contactY-i][contactRX].equals("0")) {
 					oneCount += 1;
 				}
 			}
@@ -94,7 +168,18 @@ public class PhysicsEngine{
 		return false;
 	}
 	
-	public String checkHEdge(int contactLX, int contactRX, int contactY) { //Returns if left or right 
+	/*private
+	 * checkHEdge
+	 * 
+	 * Checks if object has collided into the left or right side of a contactMap 
+	 * 
+	 * @param contactLX
+	 * @param contactRX
+	 * @param contactY
+	 * @return
+	 */
+	
+	private String checkHEdge(int contactLX, int contactRX, int contactY) { //Returns if left or right 
 		if ((!contactMap[contactY][contactLX].equals("1") || !contactMap[contactY][contactLX].equals("2")) && contactMap[contactY][contactRX].equals("0")) {
 			if (contactMap[contactY][contactLX+1].equals("0") || contactMap[contactY][contactLX+2].equals("0")){
 				return "R"; //Colliding into (right)
@@ -112,7 +197,21 @@ public class PhysicsEngine{
 		
 	}
 	
-	public int endPoint(int contactLX, int contactRX, int contactY, String LR, boolean win) {
+	/*
+	 * endPoint
+	 * 
+	 * Followup for checkHEdge, will retrieve the horizontal endpoints of the contactMap collision. E.g. if colliding from the right, return left most tile connected to that part of the contactMap.
+	 * Used to reset player position upon horizontal collision.
+	 * 
+	 * @param contactLX
+	 * @param contactRX
+	 * @param contactY
+	 * @param LR
+	 * @param win
+	 * @return
+	 */
+	
+	private int endPoint(int contactLX, int contactRX, int contactY, String LR, boolean win) {
 		int counter = 0;
 		if (LR.equals("R")) {
 			while (true) {
@@ -120,7 +219,7 @@ public class PhysicsEngine{
 					if (contactMap[contactY][contactLX+counter].equals("2")) {
 						counter++;
 					} else {
-						return 20*(contactLX+counter);
+						return 20*(contactLX+counter); //Expansion of compressed points for usable coordinate.
 					}
 				} else {
 					if (contactMap[contactY][contactLX+counter].equals("1")) {
@@ -150,7 +249,20 @@ public class PhysicsEngine{
 		return 0;
 	}
 	
-	public boolean gridEquals(int contactY, int contactHY, int contactLX, int contactRX, String val) {
+	/*
+	 * gridEquals
+	 * 
+	 * General method to 
+	 * 
+	 * @param contactY
+	 * @param contactHY
+	 * @param contactLX
+	 * @param contactRX
+	 * @param val
+	 * @return
+	 */
+	
+	private boolean gridEquals(int contactY, int contactHY, int contactLX, int contactRX, String val) {
 		
 		if (contactMap[contactY][contactLX].equals(val) || contactMap[contactY][contactRX].equals(val)) {
 			return true;
@@ -161,6 +273,14 @@ public class PhysicsEngine{
 		return false;
 		
 	}
+	
+	/**
+	 * contactMapCollision
+	 * 
+	 * Uses collection of helper methods above to check if player collides with actual contactMap.
+	 * 
+	 * @param testPlayer
+	 */
 	
 	public void contactMapCollision(Character testPlayer) {
 		int contactLX = Math.min(Math.max((int)(testPlayer.getPosition()[0])/20, 0), 85);
@@ -210,12 +330,22 @@ public class PhysicsEngine{
 			if (inMapTag(testPlayer.getTag())) {
 				tagMap.remove(Integer.valueOf(testPlayer.getTag()));
 				testPlayer.resetGravity();
+				System.out.println("E1");
 			}
 			return;
 		}
 		
 	}
 	
+	/**
+	 * checkCMCollision
+	 * 
+	 * General method to check for collision between the contactMap and an object
+	 * 
+	 * @param arbItem
+	 * @param circle
+	 * @return
+	 */
 	
 	public boolean checkCMCollision(Item arbItem, boolean circle) {
 		int contactLX = 0;
@@ -224,7 +354,7 @@ public class PhysicsEngine{
 		int contactHY = 0;
 		
 		if (circle) {
-			contactLX = Math.min(Math.max((int)(arbItem.getX())/20, 0), 85);
+			contactLX = Math.min(Math.max((int)(arbItem.getX())/20, 0), 85); //Clipping used to prevent arrayOutOfBounds Exception (contactMap is referenced directly
 			contactRX = Math.min(Math.max((int)(arbItem.getX()+arbItem.getRadius())/20, 0), 85);
 			contactY = Math.min(Math.max((int)((arbItem.getY()+arbItem.getRadius())/20), 0), 37);
 			contactHY = Math.min(Math.max((int)((arbItem.getY())/20), 0), 37);
@@ -249,18 +379,33 @@ public class PhysicsEngine{
 		
 	}
 	
+	/**
+	 * move
+	 * 
+	 * Updates position of character based on velocity
+	 * 
+	 * @param player
+	 */
 	
 	public void move(Character player){
 		int xPos = player.getPosition()[0];
 		int yPos = player.getPosition()[1];
 				
 		if (player.getGravity()) {
-			player.setVelocity(new double[] {player.getVelocity()[0], Math.min(player.getVelocity()[1]+0.06, 7)}); //Not using getGravityV to sequentially decrease dy
+			player.setVelocity(new double[] {player.getVelocity()[0], Math.min(player.getVelocity()[1]+0.06, 7)}); //Clip velocity, else decrease by a small rate consistently
 		}
 		//System.out.println(player.getVelocity()[0] + " X_vel" + player.getVelocity()[1] + " Y_vel");
 		player.setPosition((int)Math.round(xPos + player.getVelocity()[0]), (int)Math.round(yPos + player.getVelocity()[1]));
 		
 	}
+	
+	/** 
+	 * move
+	 * 
+	 * Overloaded method that updates the position of an object based on its velocity
+	 * 
+	 * @param object
+	 */
 	
 	public void move(Item object) {
 		int xPos = object.getX();
@@ -285,6 +430,18 @@ public class PhysicsEngine{
 		}
 	}
 	
+	/**
+	 * checkCollision
+	 * 
+	 * Main check collision method used to determine the collision of a player and item.
+	 * Also used to determine the influence that the item has on the player.
+	 * 
+	 * @param player
+	 * @param object
+	 * @param circular - if object is circular or not
+	 * @return
+	 */
+	
 	public static boolean checkCollision(Character player, Item object, boolean circular) {
 		boolean hasCollided = false;
 		boolean hTest = false;
@@ -303,22 +460,13 @@ public class PhysicsEngine{
 			if((hcY > lowerY && lcY < lowerY) || (hcY > higherY && lcY < higherY)) {
 				if ((hcX > lowerX && lcX < lowerX) || (hcX > higherX && lcX < higherX)) {
 					if (object instanceof Saw || object instanceof Projectile) {
-						player.die();
+						player.die(); //Kills player if hits harmful object
 						return true;
 					}
 				}
 			}
 			
-			/*
-			if ((highCircY > higherY && lowCircY < higherY) || (highCircY < higherY && lowCircY > lowerY) || (lowCircY < lowerY && highCircY > lowerY)) {
-				if ((highCircX > higherX && lowCircX < higherX) || (highCircX < higherX && lowCircX > lowerX) || (lowCircX < lowerX && highCircY > lowerX)) {
-					if (object instanceof Saw || object instanceof Projectile) {
-						player.setAlive(false);
-						return true;
-					}
-				}
-			}
-			*/
+			
 		} else {
 			int itemLX = object.getX();
 			int itemHX = object.getX() + object.getWidth();
@@ -329,11 +477,9 @@ public class PhysicsEngine{
 				if (object instanceof Platform || object instanceof CharacterLauncher || object instanceof ConveyorBelt) {
 					if (lowerX <= itemLX && higherX >= itemLX && player.getVelocity()[0] >= 0 && Math.abs(lowerY - itemHY) > 4) { // 4 is used as a restriction for collision
 						player.setPosition(itemLX-player.getWidth(), player.getPosition()[1]);
-						//player.resetGravity();
 						return true;
 					} else if (lowerX <= itemHX && higherX >= itemHX && player.getVelocity()[0] <= 0 && Math.abs(lowerY - itemHY) > 4){
 						player.setPosition(itemHX, player.getPosition()[1]);
-						//player.resetGravity();
 						return true;
 					}
 				}
@@ -365,9 +511,7 @@ public class PhysicsEngine{
 						}
 						if (((Platform)object).getHoney() == true) {
 							if (player.getHoney() == false) {
-								//player.setVelocity(honeyMod(player, player.getVelocity()));
 								player.setHoney(true);
-								//object.addChar(player.getTag());
 							} //Reverse effect if no intersection occurs (bottom)
 						} else if (((Platform)object).getIce() == true) {
 							if (player.getIce() == false) {
@@ -470,6 +614,18 @@ public class PhysicsEngine{
 		return false;
 	}
 
+	/**
+	 * checkCollision
+	 * 
+	 * Item x Item collision checking system
+	 * 
+	 * @param object1
+	 * @param object2
+	 * @param circular1
+	 * @param circular2
+	 * @return
+	 */
+	
 	public static boolean checkCollision(Item object1, Item object2, boolean circular1, boolean circular2) {
 		int centerLX, centerHX, centerLY, centerHY, otherLX, otherHX, otherLY, otherHY;
 		if (circular1 && circular2) { //Per case variable sets
@@ -526,6 +682,17 @@ public class PhysicsEngine{
 
 	}
 
+	/**
+	 * checkBombCollision
+	 * 
+	 * Method used in ItemMovement class - detects whether or not bomb object intersects with an item, boolean determines if item is removed or not.
+	 * 
+	 * @param object1
+	 * @param object2
+	 * @param circular1
+	 * @return
+	 */
+	
 	public static boolean checkBombCollision(Item object1, Item object2, boolean circular1) { //Item 2 is the bomb object
 		int centerLX, centerHX, centerLY, centerHY, otherLX, otherHX, otherLY, otherHY;
 		if (circular1) {

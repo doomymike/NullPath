@@ -1,4 +1,11 @@
-// init player objects somewhere !!!
+/**
+ * [GameAreaFrame.java]
+ * Frame that holds all of NullPath game's operations
+ * Authors: Brian Li, James Liang, Michael Oren, Brian Zhang
+ * January 21, 2019
+ */
+
+//Since everything is in constructor, to play again after finishing a game, launcher will have to remake the frame
 
 //Graphics & GUI imports
 import javax.swing.JFrame;
@@ -38,9 +45,8 @@ public class GameAreaFrame extends JFrame implements KeyListener {
     private ClientLogin login = null;
     private MapPlacement mapIntegration = null;
     private testFrameFT gameB = null;
-    private itemMove itemM = null;
-
-    GameClient client = new GameClient();
+    
+    GameClient client = null;
 
     private Player player = null; // Player that is running the game
 
@@ -48,50 +54,14 @@ public class GameAreaFrame extends JFrame implements KeyListener {
 
     PhysicsEngine physicsEngine;
 
-    public void keyTyped(KeyEvent e) {
-        if (e.getKeyCode() == 27) {
-            System.out.println("Escape detected");
-            //Return to MenuPanel, from Select
-            if (panelCounter == 2) {
-                this.getContentPane().remove(characterSelectPanel); // Remove the select panel
-                mainMenuPanel = new MainMenuPanel(); // Add the mainmenu panel
-                this.getContentPane().add(mainMenuPanel);
-                System.out.println("back to main menu panel");
-                panelCounter = 1;
-                this.revalidate();
-                repaint();
-            }
-            //Return to IntroPanel, from MenuPanel
-            if (panelCounter == 1) {
-                this.getContentPane().remove(mainMenuPanel); // Remove the select panel
-                introPanel = new IntroPanel(); // Add the mainmenu panel
-                this.getContentPane().add(introPanel);
-                System.out.println("back to intro panel");
-                panelCounter = 0;
-                this.revalidate();
-                repaint();
-            }
-        }
-    }
-
-    public void keyReleased(KeyEvent e) {
-    }
-
-    public void keyPressed(KeyEvent e) {
-    }
-
     // Constructor
     public GameAreaFrame() {
         super("NullPath");
         //mapIntegration = new MapPlacement();
         // Connect to server
         //new GameClient().go();
-        try {
-            physicsEngine = new PhysicsEngine("contact");
-        } catch (IOException e1) {
-            // TODO Auto-generated catch block
-            e1.printStackTrace();
-        }
+
+        physicsEngine = new PhysicsEngine("contact");
 
         // Initialize resources object (with characters + stage)
         resources = new Resources();
@@ -103,8 +73,16 @@ public class GameAreaFrame extends JFrame implements KeyListener {
         this.setSize(1720, 760); //Filler values
         this.setResizable(false);
 
-        // Set up the intro panel if start
+        this.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+                if (client != null) {
+                    client.close();
+                }
+            }
+        });
 
+        // Set up the intro panel if start
         /*
         if ((panelCounter == 0) && panelChange) {
             introPanel = new IntroPanel();
@@ -114,14 +92,9 @@ public class GameAreaFrame extends JFrame implements KeyListener {
             this.getContentPane().add(introPanel);
             panelChange = false;
         }
+
         */
-
-
-        /*
-        itemM = new itemMove(resources, physicsEngine);
-        itemM.setFocusable(true);
-        this.getContentPane().add(itemM);
-         */
+        
         
         try {
 			gameB = new testFrameFT(resources);
@@ -137,40 +110,15 @@ public class GameAreaFrame extends JFrame implements KeyListener {
 
         // Make the frame visible
         this.setVisible(true);
-
-        /*
-        boolean bad = true;
         
-        while (bad) {
-            System.out.print("");
-            if (itemM.checkDone()) {
-                this.getContentPane().remove(itemM);
-                try {
-                    gameB = new testFrameFT(resources);
-                } catch (IOException e1) {
-                    // TODO Auto-generated catch block
-                    e1.printStackTrace();
-                }
-                itemM.setDone(false);
-                gameB.setFocusable(true);
-                gameB.requestFocus();
-                this.getContentPane().add(gameB);
-                this.revalidate();
-                this.repaint();
-            }
-        }
-        */
-        
-
         //this.add(mapIntegration);
         //Deprecated method - to be replaced by stage
 
         // Add key listener
-        GameKeyListener keyListener = new GameKeyListener();
+        //GameKeyListener keyListener = new GameKeyListener();
         //this.addKeyListener(keyListener);
 
-        // Focus the frame
-        this.setFocusable(true);
+        // Initialize resources object (with characters + stage)
 
         // Initialize physics object
         // try {
@@ -178,55 +126,15 @@ public class GameAreaFrame extends JFrame implements KeyListener {
         //} catch (IOException e) {
         //e.printStackTrace();
         //}
-
-    }
-
-    // End of constructor
-
-    //****** Inner Classes for KeyListener ****
-
-    class GameKeyListener implements KeyListener{
-
-        @Override
-        public void keyPressed(KeyEvent e) {
-            System.out.println(e.getKeyCode());
-            if (e.getKeyCode() == 27) { //esc pressed
-                buttonPressed = "esc";
-                if (panelCounter == 1) {
-                    System.out.println("Back from Main Menu");
-                } else if (panelCounter == 2){
-                    System.out.println("Back from Instructions");
-                }else if (panelCounter == 3) {
-                    System.out.println("Back from Character Select");
-                } else if (panelCounter == 6) {
-                    System.out.println("Back from Credits");
-                }
-            } else if (e.getKeyCode() == 10) { //enter pressed
-                buttonPressed = "enter";
-                System.out.println("enter pressed");
-                if (panelCounter == 1) {
-                    System.out.println("Enter from Main Menu");
-                } else if (panelCounter == 2) {
-                    System.out.println("Enter from Instructions");
-                } else if (panelCounter == 3) {
-                    System.out.println("Enter from Character Select");
-                }
-            } else if (e.getKeyCode() == 9) { //tab pressed
-                buttonPressed = "tab";
-                if (panelCounter == 1) {
-                    System.out.println("Tab from Main Menu");
-                } else if (panelCounter == 2) {
-                    System.out.println("Tab from Instructions");
-                } else if (panelCounter == 3) {
-                    System.out.println("Character Select");
-                }
-            }
-
         }
 
         @Override
         public void keyReleased(KeyEvent e) {
 
+        }
+
+        @Override
+        public void keyPressed(KeyEvent e) {
         }
 
         @Override
@@ -272,8 +180,6 @@ public class GameAreaFrame extends JFrame implements KeyListener {
             }
 
         }
-
-    } //End of inner class
 
     //START OF LOOP METHOD
     public void gameLoop(){
@@ -370,4 +276,6 @@ public class GameAreaFrame extends JFrame implements KeyListener {
 
     }
 
-}
+} //End of class
+
+
