@@ -1,3 +1,11 @@
+/*  [GamePanel.java]
+    Original test panel for running a game.
+    Author: James Liang, Brian Li, Michael Oren
+    ICS4UE
+    Date: 01/22/19
+ */
+
+//Base imports
 import java.awt.Graphics;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
@@ -9,15 +17,19 @@ import java.util.Scanner;
 
 public class GamePanel extends JPanel {
  
+//Base variables
  Resources resource;
  private String buttonPressed = "";
  
  private int lowX,lowY,highX,highY;
  private double ratio;
  
+	
  GamePanel() {
   
  }
+	
+//Override paint component
 	public void paintComponent(Graphics g) {
 		
 		cameraAdjust(resource.getPlayers()); // Adjust camera values
@@ -83,6 +95,7 @@ public class GamePanel extends JPanel {
   
  }
  
+//Method for adjusting camera
  public void cameraAdjust(SimpleLinkedList<Player> players){
   int minX = players.get(0).getCharacter().getPosition()[0];
   int maxX = minX+players.get(0).getCharacter().getWidth();
@@ -160,10 +173,12 @@ public class GamePanel extends JPanel {
   
  }
 
+//Method fo setting button 
  public void setButtonPressed(String buttonPressed) {
   this.buttonPressed = buttonPressed;
  }
  
+//Method for getting dimensions
  public int[] getScreen(){
   int[] dimensions = new int[4];
   dimensions[0]= lowX;
@@ -172,7 +187,8 @@ public class GamePanel extends JPanel {
   dimensions[3]= highY;
   return dimensions;
  }
- 
+	
+ //Method for retrieving ratio
  public double getRatio(){
   return ratio;
  }
