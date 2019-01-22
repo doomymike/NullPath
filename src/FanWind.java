@@ -9,8 +9,18 @@ public class FanWind extends VelocityModifier{
 	private static double speed = 2.5;
 	private double dx;
 	private double dy;
+	private static int height = 250;
+	private static int width = 50;
 	
-	public FanWind(int x, int y, int height, int width, int direction, int direction2) {
+	public static int getH() {
+		return height;
+	}
+	
+	public static int getW() {
+		return width;
+	}
+	
+	public FanWind(int x, int y, int direction, int direction2) {
 		//Direction 2 indicates lateral or not
 		//Direction indicates positive or negative
 		super(x, y, height, width, direction, direction2);

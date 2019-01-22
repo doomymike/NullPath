@@ -52,7 +52,7 @@ public class PlatformPanel extends JPanel implements KeyListener{
     		
     		//Add collection of initial items
     		itemList.add(new StationaryPlatform(80, 250));
-    		itemList.add(new FanWind(450, 100, 600, 50, 1, 1));
+    		itemList.add(new FanWind(450, 100, 1, 1));
     		itemList.add(new ConveyorBelt(500, 250, 1, 0));
     		itemList.add(new ProjectileLauncher(800, 500, -3, -6, false, "Ball", launchCounter, "L")); //LaunchCounter used so that projectiles can collide with projectileLaunchers that didnt launch itself
     		launchCounter++;
@@ -61,9 +61,9 @@ public class PlatformPanel extends JPanel implements KeyListener{
     		itemList.add(new ProjectileLauncher(600, 450, 0, 3, "Arrow", launchCounter, "V")); // negative = upward velocity
     		launchCounter++;
     		itemList.add(new CharacterLauncher(1000, 400, 1, 1));
-    		itemList.add(new MovingPlatform(100, 150, 50, 150, 500, 100, new double[] {1, 0}, 1));
-    		itemList.add(new Spike(300, 200, 50, 50));
-    		itemList.add(new Saw (400, 200, 50));
+    		itemList.add(new MovingPlatform(100, 150, 50, 150, new double[] {1, 0}, 1));
+    		itemList.add(new Spike(300, 200));
+    		itemList.add(new Saw (400, 200));
     		initStart = System.nanoTime()/(Math.pow(10, 9));
     		//Start timer for projectileLaunchers
     		onIA = false;
