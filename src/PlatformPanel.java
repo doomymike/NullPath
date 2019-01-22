@@ -254,6 +254,10 @@ public class PlatformPanel extends JPanel implements KeyListener{
 		    	    	}
 		    	    }
 		    	    
+				if(endGame(characterList)) {
+		    	    		end();
+		    	    	}
+				
 			    	int a = 0;
 			    	while (a < itemList.size()) {
 			    		
@@ -350,7 +354,9 @@ public class PlatformPanel extends JPanel implements KeyListener{
 			    		a++;
 			    		
 			    	}
-			    	
+			    	if(endGame(characterList)) {
+		    	    		end();
+		    	   	 }
 			    	//while loop is used in case items may need to be removed
 		    	    
 			    	//Draw Projectiles
@@ -487,6 +493,37 @@ public class PlatformPanel extends JPanel implements KeyListener{
     		return true;
     	}
     	
+	public boolean endGame(ArrayList<Character> characters) {
+    		for(int j=0;j<characters.size();j++) {
+    	    	if(characters.get(j).isAlive()&&!characters.get(j).getFinished()) {
+    	    		return false;
+    	    	}
+    	    }
+    		return true;
+    	}
+    	
+    	public void end(){
+    		if(resource.getPlayers().get(0).getCharacter().getFinished()&&resource.getPlayers().get(1).getCharacter().getFinished()&&resource.getPlayers().get(2).getCharacter().getFinished()&&resource.getPlayers().get(3).getCharacter().getFinished()){
+    			//too easy no point  (writing code here gottem)
+    		}else if (resource.getPlayers().get(0).getCharacter().getFinished()||resource.getPlayers().get(1).getCharacter().getFinished()||resource.getPlayers().get(2).getCharacter().getFinished()||resource.getPlayers().get(3).getCharacter().getFinished()){ //if anyone finished
+    			for (int i=0;i<4;i++){
+    				if(!resource.getPlayers().get(i).getCharacter().getFinished()){
+    					if (resource.getPlayers().get(i).getCharacter().getKilledBy().getPlacer()!= null && (resource.getPlayers().get(i).getCharacter().getKilledBy().getPlacer()!= resource.getPlayers().get(i))){
+    						givePoints(resource.getPlayers().get(i).getCharacter().getKilledBy().getPlacer(),1);//trap
+    					}
+    				}else{
+    					givePoints(resource.getPlayers().get(i),3);//finish
+    				}
+    			}
+    		}
+    		   
+    	}
+    	 
+    	public void givePoints(Player p, int amount){
+    		p.setScore(p.getScore()+amount);
+    			
+    	}
+	
     	public void keyPressed(KeyEvent e) {
     		char c = e.getKeyChar();
 
