@@ -1,3 +1,9 @@
+/* [ConveyorBelt.java]
+* Class containing conveyBelt information
+* Author: James and Michael
+* Date: 01/21/18
+*/
+
 import java.io.File;
 import java.io.IOException;
 
@@ -8,12 +14,29 @@ public class ConveyorBelt extends VelocityModifier{
 	private static double speed = 1;
 	private double dx;
 	private double dy;
-	private static int height = 45;
+	private static int height = 45; //Fixed dims
 	private static int width = 130;
+	
+	
+	/**
+	* getH
+	*
+	* Getter for object height
+	*
+	* @return
+	*/
 	
 	public static int getH() {
 		return height;
 	}
+	
+	/**
+	* getW
+	*
+	* Getter for object weight
+	*
+	* @return
+	*/
 	
 	public static int getW() {
 		return width;
