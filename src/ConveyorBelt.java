@@ -42,6 +42,17 @@ public class ConveyorBelt extends VelocityModifier{
 		return width;
 	}
 	
+	/** 
+	*ConveyorBelt
+	*
+	*Constructor for ConveyorBelt
+	*
+	* @param x
+	* @param y
+	* @param direction
+	* @param direction2
+	*/
+	
 	public ConveyorBelt(int x, int y, int direction, int direction2) {
 		//Direction 2 indicates lateral or diagonal
 		//Direction indicates positive or negative
@@ -82,6 +93,14 @@ public class ConveyorBelt extends VelocityModifier{
 		
 		
 	}
+	
+	/**
+	* getSpeed
+	*
+	* Returns speed of conveyorBelt (how it influences)
+	*
+	* @return
+	*/
 	
 	public double[] getSpeed() {
 		return new double[]{dx, dy};
