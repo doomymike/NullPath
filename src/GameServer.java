@@ -1,4 +1,9 @@
-// need something to turn running to false (flag to allow threads to close)
+/*  [GameServer.java]
+    Basic server for handling connections and ports.
+    Author: Brian Zhang, Brian Li
+    ICS4UE
+    Date: 01/22/19
+ */
 
 //Java imports
 import java.io.*;
