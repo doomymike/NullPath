@@ -2,51 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5370bd01-8671-42d7-a834-e8a31bdbfa73" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/BigFlex.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/BlueFrame.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/BlueSelect.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/Character.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/CharacterSelectPanel.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/Conveyor1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/Conveyor10.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/Conveyor11.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/Conveyor12.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/Conveyor13.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/Conveyor14.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/Conveyor15.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/Conveyor2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/Conveyor3.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/Conveyor4.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/Conveyor5.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/Conveyor6.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/Conveyor7.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/Conveyor8.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/Conveyor9.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/Copyright.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/GameAreaFrame$GameKeyListener.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/GameAreaFrame.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/GameClient.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/GameServer$GameClientHandler.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/GameServer.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/GreenFrame.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/GreenSelect.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/Instructions.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/IntroPanel.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/Item.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/ItemBox.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/ItemBox.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/MainMenuPanel.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/Medium.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/ProjectileLauncher.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/RedFrame.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/RedSelect.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/Stage.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/StartGame.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/WaterFlow.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/YellowFrame.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/YellowSelect.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GameClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameClient.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/itemMove.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/itemMove.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/bin/" />
@@ -100,8 +55,8 @@
       <file leaf-file-name="itemMove.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/itemMove.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="374">
-              <caret line="216" lean-forward="true" selection-start-line="216" selection-end-line="216" />
+            <state relative-caret-position="493">
+              <caret line="49" column="76" selection-start-line="49" selection-start-column="76" selection-end-line="49" selection-end-column="76" />
             </state>
           </provider>
         </entry>
@@ -819,8 +774,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/itemMove.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="216" lean-forward="true" selection-start-line="216" selection-end-line="216" />
+        <state relative-caret-position="493">
+          <caret line="49" column="76" selection-start-line="49" selection-start-column="76" selection-end-line="49" selection-end-column="76" />
         </state>
       </provider>
     </entry>

@@ -1,3 +1,11 @@
+/**
+ * [ItemMovePanel.java]
+ * Panel that allows for item placement before a round starts in NullPath
+ * Authors: Brian Li, James Liang, Michael Oren, Brian Zhang
+ * January 21, 2019
+ */
+
+//java imports
 import java.awt.Dimension;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -12,11 +20,9 @@ import java.awt.event.MouseListener;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 import java.util.ArrayList;
-
 
 public class itemMove extends JPanel implements KeyListener, MouseListener{
 
@@ -47,7 +53,7 @@ public class itemMove extends JPanel implements KeyListener, MouseListener{
 
 		for (int i = 0; i < 4; i++) {
 			if (resources.getPlayers().get(i).getName().equals(client.getUsername())) {
-				influencePlayer = i;
+				influencePlayer = i; //Use for setPlacer when item is placed
 			}
 		}
 
@@ -155,7 +161,6 @@ public class itemMove extends JPanel implements KeyListener, MouseListener{
 		
 		repaint();
 
-		
 	}
 	
 	public void keyPressed(KeyEvent e) {
