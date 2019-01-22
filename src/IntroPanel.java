@@ -1,3 +1,10 @@
+/*  [IntroPanel.java]
+    Introductory loading panel to preface main game.
+    Author: Brian Zhang
+    ICS4UE
+    Date: 01/22/19
+ */
+
 
 import java.awt.*;
         import java.awt.event.KeyEvent;
