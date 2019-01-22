@@ -11,8 +11,10 @@ import javax.imageio.ImageIO;
  */
 public class Saw extends ContactDamage{
 	
+	private static int radius=35;
+	
 	//constructor
-	Saw(int x, int y, int radius) {
+	Saw(int x, int y) {
 		super(x, y,0,0,radius);
 		// TODO Auto-generated constructor stub
 		
@@ -28,5 +30,9 @@ public class Saw extends ContactDamage{
 		}
 		
 	}
+	public static int getR() {
+		return radius;
+	}
+	
 
 }
