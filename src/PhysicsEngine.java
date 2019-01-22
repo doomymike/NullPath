@@ -206,14 +206,14 @@ public class PhysicsEngine{
 	 * @param contactLX
 	 * @param contactRX
 	 * @param contactY
-	 * @param LR
+	 * @param LR - Left or Rightside collision
 	 * @param win
 	 * @return
 	 */
 	
 	private int endPoint(int contactLX, int contactRX, int contactY, String LR, boolean win) {
 		int counter = 0;
-		if (LR.equals("R")) {
+		if (LR.equals("R")) { 
 			while (true) {
 				if (win) {
 					if (contactMap[contactY][contactLX+counter].equals("2")) {
@@ -291,6 +291,8 @@ public class PhysicsEngine{
 		int contactHY = Math.min(Math.max((int)((testPlayer.getPosition()[1])/20), 0), 37);
 		boolean inCol = false; //Checks for collision with 1 or 2
 		
+		//Check collision with block 1s (horizontal)
+		
 		if (gridEquals(contactY, contactHY, contactLX, contactRX, "1") && (detectTop(contactLX, contactRX, contactY, false) == false)) {
 			if (checkHEdge(contactLX, contactRX, contactY).equals("R") && testPlayer.getVelocity()[0] < 0) {
 				testPlayer.setPosition(endPoint(contactLX, contactRX, contactY, "R", false), testPlayer.getPosition()[1]);
@@ -299,6 +301,8 @@ public class PhysicsEngine{
 			}
 			return;
 		}
+		
+		//Check collision with block 2s (horizontal)
 		
 		if (gridEquals(contactY, contactHY, contactLX, contactRX, "2") && (detectTop(contactLX, contactRX, contactY, true) == false)){
 			if (checkHEdge(contactLX, contactRX, contactY).equals("R") && testPlayer.getVelocity()[0] < 0) {
@@ -309,6 +313,7 @@ public class PhysicsEngine{
 			return;
 		}
 		
+		//Enables collision if topside collision is detected
 		if ((contactMap[contactY][contactLX].equals("2") || contactMap[contactY][contactRX].equals("2")) && detectTop(contactLX, contactRX, contactY, true)) {
 			inCol = true;
 			if (inMapTag(testPlayer.getTag()) == false || testPlayer.getGravity()){
@@ -471,7 +476,7 @@ public class PhysicsEngine{
 			int itemHX = object.getX() + object.getWidth();
 			int itemLY = object.getY();
 			int itemHY = object.getY() + object.getHeight(); //-5 to allow for normal collision if the objects are only intertwined within a set margin
-			//if (lowerY < itemHY && lowerY > itemLY && higherY > itemHY && ((lowerX <= itemLX && higherX <= itemHX && higherX >= itemLX) || (itemLX <= lowerX && itemHX >= higherX && lowerX < itemHX))) {
+			//Initial collision check for preventing horizontal collision
 			if (((itemLY <= lowerY && itemHY >= higherY) || (lowerY <= itemLY && higherY >= itemLY && higherY-itemLY >= 5) || (lowerY <= itemHY && higherY >= itemHY))){
 				if (object instanceof Platform || object instanceof CharacterLauncher || object instanceof ConveyorBelt) {
 					if (lowerX <= itemLX && higherX >= itemLX && player.getVelocity()[0] >= 0 && Math.abs(lowerY - itemHY) > 4) { // 4 is used as a restriction for collision
@@ -483,6 +488,7 @@ public class PhysicsEngine{
 					}
 				}
 			}
+			//Initial collision check for preventing vertical collision (i.e. hitting an object from below)
 			if ((itemLX <= lowerX && itemHX >= higherX) || (itemLX >= lowerX && itemLX <= higherX) || (itemLX <= lowerX && itemHX >= lowerX)) {
 				if (object instanceof Platform || object instanceof CharacterLauncher || object instanceof ConveyorBelt) {
 					if (lowerY - itemHY <= 0 && lowerY - itemHY >= -5) {
@@ -497,11 +503,12 @@ public class PhysicsEngine{
 					}
 				}
 				if ((itemLY <= higherY) && (higherY <= itemHY)){
+					//Topside collision- effects if character collides on topside of object
 					if (object instanceof Platform) {
 						player.resetY();
 						player.setJump(true);
 						if (object instanceof MovingPlatform) {
-							if (object.checkChar(player.getTag()) == false) {
+							if (object.checkChar(player.getTag()) == false) { //One time trigger (tag is added immediately after)
 								player.setPMotion((int)object.getVel()[0]);
 								player.setVelocity(new double[] {object.getVel()[0] + player.getVelocity()[0], player.getVelocity()[1]});
 							} else if (player.getPMotion() != object.getVel()[0]) { // For when the velocity of moving platform switches
@@ -536,7 +543,7 @@ public class PhysicsEngine{
 					} else if (object instanceof ConveyorBelt) {
 						player.setJump(true);
 						player.resetY();
-						if (object.checkChar(player.getTag()) == false) {
+						if (object.checkChar(player.getTag()) == false) { //One time activation of ConveyorBelt effects
 							if (inMapTag(player.getTag())) {
 								tagMap.remove(Integer.valueOf(player.getTag()));
 							}
@@ -548,10 +555,11 @@ public class PhysicsEngine{
 					
 				}
 				
+				//Checks for general collision - collision from any side or position
 				if ((itemHY >= higherY && itemLY <= higherY) || (itemLY <= higherY && itemHY >= lowerY) || (itemHY <= higherY && itemLY >= lowerY)) {
 					
 					if (object instanceof Projectile) {
-						player.die();
+						player.die(); //ContactDamage classes will kill the player, rendering them unable to move
 						return true;
 					}
 					
@@ -562,11 +570,11 @@ public class PhysicsEngine{
 					
 					if (object instanceof FanWind) {
 						if (inMapTag(player.getTag())) {
-							player.setFWM(true);
+							player.setFWM(true); //Used for preventing glitches with bottomside collision
 							tagMap.remove(Integer.valueOf(player.getTag()));
 						}
 						player.resetY();
-						if (object.checkChar(player.getTag()) == false || player.getVelocity()[1] == 0) {
+						if (object.checkChar(player.getTag()) == false || player.getVelocity()[1] == 0) { //0 to prevent collision fanWind glitching
 							player.setVelocity(new double[] {player.getVelocity()[0]+(((VelocityModifier)object).getSpeed())[0], player.getVelocity()[1] - (((VelocityModifier)object).getSpeed())[1]});
 							object.addChar(player.getTag());
 						}
@@ -579,12 +587,18 @@ public class PhysicsEngine{
 				return true;
 			}
 			
-			if (object.checkChar(player.getTag())) {
-				if (object instanceof ConveyorBelt) {
+			/*
+			
+			Lower methods are used in the case that collisions with any particular object no longer occurs, so true will be returned if hasCollided has been detected
+			
+			*/
+			
+			if (object.checkChar(player.getTag())) { //Means that item was previously in collision with character
+				if (object instanceof ConveyorBelt) { //Reverse effects of conveyorBelt if conveyBelt is no longer tounching
 					player.setJump(false);
 					player.setVelocity(new double[]{player.getVelocity()[0] - ((ConveyorBelt)object).getSpeed()[0], player.getVelocity()[1]});
 				}
-				if (object instanceof FanWind) {
+				if (object instanceof FanWind) { //Same logic here
 					player.setFWM(false);
 					player.setVelocity(new double[]{player.getVelocity()[0], player.getVelocity()[1] + ((FanWind)object).getSpeed()[1]});
 				}
@@ -607,7 +621,7 @@ public class PhysicsEngine{
 				}
 
 				player.resetGravity();
-				object.removeChar(player.getTag());
+				object.removeChar(player.getTag()); //Formally announces that player no longer collides with a given object
 			}
 		}
 		
