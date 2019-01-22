@@ -6,7 +6,15 @@
  */
 public class ContactDamage extends Item{
 	
-	//constructor		
+	/**
+	* ContactDamage
+	* constructor, creates ContactDamage from position and size
+	* @param x
+	* @param y
+	* @param height
+	* @param width
+	* @param radius
+	*/
 	ContactDamage(int x,int y, int height, int width, int radius){
 		super(x,y,height, width, radius);
 		
